@@ -1,0 +1,177 @@
+<section class="hero">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="hero-text">
+                    <h4>Find a personal trainer</h4>
+                    <div class="hx-search-bar-component">
+                        <div class="search-bar-keyword-container">
+                            <form novalidate=""><span class="search-bar__input-container"><input
+                                        placeholder="City, Suburb or Post Code" /><i class="icon-search"></i></span>
+                            </form>
+                            <div class="search-select-gender">
+                                <i class="fa fa-transgender"></i> Any Gender
+                                <i class="material-icons">keyboard_arrow_down</i></div>
+                            <div class="search-select-map">
+                                <i class="fa fa-map-marked"></i> Maps
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container mb-5">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="tag border-bottom">
+                <button class="btn-tag" *ngFor="let tag of lstTag">
+                    <i class="fa fa-circle {{tag.color}}"></i> {{tag.title}}
+                </button>
+                <!-- <button class="btn-tag"><i class="fa fa-circle cl-blue"></i> Pilates</button>
+                <button class="btn-tag"><i class="fa fa-circle cl-orange"></i> Weight Training</button>
+                <button class="btn-tag"><i class="fa fa-circle cl-orange"></i> Boxing</button>
+                <button class="btn-tag"><i class="fa fa-circle cl-turquoise"></i> Nutrition</button>
+                <button class="btn-tag bg-purple"><i class="fa fa-circle cl-light-purple"></i> Running</button>
+                <button class="btn-tag"><i class="fa fa-circle cl-light-orange"></i> Core Strength</button>
+                <button class="btn-tag bg-madison"><i class="fa fa-circle cl-light-madison"></i> Group Fitness</button>
+                <button class="btn-tag"><i class="fa fa-circle cl-light-gray"></i> Rehapilitation</button>
+                <button class="btn-tag"><i class="fa fa-circle cl-light-gray"></i> Booty Transformation</button>
+                <button class="btn-tag bg-red"><i class="fa fa-circle cl-light-red"></i> Body Transformation</button>
+                <button class="btn-tag"><i class="fa fa-circle cl-turquoise"></i> Hign Intensitive Training</button>
+                <button class="btn-tag"><i class="fa fa-circle cl-radical-red"></i> Cross Training</button>
+                <button class="btn-tag"><i class="fa fa-circle cl-medium-orange"></i> Pre & Post-Natal Programs</button> -->
+                <div class="clearfix" style="clear: both;"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<section class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-12">
+            <div class="border-bottom">
+                <h5 _ngcontent-c2="" style="padding-left: 12px;">Personal Trainers in the Spotlight</h5>
+                <ngx-carousel class="custom-carousel-home-component" [inputs]="carouselOne">
+                    <ngx-item NgxCarouselItem *ngFor="let item of lstTrainer; index as i">
+
+                        <div class="block-trainer">
+                            <div class="trainer-info featured">
+                                <div class="img-thumb ">
+                                    <img src="https://data.whicdn.com/images/288150562/superthumb.jpg">
+                                    <div class="img-qualifications">
+                                        <img src="https://cdnassets.aa.com.tr/assets/newVersion/images/bip.png">
+                                    </div>
+                                </div>
+                                <p class="trainer-name">{{item.user.firstname}} <i class="material-icons">
+                                        chevron_right</i>
+                                </p>
+                                <p class="trainer-location"><i class="fa fa-map-marker"></i> Brisbane</p>
+                                <div class="trainer-tag">
+                                    <div class="tag-items">
+                                        <div class="item" *ngFor="let tag of item.user.tags">
+                                            <button class="btn-tag">
+                                                <i class="fa fa-circle {{tag.color}}"></i> {{tag.title}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <p class="trainer-tag">
+                                <ngx-carousel class="custom-carousel-home-component" [inputs]="carouselThree">
+                                    <ngx-item NgxCarouselItem *ngFor="let tag of item.user.tags">
+                                        <button class="btn-tag">
+                                            <i class="fa fa-circle {{tag.color}}"></i> {{tag.title}}
+                                        </button>
+                                    </ngx-item>
+                                </ngx-carousel>
+                            </p> -->
+                            </div>
+                        </div>
+                    </ngx-item>
+                    <i NgxCarouselPrev class="left material-icons"> chevron_left</i>
+                    <i NgxCarouselNext class="right material-icons"> chevron_right</i>
+
+                </ngx-carousel>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<section class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-12">
+            <div class="border-bottom">
+                <h5 _ngcontent-c2="" style="padding-left: 12px;">All Personal Trainers</h5>
+                <div class="block-trainer" *ngFor="let item of lstTrainer; index as i">
+                    <div class="trainer-info">
+                        <div class="img-thumb">
+                            <img src="https://data.whicdn.com/images/288150562/superthumb.jpg">
+                            <div class="img-qualifications">
+                                <img src="https://cdnassets.aa.com.tr/assets/newVersion/images/bip.png">
+                            </div>
+                        </div>
+                        <p class="trainer-name">{{item.user.firstname}} <i class="material-icons"> chevron_right</i></p>
+                        <p class="trainer-location"><i class="fa fa-map-marker"></i> Brisbane</p>
+                        <div class="trainer-tag">
+                            <div class="tag-items">
+                                <div class="item" *ngFor="let tag of item.user.tags">
+                                    <button class="btn-tag">
+                                        <i class="fa fa-circle {{tag.color}}"></i> {{tag.title}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<section class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-12">
+            <div class="top-location">
+                <button class="btn-location"><i class="fa fa-map-marker"></i> Gold Coast <i class="material-icons">
+                        chevron_right</i> </button>
+                <button class="btn-location"><i class="fa fa-map-marker"></i> Brisbane <i class="material-icons">
+                        chevron_right</i></button>
+                <button class="btn-location"><i class="fa fa-map-marker"></i> Sydney <i class="material-icons">
+                        chevron_right</i></button>
+                <button class="btn-location"><i class="fa fa-map-marker"></i> Melbourne <i class="material-icons">
+                        chevron_right</i></button>
+                <button class="btn-location"><i class="fa fa-map-marker"></i> Perth <i class="material-icons">
+                        chevron_right</i></button>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<section class="container mb-5">
+
+    <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-12">
+            <h5 class="text-center color-master">Are You a Personal Trainer? <a>Add Your Profile Now?</a></h5>
+        </div>
+    </div>
+
+</section>

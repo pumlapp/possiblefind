@@ -1,0 +1,221 @@
+
+@import "../../../assets/variables.scss";
+
+@media screen and (max-width: 45em) {
+
+    .login-page {
+        width: 300px !important;
+        -webkit-transition: width 0.3s ease;
+        -moz-transition: width 0.3s ease;
+        -o-transition: width 0.3s ease;
+        transition: width 0.3s ease;
+    }
+
+    .title {
+        font-size: 20px;
+
+        -webkit-transition: font-size 0.3s ease;
+        -moz-transition: font-size 0.3s ease;
+        -o-transition: font-size 0.3s ease;
+        transition: font-size 0.3s ease;
+        img{
+            width: 160px;
+            height: 60px;
+        }
+    }
+
+    .form {
+        margin: 150px auto 56px !important; 
+        max-width: 300px;
+        -webkit-transition: width 0.3s ease;
+        -moz-transition: width 0.3s ease;
+        -o-transition: width 0.3s ease;
+        transition: width 0.3s ease;
+    }
+}
+
+@media screen and (min-width: 45.0625em) {
+    .login-page {
+        width: 400px !important;
+        -webkit-transition: width 0.3s ease;
+        -moz-transition: width 0.3s ease;
+        -o-transition: width 0.3s ease;
+        transition: width 0.3s ease;
+    }
+
+    .title {
+        font-size:30px;
+        img{
+            width: 210px;
+            height: 75px;
+        
+        }
+        -webkit-transition: font-size 0.3s ease;
+        -moz-transition: font-size 0.3s ease;
+        -o-transition: font-size 0.3s ease;
+        transition: font-size 0.3s ease;
+    }
+    
+    .form {
+        max-width: 400px ;
+        
+        margin: 110px auto 56px !important;
+        -webkit-transition: width 0.3s ease;
+        -moz-transition: width 0.3s ease;
+        -o-transition: width 0.3s ease;
+        transition: width 0.3s ease;
+    }
+}
+
+
+.login-page {
+    width: 360px;
+    margin: auto;
+}
+
+.form {
+    position: relative;
+    z-index: 1;
+    background: $black;
+    max-width: 400px;
+    margin: 190px auto 56px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+   a {
+       cursor: pointer;
+   }
+   .form-group{
+       position: relative;
+   }
+}
+.form label{
+
+    float: left;
+    font-size: 1.2em;
+}
+
+    .form input {
+        outline: 0;
+        background: $black;
+        width: 100%;
+        border-width: 0 0 2px;
+        padding: 8px 8px 8px 0;
+        box-sizing: border-box;
+        font-size: 17px;
+       margin-bottom: 16px;
+        color: $white;
+
+    }
+
+        .form input[type=submit] {
+            outline: 0;
+           // background: $mainly-green;
+            width: 100%;
+            margin-top:10px;
+            border: 0;
+            padding: 15px;
+            border-radius: 36px;
+            color: $white;
+            font-size: 18px;
+            transition: all 0.3 ease;
+            cursor: pointer;
+            text-align: center;
+        }
+
+            .form input[type=submit]:hover, .form input[type=submit]:active, .form input[type=submit]:focus {
+                //background: $light-main-color;
+            }
+
+    .form .message {
+        margin: 15px 0 0;
+        color: #b3b3b3;
+        font-size: 12px;
+    }
+
+        .form .message a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+    .form .register-form {
+        display: none;
+    }
+
+.title {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+   // color: $main-color;
+    letter-spacing: 5px;
+    font-weight: bold;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+    .container:before, .container:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+
+    .container .info {
+        margin: 50px auto;
+        text-align: center;
+    }
+        .container .info h1 {
+            margin: 0 0 15px;
+            padding: 0;
+            font-size: 36px;
+            font-weight: 300;
+            color: #1a1a1a;
+        }
+
+        .container .info span {
+            color: #4d4d4d;
+            font-size: 12px;
+        }
+
+            .container .info span a {
+                color: #000000;
+                text-decoration: none;
+            }
+
+            .container .info span .fa {
+                color: #EF3B3A;
+            }
+
+
+::-webkit-input-placeholder {
+    font-style: italic;
+}
+
+:-moz-placeholder {
+    font-style: italic;
+}
+
+::-moz-placeholder {
+    font-style: italic;
+}
+
+:-ms-input-placeholder {
+    font-style: italic;
+}
+.bootstrap-select button {
+    background: url(https://cdn2.iconfinder.com/data/icons/50-material-design-round-corner-style/44/Dropdown_2-24.png) no-repeat right #e6edf2 !important;
+    border: 0;
+}
+
+/deep/ .hx-control-message-component{
+    top:80px !important;
+}
+
+
+
+
+

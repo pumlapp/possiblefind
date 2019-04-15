@@ -1,0 +1,6 @@
+<div id="homePage" style="font-size: 12px" >
+  <div #scrollContainer>
+    <ngx-loading [show]="isShowLoading"></ngx-loading>
+    <router-outlet (activate)="onActivate($event, scrollContainer)"></router-outlet>
+  </div>
+</div>

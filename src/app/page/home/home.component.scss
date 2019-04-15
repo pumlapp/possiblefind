@@ -1,0 +1,453 @@
+@import "../../../assets/variables.scss";
+
+@media (min-width: 1200px) {
+  section.container {
+    max-width: 1386px;
+  }
+}
+
+.border-bottom {
+  padding-bottom: 3rem !important;
+  border-bottom: 1.2px solid #d9d9d9 !important;
+}
+.hero {
+  width: 100%;
+  /*height: 83vh;*/
+  padding-top: 250px;
+  padding-bottom: 170px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  text-align: left;
+  position: relative;
+  .container {
+    .container {
+      max-width: 1140px;
+    }
+  }
+
+  .hx-search-bar-component {
+    padding: 1rem 0;
+    @media screen and (min-width: $media-md) {
+      width: 100%; // width: 630px;
+      margin: 0 auto;
+    }
+    .search-bar-keyword-container {
+      position: relative;
+      .search-bar__input-container {
+        display: block;
+        padding-right: 24rem;
+        position: relative;
+        input {
+          width: 100%;
+          border: 1px solid $light-grey;
+          border-radius: $border-radius;
+          border-right: none;
+          border-bottom-right-radius: 0;
+          border-top-right-radius: 0;
+          font-size: 18px;
+          height: 55px;
+          padding-left: 3rem;
+          float: left;
+          background: #fff;
+       
+        }
+        i {
+          position: absolute;
+          left: 18px;
+          cursor: pointer;
+          font-size: 18px;
+          top: 18px;
+          &:before {
+            color: $grey;
+          }
+        }
+      }
+      %search-shared{
+        border-left:none;
+        width: 17%;
+        border: 1px solid #d0d0d0;
+      text-align:center;
+        font-size: 18px;
+        height: 55px;
+        padding: 0.66rem;
+        display: inline-block;
+        float: left;
+        background: #fff;
+        i.material-icons{
+          float:right;
+          font-size: 25px;
+          color: #b9b9b9;
+        }
+        i.fa{
+          float:left;
+         font-size: 25px;
+         color: #b9b9b9;
+       }
+       .switch{
+         float:right;
+       }
+      }
+      .search-select-gender {
+       @extend %search-shared;
+       border-right:none;
+      
+      }
+      .search-select-map {
+        @extend %search-shared;
+        border-bottom-right-radius: 5px;
+        border-top-right-radius: 5px;
+       }
+    }
+  }
+}
+.hero:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  background-image: url(https://media2.mensxp.com/media/content/2018/Sep/alpha-male-traits-to-have-inside-the-gym-as-well-as-in-life-1400x653-1536227371_1100x513.jpg);
+  left: 0;
+  width: 100%;
+  margin-top: 100px;
+  height: 350px;
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+h5 a,
+h5 a:hover {
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.hero h4 {
+
+  font-size: 2.4rem;
+  margin-top: -2.5rem;
+  margin-bottom: 0.5em;
+  color: $white;
+  font-weight: 100;
+}
+
+%shared {
+  padding-top: 20px;
+  padding-bottom: 3rem !important;
+  position: relative;
+}
+%btn-tag-shared {
+  float: left;
+  box-shadow: 1px 1px 4px -2px #808080;
+  padding: 4px 14px;
+  border-radius: 3px;
+  background: #fff;
+  border: 1px solid #ececec;
+  color: #777777;
+  margin-right: 8px;
+  font-size: 14px;
+  margin-top: 10px;
+
+  i {
+    font-size: 10px;
+  }
+  i.cl-blue {
+    color: #00b9ff !important;
+  }
+  i.cl-light-orange {
+    color: #f5a623 !important;
+  }
+  i.cl-medium-orange {
+    color: #e67e21 !important;
+  }
+  i.cl-orange {
+    color: #ff5b0f !important;
+  }
+  i.cl-light-gray {
+    color: #9b9b9b !important;
+  }
+  i.cl-light-red {
+    color: #f18799 !important;
+  }
+  i.cl-light-purple {
+    color: #c788fe !important;
+  }
+  i.cl-light-madison {
+    color: #959ea7 !important;
+  }
+  i.cl-turquoise {
+    color: #50e3c2 !important;
+  }
+  i.cl-radical-red {
+    color: #ff3365 !important;
+  }
+}
+.top-location {
+  @extend %shared;
+  justify-content: space-between;
+  display: flex;
+
+  .btn-location {
+    text-align: left;
+    width: 20%;
+    box-shadow: 1px 1px 4px -2px #808080;
+    padding: 14px 14px;
+    border-radius: 3px;
+    background: #fff;
+    border: 1px solid #ececec;
+    color: #020202;
+    margin-right: 20px;
+    font-size: 18px;
+    margin-top: 10px;
+
+    i:last-of-type {
+      float: right;
+      line-height: 30px;
+      color: #ccc;
+    }
+  }
+  .btn-location:last-child {
+    margin-right: unset;
+  }
+}
+
+.tag {
+  @extend %shared;
+  .btn-tag {
+    @extend %btn-tag-shared;
+  }
+}
+
+@media (max-width: 767px) {
+  .block-trainer {
+    width: 50%;
+  }
+}
+@media (min-width: 768px) {
+  .block-trainer {
+    width: 33.333333%;
+  }
+}
+@media (min-width: 992px) {
+  .block-trainer {
+    width: 25%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .block-trainer {
+    width: 20%;
+  }
+}
+
+.block-trainer {
+  padding: 12px;
+
+  float: left;
+  .trainer-info {
+    position: relative;
+    overflow: auto;
+    border: 1px solid #e8e8e8;
+    border-radius: 5px;
+    box-shadow: 0px 0px 6px -2px #a2a2a2;
+  }
+  .trainer-description {
+    .edit {
+      float: right;
+      margin-top: 0.5rem;
+      display: block;
+      i {
+        font-size: 24px;
+        color: #a2a2a2;
+      }
+    }
+  }
+  .img-thumb {
+    position: relative;
+    width: 100%;
+    height: 175px;
+
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .img-qualifications {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    bottom: -30px;
+    right: 4px;
+    img {
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .trainer-name,
+  a {
+    cursor: pointer;
+  }
+  .trainer-name {
+    margin-bottom: 0.5rem;
+    i {
+      font-size: 18px;
+      color: #b9b9b9;
+    }
+    padding-left: 10px;
+    font-size: 1.3rem;
+    h6 {
+      display: -webkit-box;
+      max-height: 3.2rem;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: normal;
+      -webkit-line-clamp: 2;
+      font-weight: 500;
+      line-height: 1.6rem;
+    }
+    label {
+      color: #828282;
+    }
+  }
+}
+
+.trainer-tag {
+  margin-bottom: 0.5rem;
+  padding-left: 10px;
+  font-size: 1.3rem;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  width: 100%;
+  .btn-tag {
+    @extend %btn-tag-shared;
+    padding: 3px 4px !important;
+    font-size: 10px !important;
+  }
+  .tag-items {
+    white-space: nowrap;
+    position: relative;
+    .item {
+      display: inline-block;
+      white-space: initial;
+      vertical-align: top;
+      .btn-tag {
+        @extend %btn-tag-shared;
+        padding: 3px 4px !important;
+        font-size: 10px !important;
+      }
+    }
+  }
+}
+.trainer-location {
+  margin-bottom: 0rem;
+  color: #757575;
+  padding-left: 10px;
+  font-size: 0.8rem;
+
+  i {
+    color: $orange;
+  }
+}
+
+.custom-carousel-home-component {
+  .block-trainer {
+    width: 100% !important;
+  }
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  .item {
+    position: relative;
+    cursor: pointer;
+  }
+  .custom-carousel__title--center {
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    color: $white;
+    font-weight: $font-weight-bold;
+    font-size: 18px;
+    z-index: 2;
+    &.small-title {
+      line-height: 168px;
+    }
+    &.large-title {
+      line-height: 310px;
+    }
+  }
+  .custom-carousel__layer {
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    background-color: black;
+    opacity: 0.5;
+    z-index: 1;
+    &.small-layer {
+      height: 164px;
+    }
+    &.large-layer {
+      height: 310px;
+    }
+  }
+  /deep/ .custom-carousel__image-popula-destination {
+    img,
+    .ngx-lazy-placeholder {
+      height: 164px;
+      width: 100%;
+      filter: none;
+    }
+  }
+  /deep/ .custom-carousel__image-list-near-you {
+    img,
+    .ngx-lazy-placeholder {
+      height: 310px;
+      width: 100%;
+      filter: none;
+    }
+  }
+}
+i.left,
+i.right,
+.new-icon-right-arrow,
+.new-icon-left-arrow {
+  cursor: pointer;
+  font-size: 75px;
+  color: #cdcdcd;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  z-index: 3;
+}
+i.left,
+.new-icon-left-arrow {
+  left: -20px;
+  @media screen and (max-width: $media-xs) {
+    display: none;
+  }
+  @media screen and (min-width: $media-lg) {
+    left: -82px;
+    &:before {
+      color: $black;
+    }
+  }
+}
+i.right,
+.new-icon-right-arrow {
+  right: -52px;
+  @media screen and (min-width: $media-lg) {
+    right: -54px;
+    &:before {
+      color: $black;
+    }
+  }
+}
