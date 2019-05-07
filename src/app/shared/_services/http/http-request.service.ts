@@ -41,9 +41,9 @@ export class HttpRequestService {
   private getHeader(isAuthorize = false) {
     return new RequestOptions({ headers: HttpHeaderService.getInstance().getRequestHeader(isAuthorize) });
   }
-  private getHeaderForUpload(isAuthorize = false) {
-    return new RequestOptions({ headers: HttpHeaderService.getInstance().getRequestHeaderForUpload(isAuthorize) });
-  }
+  // private getHeaderForUpload(isAuthorize = false) {
+  //   return new RequestOptions({ headers: HttpHeaderService.getInstance().getRequestHeaderForUpload(isAuthorize) });
+  // }
 
   private getHeaderFormData(isAuthorize = false) {
     return new RequestOptions({ headers: HttpHeaderService.getInstance().getRequestHeaderFormData(isAuthorize) });
@@ -115,6 +115,10 @@ export class HttpRequestService {
 
   getListTag(offset, limit){
     return this.getRequestMethodGet(`api/searchTags?offset=${offset}&limit=${limit}`);
+  }
+
+  getAllCoaches(offset, limit){
+    return this.getRequestMethodGet(`api/coaches/getAllCoaches?offset=${offset}&limit=${limit}`);
   }
 
 }

@@ -35,27 +35,12 @@ export class HttpHeaderService {
       }
     }
     headers.append('Accept', 'application/json');
-    //headers.append('Content-Type', 'application/json; charset=utf-8');
-    headers.append('Access-Control-Allow-Origin', '*');
-
+    headers.append('Content-Type', 'application/json; charset=utf-8');
+     headers.append('Access-Control-Allow-Origin', '*');
+     headers.append("Access-Control-Allow-Headers", "X-Requested-With, X-Requested-By");
+     headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
     return headers;
   }  
-
-  getRequestHeaderForUpload(isAuthorize:boolean = false): Headers {
-    const headers = new Headers();
-
-    if(isAuthorize){
-      let pumlUser = JSON.parse(localStorage.getItem('pumlUser'));
-      if (pumlUser && pumlUser.token) {
-        headers.append('Authorization', `${pumlUser.token}`);
-      }
-    }
-    headers.append('Content-Type', 'video/mp4');
-    headers.append('Access-Control-Allow-Origin', '*');
-
-    return headers;
-  } 
-
   getRequestHeaderFormData(isAuthorize:boolean = false): Headers {
     const headers = new Headers();
 

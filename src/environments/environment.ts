@@ -5,6 +5,6 @@
 
 export const environment = {
   production: true,
-    apiUrl: 'http://api.pummel.fit/'
+    apiUrl: 'https://cors-anywhere.herokuapp.com/https://api.pummel.fit/'
 };
  
