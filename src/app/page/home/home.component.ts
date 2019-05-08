@@ -103,7 +103,9 @@ export class HomeComponent implements OnInit {
     getAllCoaches() {
         this.http.getAllCoaches(this.offset, this.limit).subscribe(resp => {
             const res = resp.json();
+            console.log(res)
             this.lstTrainer = res;
+            
             this.lstTrainer.forEach((item) => {
                 item.user.tags.forEach((tag) => {
                     tag.color = this.lstColor[Math.floor(Math.random() * this.lstColor.length)]

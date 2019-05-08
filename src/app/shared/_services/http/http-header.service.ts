@@ -28,17 +28,24 @@ export class HttpHeaderService {
   getRequestHeader(isAuthorize:boolean = false): Headers {
     const headers = new Headers();
 
-    if(isAuthorize){
-      let pumlUser = JSON.parse(localStorage.getItem('pumlUser'));
-      if (pumlUser && pumlUser.token) {
-        headers.append('Authorization', `${pumlUser.token}`);
-      }
-    }
-    headers.append('Accept', 'application/json');
-    headers.append('Content-Type', 'application/json; charset=utf-8');
-     headers.append('Access-Control-Allow-Origin', '*');
-     headers.append("Access-Control-Allow-Headers", "X-Requested-With, X-Requested-By");
-     headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+    // if(isAuthorize){
+    //   let pumlUser = JSON.parse(localStorage.getItem('pumlUser'));
+    //   if (pumlUser && pumlUser.token) {
+    //     headers.append('Authorization', `${pumlUser.token}`);
+    //   }
+    // }
+   // headers.append('Accept', 'application/json');
+    headers.append('Content-Type', 'application/json');
+    //  headers.append('Access-Control-Allow-Origin', '*');
+    //  headers.append("Access-Control-Allow-Headers", "X-Requested-With, X-Requested-By");
+    //  headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+
+     headers.append("Access-Control-Allow-Origin", "*");
+     headers.append("Access-Control-Allow-Credentials", "true");
+     headers.append("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+     headers.append("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+
+
     return headers;
   }  
   getRequestHeaderFormData(isAuthorize:boolean = false): Headers {
