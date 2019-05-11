@@ -58,11 +58,9 @@ export class HttpRequestService {
 
   login(params) {
     return this.getRequestMethodPost('/api/login', params).map(resp => {
-      // login successful if there's a jwt token in the response
       const user = JSON.parse(JSON.stringify(resp.json()));
       //console.log(user)
       if (user && user.id) {
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
         this.loginInfo.next({ loggedIn: true, email: "", token: user.id, userId: user.userId, fullname: "" });
         localStorage.clear();
         localStorage.setItem('pumlUser', JSON.stringify({
@@ -119,6 +117,22 @@ export class HttpRequestService {
 
   getAllCoaches(offset, limit){
     return this.getRequestMethodGet(`api/coaches/getAllCoaches?offset=${offset}&limit=${limit}`);
+  }
+  getTopFeaturedCoaches(offset, limit){
+    return this.getRequestMethodGet(`api/coaches/getTopFeaturedCoaches?offset=${offset}&limit=${limit}`);
+  }
+
+  getBusinesses(businessId){
+    return this.getRequestMethodGet(`/api/businesses/${businessId}`);
+  }
+  getUserIP() {
+    const headers = new HttpHeaders();
+    headers.append('Access-Control-Allow-Origin', '*');
+    return this.httpClient.get<any>('https://pro.ip-api.com/json?key=51iPzMPnp1eZMmi', { headers: headers });
+   // return this.getRequestMethodGet('https://pro.ip-api.com/json?key=51iPzMPnp1eZMmi');
+  } 
+  getTopCityCountry(country){
+    return this.getRequestMethodGet(`api/topCityCountry/${country}/cities`);
   }
 
 }

@@ -24,7 +24,7 @@
                 "node_modules/bootstrap/dist/css/bootstrap.min.css",
                 "node_modules/font-awesome/css/font-awesome.css",
                 "src/css/puml.scss"
-              ],
+              ], 
               "scripts": [
                "node_modules/jquery/dist/jquery.min.js",
                "node_modules/popper.js/dist/umd/popper.min.js",
@@ -32,7 +32,7 @@
                "node_modules/bootbox/bootbox.min.js",
                "node_modules/underscore/underscore-min.js"                
               ]
-            },
+            }, 
             "configurations": {
               "production": {
                 "optimization": true,

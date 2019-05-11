@@ -8,6 +8,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ValidationFormService } from '../../shared/_services/validation-form/validation-form.service';
 import { EventMessage } from '../../shared/_services/event-message/event-message.service';
 import { NgxCarousel } from 'ngx-carousel';
+import { environment } from '../../../environments/environment';
 
 declare var bootbox: any;
 @Component({
@@ -29,8 +30,10 @@ export class HomeComponent implements OnInit {
         'cl-turquoise',
         'cl-radical-red'
     ]
+    lstTopTrainer:any[] = []
     lstTag: any = [];
     lstTrainer: any = [];
+    lstTopCity: any[] = []
     carouselOne: NgxCarousel;
     carouselTwo: NgxCarousel;
     carouselThree: NgxCarousel;
@@ -56,6 +59,8 @@ export class HomeComponent implements OnInit {
         //     item.color = this.lstColor[Math.floor(Math.random() * this.lstColor.length)]
         // })
         this.getListTag();
+        this.getTopFeaturedCoaches();
+        this.getTopCity();
         this.getAllCoaches();
         this.carouselOne = {
             grid: { xs: 2, sm: 3, md: 4, lg: 5, all: 0 },
@@ -104,18 +109,32 @@ export class HomeComponent implements OnInit {
         this.http.getAllCoaches(this.offset, this.limit).subscribe(resp => {
             const res = resp.json();
             console.log(res)
-            this.lstTrainer = res;
-            
+            this.lstTrainer = this.lstTrainer.concat(res);
             this.lstTrainer.forEach((item) => {
                 item.user.tags.forEach((tag) => {
                     tag.color = this.lstColor[Math.floor(Math.random() * this.lstColor.length)]
                 })
+                item.user.businessImage =  "/api/uploads/1185/render"
             })
-            this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false)
-
+            this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false);
+        })
+    }
+    getTopFeaturedCoaches(){
+        this.http.getTopFeaturedCoaches(this.offset, this.limit).subscribe(resp => {
+            const res = resp.json();
+            console.log(res)
+            this.lstTopTrainer = res;
+            this.lstTopTrainer.forEach((item) => {
+                item.user.tags.forEach((tag) => {
+                    tag.color = this.lstColor[Math.floor(Math.random() * this.lstColor.length)]
+                })
+                item.user.businessImage =  "/api/uploads/1185/render"
+            })
+            this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false);
         })
     }
     getMoreTrainer(){
+        this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
         this.offset += this.limit;
         this.getAllCoaches();
     }
@@ -131,5 +150,19 @@ export class HomeComponent implements OnInit {
             })
 
         })
+    }
+    getTopCity() {
+        this.http.getTopCityCountry("Australia").subscribe(resp => {
+            const res = resp.json();
+            this.lstTopCity = res;
+        })
+        // this.http.getUserIP().subscribe(resp => {
+        //     const res = resp;
+        //     this.http.getTopCityCountry("Australia").subscribe(resp => {
+        //         const res = resp.json();
+        //         this.lstTopCity = res;
+        //     })
+        //   });
+        
     }
 }

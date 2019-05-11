@@ -16,7 +16,7 @@ const log = new Logger('HttpService');
 /**
  * Provides a base framework for http service extension.
  * The default extension adds support for API prefixing, request caching and default error handler.
- */
+ */ 
 @Injectable()
 export class HttpService {
 

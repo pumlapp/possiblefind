@@ -65,7 +65,7 @@
       }
       %search-shared{
         border-left:none;
-        width: 17%;
+        width:  190px;
         border: 1px solid #d0d0d0;
       text-align:center;
         font-size: 18px;
@@ -98,9 +98,25 @@
         border-bottom-right-radius: 5px;
         border-top-right-radius: 5px;
        }
+
+       @media screen and (max-width:902px) {
+        .search-select-map, .search-select-gender {
+          display:none;
+        }
+        .search-bar__input-container{
+          padding-right:0;
+          input{
+            border-bottom-right-radius: 5px;
+            border-top-right-radius: 5px;
+          }
+       
+        }
+       }
     }
   }
 }
+
+
 .hero:after {
   content: "";
   display: block;
@@ -184,9 +200,9 @@ h5 a:hover {
 }
 .top-location {
   @extend %shared;
-  justify-content: space-between;
-  display: flex;
-
+   justify-content: space-between;
+   display: flex;
+   text-align: center;
   .btn-location {
     text-align: left;
     width: 20%;
@@ -210,6 +226,37 @@ h5 a:hover {
     margin-right: unset;
   }
 }
+
+@media screen and (max-width:992px) {
+  .top-location {
+    display: block;
+    justify-content: none;
+   
+    .btn-location{
+      width: 210px;
+    }
+    .btn-location:last-child {
+      margin-right: 20px;
+    }
+  }
+ 
+  
+ }
+
+ @media screen and (max-width:489px) {
+  .top-location {
+    text-align: left;
+    .btn-location{
+      width: 100%;
+    }
+    .btn-location:last-child {
+      margin-right: 20px;
+    }
+  }
+ 
+  
+ }
+
 
 .tag {
   @extend %shared;
@@ -284,6 +331,7 @@ h5 a:hover {
       border-radius: 50%;
       width: 100%;
       height: 100%;
+      border: 1px solid #f3f3f3;
     }
   }
 
