@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { AuthGuard } from './shared/_services/_guards/auth.guard';
 import { LoginComponent } from './page/login/login.component';
+import { HomeComponent } from './page/home/home.component';
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import { LoginComponent } from './page/login/login.component';
     ],
     declarations: [
         AppComponent,
-        LoginComponent
+       // HomeComponent
+       // LoginComponent
     ],
     exports:[
         SharedModule,

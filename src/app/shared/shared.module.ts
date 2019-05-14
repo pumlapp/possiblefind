@@ -29,7 +29,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 @NgModule({
-
   imports: [
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCknSrYr7gD6rLac1tF3BXopEwWrp-jwME'

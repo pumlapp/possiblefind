@@ -6,7 +6,7 @@ import { RequestOptions } from '@angular/http';
 import { Subject, BehaviorSubject, Observable, identity } from 'rxjs';
 import { HttpRequest, HttpParams, HttpHeaders, HttpEvent, HttpClient } from '@angular/common/http';
 const log = new Logger('Http-Request');
-
+declare var H: any;
 interface LoginInfo {
   userId?: any;
   loggedIn: any;
@@ -134,7 +134,60 @@ export class HttpRequestService {
   getTopCityCountry(country){
     return this.getRequestMethodGet(`api/topCityCountry/${country}/cities`);
   }
+  getCoaches(params){
 
+    return this.getRequestMethodGet(`api/coaches/searchdistanceV3?gender=${params.gender}&offset=${params.offset}&limit=${params.limit}`);
+  }
+  getCoachesByLocation(location, offset, limit){
+    return this.getRequestMethodGet(`api/coaches/searchdistanceV3?long=${location.long}&lat=${location.lat}&offset=${offset}&limit=${limit}`);
+  }
+  getCoachesById(id){
+    return this.getRequestMethodGet(`api/coaches/${id}`);
+  }
+  getCoachesTag(id){
+    return this.getRequestMethodGet(`api/users/${id}/tags`);
+  }
+  getCoachesPhotos(id, offset, limit){
+    return this.getRequestMethodGet(`api/users/${id}/photos&offset=${offset}&limit=${limit}`);
+  }
+
+
+
+  /****HereMap API */
+  getGeocoderPlacesByFreetext(freeText){
+    var params = 
+        'query=' +  encodeURIComponent(freeText) +   // The search text which is the basis of the query
+        '&beginHighlight=' + encodeURIComponent('<mark>') + //  Mark the beginning of the match in a token. 
+        '&endHighlight=' + encodeURIComponent('</mark>') + //  Mark the end of the match in a token. 
+        '&maxresults=10' +  // The upper limit the for number of suggestions to be included 
+                          // in the response.  Default is set to 5.
+        '&app_id=' + '4MAhCHY78b0WBe7MzQ1l' +
+        '&app_code=' + 'RHqFN-bf3g7CsUfvYtKvUQ';
+        const headers = new HttpHeaders();
+        headers.append('Access-Control-Allow-Origin', '*');
+        return this.httpClient.get<any>(`https://autocomplete.geocoder.api.here.com/6.2/suggest.json?${params}`, { headers: headers });
+
+  }
+
+  getLocationByLocationId(locationId, onGeocodeSuccess, onGeocodeError){
+    let platform = new H.service.Platform({
+      "app_id": "4MAhCHY78b0WBe7MzQ1l",
+      "app_code": "RHqFN-bf3g7CsUfvYtKvUQ"
+  });
+    var geocoder = platform.getGeocodingService();
+    let geocodingParameters = {
+      locationId : locationId
+    };
+
+    geocoder.geocode(
+      geocodingParameters,
+      onGeocodeSuccess,
+      onGeocodeError
+    );
+  }
+
+
+  /****End Heremap API */
 }
 
 

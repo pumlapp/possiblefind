@@ -5,12 +5,12 @@
 @import "~nouislider/distribute/nouislider.min.css";
 @import "~perfect-scrollbar/css/perfect-scrollbar.css";
 @import "../assets/variables.scss";
-@import "../css/fonts.scss";
+@import "./fonts.scss";
 
 body {
   margin: 0;
   padding: 0;
-  font-family: $primary-font-family;
+  //font-family: $primary-font-family;
   color: $black;
   background: $white;
   //width: 85.888%;
@@ -26,10 +26,12 @@ body {
   color: $white;
   background-color: #b27007 !important;
   border-color: #b27007 !important;
+  
+}
+.btn:focus, .btn:hover {
   outline: 0 !important;
   box-shadow: none !important;
 }
-
 
 .color-master {
   color: $orange;
@@ -81,45 +83,6 @@ body {
   }
 }
 
-/***bootstrap****/
-.navbar-header {
-  margin-left: 22px;
-}
-.navbar {
-  //width: 85.888%;
-  //margin: 0 auto;
-  position: fixed;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 1rem;
-  z-index: 999;
-  top: 0;
-  height: 100px;
-  right: 0;
-  background: #ffffff;
-  left: 0;
-  border-bottom: 1px solid #fff;
-
-  .navbar-brand {
-    width: 185px;
-    height: auto;
-    img {
-      width: 100%;
-      height: 55px;
-    }
-  }
-  .navbar-nav {
-    a {
-      line-height: 1.7rem;
-      font-weight: 600;
-      color: #292828 !important;
-      letter-spacing: 1px;
-    }
-  }
-}
-
 .featured {
   border: 1px solid #ff562d !important;
 }
@@ -139,27 +102,90 @@ body {
   font-size: 13px;
 }
 
+.bg-turquoise{
+  background:#00a07c !important;
+  color:  $white !important;
+  border: 1px solid #00a07c !important;
+}
 
+.bg-light-red{
+  background:#ffbfca !important;
+  color:  $white !important;
+  border: 1px solid #ffbfca !important;
+}
 
-/********************** Color ***********************/
-
-.bg-purple {
+.bg-light-gray{
+  background:#686868 !important;
+  color:  $white !important;
+  border: 1px solid #686868 !important;
+}
+.bg-medium-orange{
+  background: #f4cdab !important;
+  color:  $white !important;
+  border: 1px solid #f4cdab !important;
+}
+.bg-light-orange{
+  background: #cf8812 !important;
+  color:  $white !important;
+  border: 1px solid #cf8812 !important;
+}
+.bg-blue{
+  background: #007cc0 !important;
+    color:  $white !important;
+    border: 1px solid #007cc0 !important;
+}
+.bg-light-purple {
   background-color: #9011fe !important;
   color: $white !important;
   border: 1px solid #9011fe !important;
 }
-.bg-red {
+.bg-radical-red {
   color: $white !important;
   background-color: #e40f34 !important;
   border: 1px solid #e40f34 !important;
 }
-.bg-madison {
+.bg-light-madison {
   color: $white !important;
   border: 1px solid #2c3e50 !important;
   background-color: #2c3e50 !important;
 }
 
+.bg-orange{
+  color: $white !important;
+  border: 1px solid #c25b2b !important;
+  background-color: #c25b2b !important;
+}
 
+i.cl-blue {
+  color: #00b9ff !important;
+}
+i.cl-light-orange {
+  color: #f5a623 !important;
+}
+i.cl-medium-orange {
+  color: #e67e21 !important;
+}
+i.cl-orange {
+  color: #ff5b0f !important;
+}
+i.cl-light-gray {
+  color: #9b9b9b !important;
+}
+i.cl-light-red {
+  color: #f18799 !important;
+}
+i.cl-light-purple {
+  color: #c788fe !important;
+}
+i.cl-light-madison {
+  color: #959ea7 !important;
+}
+i.cl-turquoise {
+  color: #50e3c2 !important;
+}
+i.cl-radical-red {
+  color: #ff3365 !important;
+}
 
 /**************************Switch*******************/
 .switch {

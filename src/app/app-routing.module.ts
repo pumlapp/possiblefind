@@ -4,11 +4,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './page/login/login.component';
 
 import { LayoutSharedModule } from '../app/master-page/layout-shared/layout-shared.module';
+import { HomeComponent } from './page/home/home.component';
 
 const routes: Routes = [
     { path: '', loadChildren: () => LayoutSharedModule},
-     { path: '',  redirectTo: 'login', pathMatch:"full"},
-     { path: 'login', component: LoginComponent },
+    // { path: '',   component: HomeComponent },
+   //  { path: 'home', component: HomeComponent },
 ];
 
 @NgModule({

@@ -1,12 +1,30 @@
 <nav style="border-bottom:1px solid #ccc" class="navbar navbar-expand-md navbar-light bg-faded">
-   
-       <a class="navbar-header navbar-brand"><img src="../../../../assets/image/pummel-logo-400.png"></a>
-   
+
+    <a class="navbar-header navbar-brand"><img src="../../../../assets/image/pummel-logo-400.png"></a>
+
     <ul class="navbar-nav ml-auto">
-        <li class="nav-item "><a class="nav-link mr-3"><i class="fa fa-map-marker"></i> FIND A PERSONAL TRAINER</a></li>
+        <li class="nav-item ">
+            <a class="nav-link mr-3">
+                <i class="icon-pin"></i> FIND A PERSONAL TRAINER</a></li>
         <li class="nav-item "><a class="nav-link mr-5"> BECOME A TRAINER</a></li>
+        <li class="nav-item mr-3">
+            <button class="nav-link btn btn-menu" (click)="isMobile=true"> <i class="icon-menu"></i> </button>
+        </li>
         <li class="nav-item "><button class="btn btn-puml float-right" style="margin-right: 18px;" type="button">
                 DOWNLOAD NOW </button></li>
     </ul>
 </nav>
 
+
+<nav class="nav-mobile {{isMobile == true ? 'active' : ''}}">
+    <button class="nav-link btn btn-clear" (click)="isMobile=false"><i class="icon-clear"></i></button>
+
+        <div class="menu-inner">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item ">
+                    <a class="nav-link mr-3">
+                        <i class="icon-pin"></i> FIND A PERSONAL TRAINER</a></li>
+                <li class="nav-item "><a class="nav-link mr-5"> BECOME A TRAINER</a></li>
+            </ul>
+        </div>
+</nav>

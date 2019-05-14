@@ -25,92 +25,116 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  .icon-map-with-placeholder:before{
+    content: "\e900";
+    color: #acacac;
+    font-size: 1.7rem;
+    margin-right: 6px;
+  }
   
-  .icon-arrow-down:before {
+  .icon-map:before {
     content: "\e901";
-    color: #fff;
+    color: #000;
+  }
+  .icon-pin:before {
+    content: "\e902";
+    color: #000;
+  }
+  .icon-right-arrow:before {
+    content: "\e903";
+    color: #000;
+  }
+  .icon-arrow-down:before {
+    content: "\e904";
+    color: #000;
   }
   .icon-arrow-up:before {
-    content: "\e902";
-    color: #fff;
+    content: "\e905";
+    color: #000;
   }
   .icon-award:before {
-    content: "\e903";
-    color: #fff;
+    content: "\e906";
+    color: #000;
   }
   .icon-clear:before {
-    content: "\e904";
-    color: #fff;
+    content: "\e907";
+    color: #000;
   }
   .icon-email:before {
-    content: "\e905";
-    color: #fff;
+    content: "\e908";
+    color: #000;
   }
   .icon-facebook:before {
-    content: "\e906";
-    color: #fff;
+    content: "\e909";
+    color: #000;
   }
-  .icon-globe:before {
-    content: "\e907";
-    color: #fff;
-  }
+ .icon-globe:before{
+  content: "\e90a";
+  color: #000;
+ }
+
   .icon-google-plus:before {
-    content: "\e908";
-    color: #fff;
+    content: "\e90b";
+    color: #000;
   }
   .icon-instagram:before {
-    content: "\e909";
-    color: #fff;
-  }
- 
-  .icon-lock:before {
-    content: "\e90b";
-    color: #fff;
-  }
-  .icon-menu:before {
     content: "\e90c";
-    color: #fff;
+    color: #000;
   }
-  .icon-printerest:before {
+  .icon-left-arrow:before {
     content: "\e90d";
-    color: #fff;
+    color: #000;
   }
   
-  .icon-search:before {
+  .icon-look:before {
+    content: "\e90e";
+    color: rgb(46, 45, 45);
+  }
+  .icon-menu:before {
     content: "\e90f";
     color: rgb(46, 45, 45);
   }
-  .icon-shopping-cart:before {
+
+  .icon-printerest:before {
     content: "\e910";
-    color: #fff;
-  }
-  .icon-ticket:before {
-    content: "\e911";
-    color: #fff;
-  }
-  .icon-twitter:before {
-    content: "\e912";
-    color: #fff;
-  }
-  .icon-youtube:before {
-    content: "\e913";
-    color: #fff;
-  }
-  .icon-right-arrow:before {
-    content: "\f006";
-    color: #fff;
-  }
-  .icon-left-arrow:before {
-    content: "\f007";
-    color: #fff;
+    color: #000;
   }
 
-  .icon-pin:before {
+  .icon-search:before {
+    content: "\e912";
+    color: #000;
+  }
+  .icon-shopping-cart:before {
+    content: "\e913";
+    color: #000;
+  }
+  .icon-ticket:before {
+    content: "\e914";
+    color: #000;
+  }
+  .icon-twitter:before {
+    content: "\e915";
+    color: #000;
+  }
+  .icon-youtube:before {
+    content: "\e916";
+    color: #000;
+  }
+  .icon-pin-black:before {
     content: "\e948";
-    color: #fff;
+    color: #000;
+  }
+  
+  .icon-location:before {
+    content: "\e947";
+    color: #000;
   }
 
   .icon-compass:before {
     content: "\e949";
-    color: #fff;
+    color: #000;
   }
+
+
+
+

@@ -1,0 +1,170 @@
+<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend" class="trainer-profile">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class=" col-lg-8 col-xl-9 col-md-10 col-11">
+                <div class="trainer-info">
+                    <div class="img-thumb mt-4 mr-4">
+                        <span class="border-avatar2"></span>
+                        <span class="border-avatar"></span>
+                        <img src="http://api.pummel.fit/{{trainer.user.imageUrl}}?width=450&height=550">
+                        <div *ngIf="trainer.user.businessId > 0" class="img-qualifications">
+                            <img src="http://api.pummel.fit//api/uploads/752/render?width=100&height=100">
+                        </div>
+                        <div *ngIf="trainer.user.videoUrl != null" class="video-profile">
+                            <span class="btn-video"><i class="fa fa-play"></i></span>
+                            <div style="background-image: url(http://api.pummel.fit/api/uploads/372/render?width=100&height=100)"
+                                class="video-thumbnail">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <p class="trainer-name ">{{trainer.user.firstname}}
+                            <img *ngIf="trainer.isFeatured == true" src="../assets/image/icon-check.png" />
+                            <label *ngIf="trainer.isFeatured == true" class="featured">Featured</label>
+                        </p>
+                        <p class="trainer-location mb-4"><i class="icon-location mr-2"></i> {{trainer.serviceArea}}
+                            <span style="font-weight:600;color:#000" class="ml-2"> {{trainer.distance}}km away</span>
+                        </p>
+                        <div class="trainer-rating mb-2">
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-3 block">
+                                    <p>{{+((trainer.user.rating/5)*100)}}%</p>
+                                    <p>RATING</p>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-3 block">
+                                    <p>2,700</p>
+                                    <p>POINTS</p>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-3 block">
+                                    <p>{{trainer.user.postCount}}</p>
+                                    <p>POST</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p style=" padding-left:10px;">
+                            <button class="btn  mr-3"><i class="fa fa-inbox"></i></button>
+                            <button class="btn btn-puml">REQUEST A CALL BACK</button>
+                        </p>
+                    </div>
+
+
+
+                    <div class="slide-show-container--middle-page" *ngIf="lstOfImages && lstOfImages.length > 0">
+                        <div class="slide-show__box-center">
+                            <div ng2-carouselamos [width]="1138" [items]="lstOfImages" [$item]="itemTemplate2"
+                                [$prev]="prevTemplate" [$next]="nextTemplate">
+
+                            </div>
+                            <ng-template #prevTemplate>
+                                <i class="icon-left-arrow"></i>
+                            </ng-template>
+                            <ng-template #nextTemplate>
+                                <i class="icon-right-arrow"></i>
+                            </ng-template>
+                            <ng-template let-item let-i="index" #itemTemplate2>
+                                <div class="image-item">
+                                    <img [src]="urlPrefix + item.imageUrl + '?width=450&height=550'" />
+                                </div>
+                            </ng-template>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend" class="mt-5">
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            <div class=" col-lg-8 col-xl-9 col-md-10 col-11">
+                <h5 style="padding-left: 12px;">SPECIALITIES
+                </h5>
+                <div class="tag">
+                    <button class="btn-tag" *ngFor="let tag of lstTag">
+                        <i class="fa fa-circle {{tag.color}}"></i> {{tag.title}}
+                    </button>
+                    <div class="clearfix" style="clear: both;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend" class=" mt-5">
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            <div class=" col-lg-8 col-xl-9 col-md-10 col-11">
+                <h5 style="padding-left: 10px;">ABOUT
+                </h5>
+                <p class="description">{{trainer.user.bio}}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend" class="mt-5">
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            <div class=" col-lg-8 col-xl-9 col-md-10 col-11">
+                <h5 style="padding-left: 10px;">WEBSITE
+                </h5>
+                <p class="description">{{trainer.websiteUrl}}</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend" class=" mt-5">
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            <div class=" col-lg-8 col-xl-9 col-md-10 col-11">
+                <h5 style="padding-left: 10px;">QUALITIFICATIONS
+                </h5>
+                <p class="description" [innerHtml]="trainer.qualifications"></p>
+            </div>
+        </div>
+    </div>
+</section>
+<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend" class=" mt-5">
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            <div class=" col-lg-8 col-xl-9 col-md-10 col-11">
+                <h5 style="padding-left: 10px;">ACHIEVEMENTS
+                </h5>
+                <p class="description" [innerHtml]="trainer.qualifications"></p>
+            </div>
+        </div>
+    </div>
+</section>
+<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend" class="mt-5">
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            <div class=" col-lg-8 col-xl-9 col-md-10 col-11">
+                <h5 style="padding-left: 10px;">SOCIAL
+                </h5>
+                <p style="padding-left:10px">
+                    <a href="{{trainer.user.facebookUrl}}" target="_blank" class="btn btn-facebook">FACEBOOK</a>
+                    <a href="{{trainer.user.instagramUrl}}" class="btn btn-instagram" target="_blank">INSTAGRAM</a>
+                    <a href="{{trainer.user.twitterUrl}}" class="btn btn-twitter" target="_blank">TWITTER</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend" class=" mt-5">
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            <div class=" col-lg-8 col-xl-9 col-md-10 col-11">
+                <h5 style="padding-left: 10px;">TESTIMONIALS
+                </h5>
+                <p style="padding-left:10px" [html]="trainer.qualifications"></p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="map">
+    <one-point *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend" [pointInfo]="trainer"
+        width="100%" height="100%"></one-point>
+</section>

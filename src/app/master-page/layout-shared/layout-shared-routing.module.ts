@@ -3,13 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { LayoutSharedComponent } from './layout-shared.component';
 import { AuthGuard } from '../../shared/_services/_guards/auth.guard';
 import { HomeModule } from '../../page/home/home.module';
+import { TrainerProfileModule } from '../../page/trainer-profile/trainer-profile.module';
 const routes: Routes = [
   {
     path: '', component: LayoutSharedComponent,
     //canActivate: [AuthGuard],
     children: [
-       { path: 'home',  loadChildren: () => HomeModule  },
-     
+      { path: '',  loadChildren: () => HomeModule  },
+      { path: 'trainer-profile/:id',  loadChildren: () => TrainerProfileModule  },
     ]
   }
 ];

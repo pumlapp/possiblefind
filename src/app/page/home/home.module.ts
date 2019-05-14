@@ -5,6 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeRoutingModule } from './home-routing.module';
 import { NgxCarouselModule } from 'ngx-carousel';
 import { MaterialModule } from '../../shared/material.module';
+import { HereMapComponent } from '../../shared/_component/here-map/here-map.component';
+import { SharedModule } from '../../shared/shared.module';
+import { HereMapModule } from '../../shared/_component/here-map/here-map.module';
 
 @NgModule({
   imports: [
@@ -13,12 +16,13 @@ import { MaterialModule } from '../../shared/material.module';
     ReactiveFormsModule,
     HomeRoutingModule,
     NgxCarouselModule,
-    MaterialModule
+    MaterialModule,
+    HereMapModule
   ],
   exports:[
   ],
   declarations: [
-    HomeComponent,
+    HomeComponent
   ],  
    schemas: [
     NO_ERRORS_SCHEMA,

@@ -6,16 +6,57 @@
                     <h4>Find a personal trainer</h4>
                     <div class="hx-search-bar-component">
                         <div class="search-bar-keyword-container">
-                            <form novalidate=""><span class="search-bar__input-container"><input
-                                        placeholder="City, Suburb or Post Code" /><i class="icon-search"></i></span>
+                            <form novalidate="">
+                                <span class="search-bar__input-container">
+                                    <input [(ngModel)]="places" [ngModelOptions]="{standalone: true}"
+                                        (ngModelChange)="searchPlacesFreetext()"
+                                        placeholder="City, Suburb or Post Code" />
+                                    <div *ngIf="lstSuggests.length > 0 && places.length > 0" class="response-suggestion-places">
+                                        <div class="suggestion-item" (click)="searchTrainerByPlaces(place)" *ngFor="let place of lstSuggests">
+                                            <i class="icon-location mr-1"></i>
+                                            <strong *ngIf="place.address.district" class="mr-1" [innerHtml]="place.address.district"></strong>
+                                            <strong class="mr-1" [innerHtml]="place.address.city"></strong> <small>
+                                                <span class="mr-1" [innerHtml]="place.address.state"></span> 
+                                                <strong *ngIf="place.address.district" class="mr-1" [innerHtml]="place.address.postalCode"></strong>
+                                                <span class="mr-1" [innerHtml]="place.address.country"></span>
+                                            </small>
+                                        </div>
+
+                                        <!-- <div class="suggestion-item">
+                                            <i class="icon-location mr-1"></i>
+                                            <strong>London</strong>, England, United Kindom
+                                        </div>
+                                        <div class="suggestion-item mr-1">
+                                            <i class="icon-location"></i>
+                                            <strong>London</strong>, England, United Kindom
+                                        </div>
+                                        <div class="suggestion-item mr-1">
+                                            <i class="icon-location"></i>
+                                            <strong>London</strong>, England, United Kindom
+                                        </div> -->
+                                    </div>
+                                    <i class="icon-search"></i>
+                                </span>
                             </form>
-                            <div class="search-select-gender">
-                                <i class="fa fa-transgender"></i> Any Gender
-                                <i class="material-icons">keyboard_arrow_down</i></div>
+
+                            <div class="btn-group float-left" style="cursor: pointer;">
+                                <div data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true"
+                                    aria-expanded="false" class="search-select-gender">
+                                    <i class="fa fa-transgender"></i> {{genderModel}}
+                                    <i class="material-icons">keyboard_arrow_down</i>
+                                </div>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" (click)="searchByGender('Male')">Male</a>
+                                    <a class="dropdown-item" (click)="searchByGender('Female')">Female</a>
+                                    <a class="dropdown-item" (click)="searchByGender('Any Gender')">Any Gender</a>
+                                </div>
+                            </div>
+
+
                             <div class="search-select-map">
-                                <i class="fa fa-map-marked"></i> Maps
+                                <i class="icon-map-with-placeholder"></i> Map
                                 <label class="switch">
-                                    <input type="checkbox">
+                                    <input (change)="showMapFilter()" type="checkbox">
                                     <span class="slider round"></span>
                                 </label>
                             </div>
@@ -33,7 +74,8 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="tag border-bottom">
-                <button class="btn-tag" *ngFor="let tag of lstTag">
+                <button class="btn-tag {{tag.checked ? tag.background : ''}}" (click)="searchByTags(tag)"
+                    *ngFor="let tag of lstTag">
                     <i class="fa fa-circle {{tag.color}}"></i> {{tag.title}}
                 </button>
                 <!-- <button class="btn-tag"><i class="fa fa-circle cl-blue"></i> Pilates</button>
@@ -55,11 +97,7 @@
     </div>
 </section>
 
-
-
-
-
-<section class="container mb-5">
+<section *ngIf="!isSearch  && isMapFilter == false" class="container mb-5">
     <div class="row justify-content-center">
         <div class="col-md-12 col-lg-12">
             <div class="border-bottom">
@@ -72,18 +110,25 @@
                                 <div class="img-thumb ">
                                     <img src="http://api.pummel.fit/{{item.user.imageUrl}}?width=350&height=450">
                                     <div class="img-qualifications">
-                                        <img src="http://api.pummel.fit/{{item.user.businessImage}}?width=100&height=100g">
+                                        <img
+                                            src="http://api.pummel.fit/{{item.user.businessImage}}?width=100&height=100">
                                     </div>
                                 </div>
-                                <p class="trainer-name">{{item.user.firstname}} <i class="material-icons">
-                                        chevron_right</i>
+                                <p routerLink="/trainer-profile/{{item.user.id}}" class="trainer-name">
+                                    {{item.user.firstname}} <i class="icon-right-arrow"></i>
                                 </p>
-                                <p class="trainer-location"><i class="fa fa-map-marker"></i> Brisbane</p>
+                                <p class="trainer-location"><i class="fa fa-map-marker"></i> {{item.serviceArea}}</p>
                                 <div class="trainer-tag">
-                                    <div class="tag-items">
+                                    <div *ngIf="item.user.tags.length>0" class="tag-items">
                                         <div class="item" *ngFor="let tag of item.user.tags">
                                             <button class="btn-tag">
                                                 <i class="fa fa-circle {{tag.color}}"></i> {{tag.title}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="item.user.tags.length==0" style="margin-bottom:2px" class="tag-items">
+                                        <div class="item">
+                                            <button class="btn-tag">
                                             </button>
                                         </div>
                                     </div>
@@ -100,69 +145,176 @@
                             </div>
                         </div>
                     </ngx-item>
-                    <i NgxCarouselPrev class="left material-icons"> chevron_left</i>
-                    <i NgxCarouselNext class="right material-icons"> chevron_right</i>
+                    <i NgxCarouselPrev class="carousel icon-left-arrow"> </i>
+                    <i NgxCarouselNext class="carousel icon-right-arrow"> </i>
 
                 </ngx-carousel>
             </div>
         </div>
     </div>
-
 </section>
 
-
-<section class="container mb-5">
+<section *ngIf="!isSearch  && isMapFilter== false" class="container mb-5">
     <div class="row justify-content-center">
         <div class="col-md-12 col-lg-12">
-                <h5 _ngcontent-c2="" style="padding-left: 12px;">All Personal Trainers</h5>
-                <div class="block-trainer" *ngFor="let item of lstTrainer; index as i">
-                    <div class="trainer-info {{item.isFeatured == true ? 'featured' : ''}}">
-                        <div class="img-thumb">
-                            <img src="http://api.pummel.fit/{{item.user.imageUrl}}?width=350&height=450">
-                            <div class="img-qualifications">
-                                <img src="http://api.pummel.fit/{{item.user.businessImage}}?width=100&height=100">
-                            </div>
+            <h5 style="padding-left: 12px;">All Personal Trainers</h5>
+            <div class="block-trainer" *ngFor="let item of lstTrainer; index as i">
+                <div class="trainer-info {{item.isFeatured == true ? 'featured' : ''}}">
+                    <div class="img-thumb">
+                        <img src="http://api.pummel.fit/{{item.user.imageUrl}}?width=350&height=450">
+                        <div class="img-qualifications">
+                            <img src="http://api.pummel.fit/{{item.user.businessImage}}?width=100&height=100">
                         </div>
-                        <p class="trainer-name">{{item.user.firstname}} <i class="material-icons"> chevron_right</i></p>
-                        <p class="trainer-location"><i class="fa fa-map-marker"></i> Brisbane</p>
+                    </div>
+                    <p routerLink="/trainer-profile/{{item.user.id}}" class="trainer-name">{{item.user.firstname}} <i
+                            class="icon-right-arrow"></i>
+                        <p class="trainer-location"><i class="fa fa-map-marker"></i> {{item.serviceArea}}</p>
                         <div class="trainer-tag">
                             <div *ngIf="item.user.tags.length>0" class="tag-items">
-                                <div  class="item" *ngFor="let tag of item.user.tags">
+                                <div class="item" *ngFor="let tag of item.user.tags">
                                     <button class="btn-tag">
                                         <i class="fa fa-circle {{tag.color}}"></i> {{tag.title}}
                                     </button>
                                 </div>
                             </div>
                             <div *ngIf="item.user.tags.length==0" style="margin-bottom:2px" class="tag-items">
-                                <div  class="item">
+                                <div class="item">
                                     <button class="btn-tag">
                                     </button>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
-                <div style="clear: both;"></div>
-          
+            </div>
+            <div style="clear: both;"></div>
+
 
         </div>
     </div>
-    <div class="row border-bottom justify-content-center mb-5">
-        <div class="col-lg-12 text-center" >
-            <button type="button" (click)="getMoreTrainer()" class="btn btn-primary">
-                View More
+    <div *ngIf="!noMore" class="row border-bottom justify-content-center mt-5 mb-5">
+        <div class="col-lg-12 text-center">
+            <button *ngIf="!isLoadMore" type="button" (click)="getMoreTrainer()" class="btn btn-primary">
+                LOAD MORE
             </button>
+
+            <div *ngIf="isLoadMore" class="spinner-three-bounce ">
+                <div class="bounce1" style="background-color: rgb(255, 222, 207);"></div>
+                <div class="bounce2" style="background-color: rgb(255, 172, 134);"></div>
+                <div class="bounce3" style="background-color: rgb(255, 123, 63);"></div>
+            </div>
+
+            <label class="mt-4 ml-2 isloading" *ngIf="isLoadMore">loading...</label>
         </div>
 
     </div>
 </section>
 
-<section class="container mb-5">
+<section id="searchResultId" *ngIf="isSearch && isMapFilter== false" class="container mb-5">
     <div class="row justify-content-center">
         <div class="col-md-12 col-lg-12">
-            <div class="top-location" *ngFor="let item of lstTopCity">
-                    <button class="btn-location"><i class="fa fa-map-marker"></i> {{item.city}} <i class="material-icons">
-                            chevron_right</i> </button>
+            <h5 style="padding-left: 12px;">{{this.lstTrainerFilter.length}} Personal Trainers Found
+            </h5>
+            <div class="block-trainer" *ngFor="let item of lstTrainerFilter; index as i">
+                <div class="trainer-info {{item.isFeatured == true ? 'featured' : ''}}">
+                    <div class="img-thumb">
+                        <img src="http://api.pummel.fit/{{item.user.imageUrl}}?width=350&height=450">
+                        <div class="img-qualifications">
+                            <img src="http://api.pummel.fit/{{item.user.businessImage}}?width=100&height=100">
+                        </div>
+                    </div>
+                    <p class="trainer-name">{{item.user.firstname}} <i class="icon-right-arrow"></i>
+                        <p class="trainer-location"><i class="fa fa-map-marker"></i> {{item.serviceArea}}</p>
+                        <div class="trainer-tag">
+                            <div *ngIf="item.user.tags.length>0" class="tag-items">
+                                <div class="item" *ngFor="let tag of item.user.tags">
+                                    <button class="btn-tag">
+                                        <i class="fa fa-circle {{tag.color}}"></i> {{tag.title}}
+                                    </button>
+                                </div>
+                            </div>
+                            <div *ngIf="item.user.tags.length==0" style="margin-bottom:2px" class="tag-items">
+                                <div class="item">
+                                    <button class="btn-tag">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+
+
+        </div>
+    </div>
+    <div *ngIf="!noMore" class="row border-bottom justify-content-center mt-5 mb-5">
+        <div class="col-lg-12 text-center">
+            <button *ngIf="!isLoadMore" type="button" (click)="getMoreTrainerFilter()" class="btn btn-primary">
+                LOAD MORE
+            </button>
+
+            <div *ngIf="isLoadMore" class="spinner-three-bounce ">
+                <div class="bounce1" style="background-color: rgb(255, 222, 207);"></div>
+                <div class="bounce2" style="background-color: rgb(255, 172, 134);"></div>
+                <div class="bounce3" style="background-color: rgb(255, 123, 63);"></div>
+            </div>
+
+            <label class="mt-4 ml-2 isloading" *ngIf="isLoadMore">loading...</label>
+        </div>
+
+    </div>
+</section>
+
+<section *ngIf="isMapFilter" class="maps-filter container mb-5">
+    <div class="row justify-content-left border-bottom">
+        <div class="col-md-6 col-lg-6" style="height:100vh;overflow: auto;">
+            <h5 style="padding-left: 12px;">{{this.lstTrainer.length}} Personal Trainers Found
+            </h5>
+            <div class="block-trainer" *ngFor="let item of lstTrainer; index as i">
+                <div class="trainer-info {{item.isFeatured == true ? 'featured' : ''}}">
+                    <div class="img-thumb">
+                        <img src="http://api.pummel.fit/{{item.user.imageUrl}}?width=350&height=450">
+                        <div class="img-qualifications">
+                            <img src="http://api.pummel.fit/{{item.user.businessImage}}?width=100&height=100">
+                        </div>
+                    </div>
+                    <p routerLink="/trainer-profile/{{item.user.id}}" class="trainer-name">{{item.user.firstname}} <i
+                            class="icon-right-arrow"></i>
+                        <p class="trainer-location"><i class="fa fa-map-marker"></i> {{item.serviceArea}}</p>
+                        <div class="trainer-tag">
+                            <div *ngIf="item.user.tags.length>0" class="tag-items">
+                                <div class="item" *ngFor="let tag of item.user.tags">
+                                    <button class="btn-tag">
+                                        <i class="fa fa-circle {{tag.color}}"></i> {{tag.title}}
+                                    </button>
+                                </div>
+                            </div>
+                            <div *ngIf="item.user.tags.length==0" style="margin-bottom:2px" class="tag-items">
+                                <div class="item">
+                                    <button class="btn-tag">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+
+                <div style="clear: both;"></div>
+
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6">
+
+            <here-map [locations]="lstTrainer" width="100%" height="100vh"></here-map>
+        </div>
+    </div>
+</section>
+
+<section *ngIf="!isSearch && isMapFilter== false" class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-12">
+            <div class="top-location">
+                <button *ngFor="let item of lstTopCity" class="btn-location">
+                    <i class="icon-location"></i> {{item.city}} <i class="material-icons">
+                        chevron_right</i> </button>
 
                 <!-- <button class="btn-location"><i class="fa fa-map-marker"></i> Gold Coast <i class="material-icons">
                         chevron_right</i> </button>
@@ -179,6 +331,7 @@
     </div>
 
 </section>
+
 
 
 <section class="container mb-5">

@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
         private eventMsg: EventMessage
     ) {
         console.log('login')
-      this.router.navigate(['home']);
+      //this.router.navigate(['home']);
     }
 
     ngOnInit() {
