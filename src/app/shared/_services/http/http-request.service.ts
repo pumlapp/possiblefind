@@ -135,8 +135,19 @@ export class HttpRequestService {
     return this.getRequestMethodGet(`api/topCityCountry/${country}/cities`);
   }
   getCoaches(params){
+    const formBody = [];
+    for (const property in params) {
 
-    return this.getRequestMethodGet(`api/coaches/searchdistanceV3?gender=${params.gender}&offset=${params.offset}&limit=${params.limit}`);
+      const encodedKey = encodeURIComponent(property);      
+      const encodedValue = params[property];
+      if(encodedValue != undefined){
+        formBody.push(encodedKey + '=' + encodedValue);
+      }
+     
+    }
+  console.log(formBody.join('&'));
+
+    return this.getRequestMethodGet(`api/coaches/searchdistanceV3?${formBody.join('&')}`);
   }
   getCoachesByLocation(location, offset, limit){
     return this.getRequestMethodGet(`api/coaches/searchdistanceV3?long=${location.long}&lat=${location.lat}&offset=${offset}&limit=${limit}`);

@@ -11,29 +11,20 @@
                                     <input [(ngModel)]="places" [ngModelOptions]="{standalone: true}"
                                         (ngModelChange)="searchPlacesFreetext()"
                                         placeholder="City, Suburb or Post Code" />
-                                    <div *ngIf="lstSuggests.length > 0 && places.length > 0" class="response-suggestion-places">
-                                        <div class="suggestion-item" (click)="searchTrainerByPlaces(place)" *ngFor="let place of lstSuggests">
+                                    <div *ngIf="lstSuggests.length > 0 && places.length > 0"
+                                        class="response-suggestion-places">
+                                        <div class="suggestion-item" (click)="searchTrainerByPlaces(place, $event)"
+                                            *ngFor="let place of lstSuggests">
                                             <i class="icon-location mr-1"></i>
-                                            <strong *ngIf="place.address.district" class="mr-1" [innerHtml]="place.address.district"></strong>
+                                            <strong *ngIf="place.address.district" class="mr-1"
+                                                [innerHtml]="place.address.district"></strong>
                                             <strong class="mr-1" [innerHtml]="place.address.city"></strong> <small>
-                                                <span class="mr-1" [innerHtml]="place.address.state"></span> 
-                                                <strong *ngIf="place.address.district" class="mr-1" [innerHtml]="place.address.postalCode"></strong>
+                                                <span class="mr-1" [innerHtml]="place.address.state"></span>
+                                                <strong *ngIf="place.address.district" class="mr-1"
+                                                    [innerHtml]="place.address.postalCode"></strong>
                                                 <span class="mr-1" [innerHtml]="place.address.country"></span>
                                             </small>
                                         </div>
-
-                                        <!-- <div class="suggestion-item">
-                                            <i class="icon-location mr-1"></i>
-                                            <strong>London</strong>, England, United Kindom
-                                        </div>
-                                        <div class="suggestion-item mr-1">
-                                            <i class="icon-location"></i>
-                                            <strong>London</strong>, England, United Kindom
-                                        </div>
-                                        <div class="suggestion-item mr-1">
-                                            <i class="icon-location"></i>
-                                            <strong>London</strong>, England, United Kindom
-                                        </div> -->
                                     </div>
                                     <i class="icon-search"></i>
                                 </span>
@@ -78,19 +69,6 @@
                     *ngFor="let tag of lstTag">
                     <i class="fa fa-circle {{tag.color}}"></i> {{tag.title}}
                 </button>
-                <!-- <button class="btn-tag"><i class="fa fa-circle cl-blue"></i> Pilates</button>
-                <button class="btn-tag"><i class="fa fa-circle cl-orange"></i> Weight Training</button>
-                <button class="btn-tag"><i class="fa fa-circle cl-orange"></i> Boxing</button>
-                <button class="btn-tag"><i class="fa fa-circle cl-turquoise"></i> Nutrition</button>
-                <button class="btn-tag bg-purple"><i class="fa fa-circle cl-light-purple"></i> Running</button>
-                <button class="btn-tag"><i class="fa fa-circle cl-light-orange"></i> Core Strength</button>
-                <button class="btn-tag bg-madison"><i class="fa fa-circle cl-light-madison"></i> Group Fitness</button>
-                <button class="btn-tag"><i class="fa fa-circle cl-light-gray"></i> Rehapilitation</button>
-                <button class="btn-tag"><i class="fa fa-circle cl-light-gray"></i> Booty Transformation</button>
-                <button class="btn-tag bg-red"><i class="fa fa-circle cl-light-red"></i> Body Transformation</button>
-                <button class="btn-tag"><i class="fa fa-circle cl-turquoise"></i> Hign Intensitive Training</button>
-                <button class="btn-tag"><i class="fa fa-circle cl-radical-red"></i> Cross Training</button>
-                <button class="btn-tag"><i class="fa fa-circle cl-medium-orange"></i> Pre & Post-Natal Programs</button> -->
                 <div class="clearfix" style="clear: both;"></div>
             </div>
         </div>
@@ -212,7 +190,7 @@
 <section id="searchResultId" *ngIf="isSearch && isMapFilter== false" class="container mb-5">
     <div class="row justify-content-center">
         <div class="col-md-12 col-lg-12">
-            <h5 style="padding-left: 12px;">{{this.lstTrainerFilter.length}} Personal Trainers Found
+            <h5 style="padding-left: 12px;">{{this.lstTrainerFilter.length}} personal trainers found
             </h5>
             <div class="block-trainer" *ngFor="let item of lstTrainerFilter; index as i">
                 <div class="trainer-info {{item.isFeatured == true ? 'featured' : ''}}">
@@ -267,9 +245,9 @@
 <section *ngIf="isMapFilter" class="maps-filter container mb-5">
     <div class="row justify-content-left border-bottom">
         <div class="col-md-6 col-lg-6" style="height:100vh;overflow: auto;">
-            <h5 style="padding-left: 12px;">{{this.lstTrainer.length}} Personal Trainers Found
+            <h5 style="padding-left: 12px;">{{this.lstTrainerFilter.length}} Personal Trainers Found
             </h5>
-            <div class="block-trainer" *ngFor="let item of lstTrainer; index as i">
+            <div class="block-trainer" *ngFor="let item of lstTrainerFilter; index as i">
                 <div class="trainer-info {{item.isFeatured == true ? 'featured' : ''}}">
                     <div class="img-thumb">
                         <img src="http://api.pummel.fit/{{item.user.imageUrl}}?width=350&height=450">
@@ -280,10 +258,11 @@
                     <p routerLink="/trainer-profile/{{item.user.id}}" class="trainer-name">{{item.user.firstname}} <i
                             class="icon-right-arrow"></i>
                         <p class="trainer-location"><i class="fa fa-map-marker"></i> {{item.serviceArea}}
-                            <span title="{{item.distance}}km away" style="font-size:10px;font-weight:600;color: #ff6420" class="ml-2"> {{item.distance}}km away</span>
-                        
+                            <span title="{{item.distance}}km away" style="font-size:10px;font-weight:600;color: #ff6420"
+                                class="ml-2"> {{item.distance}}km away</span>
+
                         </p>
-                        
+
                         <div class="trainer-tag">
                             <div *ngIf="item.user.tags.length>0" class="tag-items">
                                 <div class="item" *ngFor="let tag of item.user.tags">
@@ -307,7 +286,7 @@
         </div>
         <div class="col-md-6 col-lg-6">
 
-            <here-map [locations]="lstTrainer" width="100%" height="100vh"></here-map>
+            <here-map [locations]="lstTrainerFilter" width="100%" height="100vh"></here-map>
         </div>
     </div>
 </section>

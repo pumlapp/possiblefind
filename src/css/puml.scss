@@ -44,6 +44,10 @@ body {
 
   .modal-body {
     text-align: center;
+    font-family: inherit;
+    font-size: 1.3em;
+    font-weight: 500;
+    
     .bootbox-body {
       margin-top: 20px;
     }
@@ -54,7 +58,7 @@ body {
   }
 
   .modal-content {
-    background: #131313;
+    background: $white;
     .modal-footer {
       border-top: unset;
     }

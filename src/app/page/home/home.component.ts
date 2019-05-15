@@ -8,7 +8,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ValidationFormService } from '../../shared/_services/validation-form/validation-form.service';
 import { EventMessage } from '../../shared/_services/event-message/event-message.service';
 import { NgxCarousel } from 'ngx-carousel';
-import { environment } from '../../../environments/environment';
+declare var bootbox: any;
 
 @Component({
     moduleId: module.id,
@@ -49,16 +49,16 @@ export class HomeComponent implements OnInit {
     lstSuggests = [];
 
     searchParameter = {
-        gender: 0,
-        long: 0,
-        lat: 0,
-        offset: 0,
-        limit:10,
-        city:"",
-        state: "",
-        tagIds: 0,
-        tagIds1: 0,
-        tagIds2: 0,
+        gender: undefined,
+        long: undefined,
+        lat: undefined,
+        offset: undefined,
+        limit: 10,
+        city: undefined,
+        state: undefined,
+        tagIds: undefined,
+        tagIds1: undefined,
+        tagIds2: undefined,
     }
 
     constructor(
@@ -91,6 +91,15 @@ export class HomeComponent implements OnInit {
         this.getTopFeaturedCoaches();
         this.getTopCity();
         this.getAllCoaches();
+
+        if (!navigator.geolocation) {
+
+        } else {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.searchParameter.lat = position.coords.latitude;
+                this.searchParameter.long = position.coords.longitude;
+            });
+        }
     }
 
     getAllCoaches() {
@@ -184,13 +193,15 @@ export class HomeComponent implements OnInit {
             this.offset = 0;
             this.limit = 30;
             this.lstTrainer = []
+            this.places = ''
+            this.isDisabledSearch = false;
             this.getAllCoaches();
         }
         else {
             this.lstTrainer = []
             this.isSearch = true;
-            this.offsetFilter = 0;
-            this.limitFilter = 30;
+            this.searchParameter.limit = 30;
+            this.searchParameter.offset = 0;
             this.getCoachesByGender(gender);
         }
         this.genderModel = gender;
@@ -198,6 +209,26 @@ export class HomeComponent implements OnInit {
 
     getCoachesByGender(gender) {
         this.searchParameter.gender = gender
+        if (this.places && this.places.length > 0 && this.places.trim() != '') {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    this.searchParameter.lat = position.coords.latitude;
+                    this.searchParameter.long = position.coords.longitude;
+                });
+            } else {
+                return;
+            }
+
+        }
+        this.getCoaches()
+    }
+
+    getMoreTrainerFilter() {
+        this.isLoadMore = true;
+        this.offsetFilter += this.limitFilter;
+        this.getCoachesByGender(this.genderModel);
+    }
+    getCoaches() {
         this.http.getCoaches(this.searchParameter).subscribe(resp => {
             const res = resp.json();
 
@@ -222,23 +253,23 @@ export class HomeComponent implements OnInit {
             this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false);
         })
     }
-    getMoreTrainerFilter() {
-        this.isLoadMore = true;
-        this.offsetFilter += this.limitFilter;
-        this.getCoachesByGender(this.genderModel);
-    }
-
     searchByTags(tag, e) {
+        var lstTagSelect = this.lstTag.filter(o=> o.checked == true);
+        
+        if(tag.checked == false && lstTagSelect && lstTagSelect.length == 3){
+            bootbox.alert("You already selected maximum 3 tags.");
+            return;
+        }
+
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
         tag.checked = !tag.checked;
-
         this.lstTag[this.lstTag.indexOf(tag)] = tag;
 
-        this.lstTrainer = []
+        this.lstTrainerFilter = []
         this.isSearch = true;
-        this.offset = 0;
-        this.limit = 30;
-        this.getAllCoaches();
+        this.searchParameter.offset = 0;
+        this.searchParameter.limit = 30;
+        this.getCoaches();
 
 
     }
@@ -248,6 +279,7 @@ export class HomeComponent implements OnInit {
     }
 
     searchPlacesFreetext() {
+        if (this.isDisabledSearch == true) return;
         if (this.places == "" || this.places.trim() == "") return;
         this.http.getGeocoderPlacesByFreetext(this.places).subscribe(resp => {
             if (resp && resp.suggestions && resp.suggestions.length > 0) {
@@ -260,19 +292,24 @@ export class HomeComponent implements OnInit {
 
         })
     }
-
-    searchTrainerByPlaces(suggestion) {
+    isDisabledSearch = false;
+    searchTrainerByPlaces(suggestion, event) {
+        this.isSearch = true;
+        this.searchParameter.limit = 30;
+        this.searchParameter.offset = 0;
+        this.isDisabledSearch = true;
+        this.lstSuggests = [];
+        this.places = `${suggestion.address.city.replace('<mark>', '').replace('</mark>', '')} ${suggestion.address.state}, ${suggestion.address.country}`
+        this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
         this.http.getLocationByLocationId(suggestion.locationId,
             (result) => {
-                let locations =  result.Response.View[0].Result;
-                console.log(locations)
-               let lat = locations[0].Location.DisplayPosition.Latitude;
-               let lng = locations[0].Location.DisplayPosition.Longitude;
+                let locations = result.Response.View[0].Result;
+                this.searchParameter.lat = locations[0].Location.DisplayPosition.Latitude;
+                this.searchParameter.long = locations[0].Location.DisplayPosition.Longitude;
+                this.getCoaches();
             },
             (error) => {
-               
-                    console.log('Ooops!');
-               
+                console.log('Ooops!');
             }
         )
     }
