@@ -163,50 +163,7 @@ h5 {
       margin-left: 60px;
     }
 
-    /deep/ .slide-show-container--middle-page {
-      background: $white-grey;
-      width: 100%;
-      padding: 2rem 0;
-      float: left;
-      .slide-show__box-center {
-        margin: 2rem auto;
-        max-width: 1240px;
-        position: relative;
-
-        button {
-          width: 40px;
-          height: 40px;
-          background: #d4d3d3;
-          border-radius: 50%;
-          position: relative;
-          i {
-            font-size: 1rem;
-            font-weight: bold;
-            &:before {
-              color: #fff !important;
-            }
-          }
-
-          &:first-child {
-            left: -65px;
-          }
-          &:last-child {
-            right: -65px;
-          }
-        }
-      }
-
-      .image-item {
-        margin-right: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        img {
-          width: 200px;
-          height: 180px;
-        }
-      }
-    }
+    
   }
 
   .trainer-name,
@@ -423,4 +380,102 @@ h5 {
   i::before {
     color: $orange;
   }
+}
+/deep/ .slide-show-container--middle-page {
+  background: $white-grey;
+  width: 100%;
+  padding: 2rem 0;
+  float: left;
+  &.testimonials{
+   padding:0;
+    background: #fff;
+  }
+  .slide-show__box-center {
+    margin: 2rem auto;
+    max-width: 1240px;
+    position: relative;
+&.testimonials{
+  margin: 0;
+}
+    button {
+      width: 40px;
+      height: 40px;
+      background: #d4d3d3 !important;
+      border-radius: 50%;
+      position: relative;
+      i {
+        font-size: 1rem;
+        font-weight: bold;
+        &:before {
+          color: #fff !important;
+        }
+      }
+
+      &:first-child {
+        left: -65px;
+      }
+      &:last-child {
+        right: -65px;
+      }
+    }
+  }
+
+  .image-item {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 200px;
+      height: 180px;
+    }
+  }
+
+.testimonials-item {
+  .block-left {
+    margin-right: 28px;
+    padding: 10px;
+    width: 118px;
+    display: inline-block;
+    .avt {
+      width: 80px;
+      height: 80px; 
+      margin: 0 auto;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
+    }
+    .rating {
+      margin: 0 auto;
+      text-align: center;
+      color: #dadada;
+      font-size: 16px;
+      .fa.checked {
+        color: #f9cd43;
+      }
+    }
+  }
+  .block-right {
+    float: right;
+    display: inline-block;
+    width: calc(100% - 146px);
+    p {
+      font-size: 1.1em;
+      color: #777777;
+      margin-bottom: 0;
+      font-family: Comfortaa;
+    }
+  }
+}
+}
+
+.btn-testimonial{
+  border: 1px solid #fe7336 !important;
+  color: #fe7336 !important;
+  font-family: "Raleway";
+  letter-spacing: 1px;
+  font-size: 12px;
+  font-weight: 600;
 }

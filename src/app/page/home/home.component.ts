@@ -174,6 +174,7 @@ export class HomeComponent implements OnInit {
             if (res && res.length == 0) {
                 return;
             }
+            console.log(this.lstTag)
             this.offsetTag += this.limitTag;
             await this.getListTag();
 
@@ -183,6 +184,7 @@ export class HomeComponent implements OnInit {
         this.http.getTopCityCountry("Australia").subscribe(resp => {
             const res = resp.json();
             this.lstTopCity = res;
+            console.log(res)
         })
     }
 

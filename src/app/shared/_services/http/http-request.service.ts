@@ -159,7 +159,10 @@ export class HttpRequestService {
     return this.getRequestMethodGet(`api/users/${id}/tags`);
   }
   getCoachesPhotos(id, offset, limit){
-    return this.getRequestMethodGet(`api/users/${id}/photos&offset=${offset}&limit=${limit}`);
+    return this.getRequestMethodGet(`api/users/${id}/photos?offset=${offset}&limit=${limit}`);
+  } 
+  getAllTestimonial(id, offset, limit){
+    return this.getRequestMethodGet(`api/users/${id}/getAllTestimonial?offset=${offset}&limit=${limit}`);
   }
 
 

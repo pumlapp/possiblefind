@@ -32,8 +32,9 @@ export class TrainerProfileComponent {
     ]
     urlPrefix: any = environment.orginUrl;
     lstOfImages = [
-      
     ]
+    lstTestimonial = []
+  
     trainer:any = undefined;
     trainerId: 0;
     lstTag:any[] = []
@@ -54,25 +55,16 @@ export class TrainerProfileComponent {
                 this.trainerId = id;
                 this.getTrainerProfile(id);
                 this.getUserTag();
+                this.getUserPhotos();
+                this.getAllTestimonial();
             }
             else {
+                this.router.navigate(['/'])
             }
         });
 
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true)
-        // this.carouselOne = {
-        //     grid: { xs: 2, sm: 3, md: 4, lg: 5, all: 0 },
-        //     slide: 1,
-        //     speed: 600,
-        //     interval: 3000,
-        //     point: {
-        //         visible: false
-        //     },
-        //     load: 1,
-        //     touch: true,
-        //     custom: 'banner',
-        //     loop: true
-        // };
+       
     }
     
     
@@ -103,9 +95,15 @@ export class TrainerProfileComponent {
     getUserPhotos() {
         this.http.getCoachesPhotos(this.trainerId, 0, 10).subscribe( resp => {
             const res = resp.json();
-            this.lstOfImages = []
-            //if(res && res.length == 0) return;
-           // this.lstOfImages = res;
+            if(res && res.length == 0) return;
+            this.lstOfImages = res;
+        })
+    }
+    getAllTestimonial() {
+        this.http.getAllTestimonial(this.trainerId, 0, 10).subscribe( resp => {
+            const res = resp.json();
+            if(res && res.length == 0) return;
+            this.lstTestimonial = res.list;
         })
     }
 }

@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class=" col-lg-9 col-xl-9 col-md-12 col-11">
-                <div class="trainer-info" [style.marginBottom.px]="(lstOfImages && lstOfImages.length > 0) ? 0 : 80">
+                <div class="trainer-info" [style.marginBottom.px]="(lstOfImages && lstOfImages.length > 3) ? 0 : 80">
                     <div class="img-thumb mt-4 mr-4">
                         <span class="border-avatar2"></span>
                         <span class="border-avatar"></span>
@@ -18,7 +18,7 @@
                         </div>
                     </div>
                     <div class="info">
-                        <p class="trainer-name ">{{trainer.user.firstname}}
+                        <p class="trainer-name ">{{trainer.user.firstname}} {{trainer.user.lastname}}
                             <img *ngIf="trainer.isFeatured == true" src="../assets/image/icon-check.png" />
                             <label *ngIf="trainer.isFeatured == true" class="featured">Featured</label>
                         </p>
@@ -31,7 +31,7 @@
                                     <p>{{+((trainer.user.rating/5)*100)}}%</p>
                                     <p>RATING</p>
                                 </div>
-                                <div class="col-xl-4 col-lg-4 col-md-4 col-3 block">
+                                <div *ngIf="trainer.user.points" class="col-xl-4 col-lg-4 col-md-4 col-3 block">
                                     <p>2,700</p>
                                     <p>POINTS</p>
                                 </div>
@@ -46,7 +46,7 @@
                             <button class="btn btn-puml">REQUEST A CALL BACK</button>
                         </p>
                     </div>
-                    <div class="slide-show-container--middle-page" *ngIf="lstOfImages && lstOfImages.length > 0">
+                    <div class="slide-show-container--middle-page" *ngIf="lstOfImages && lstOfImages.length > 3">
                         <div class="slide-show__box-center">
                             <div ng2-carouselamos [width]="1138" [items]="lstOfImages" [$item]="itemTemplate2"
                                 [$prev]="prevTemplate" [$next]="nextTemplate">
@@ -90,7 +90,8 @@
     </div>
 </section>
 
-<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && trainer.user.bio != null" class=" mt-5">
+<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && trainer.user.bio != null"
+    class=" mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
             <div class="  col-lg-9 col-xl-9 col-md-12 col-11">
@@ -102,7 +103,9 @@
     </div>
 </section>
 
-<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && trainer.websiteUrl != ''" class="mt-5">
+<section
+    *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && (trainer.websiteUrl != '' || trainer.websiteUrl != null)"
+    class="mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
             <div class="  col-lg-9 col-xl-9 col-md-12 col-11">
@@ -113,7 +116,8 @@
         </div>
     </div>
 </section>
-<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && trainer.qualifications != null" class=" mt-5">
+<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && trainer.qualifications != null"
+    class=" mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
             <div class="  col-lg-9 col-xl-9 col-md-12 col-11">
@@ -124,45 +128,104 @@
         </div>
     </div>
 </section>
-<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && trainer.qualifications != null" class=" mt-5">
+<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && trainer.achievements != null"
+    class=" mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
             <div class="  col-lg-9 col-xl-9 col-md-12 col-11">
                 <h5 style="padding-left: 10px;">ACHIEVEMENTS
                 </h5>
-                <p class="description" [innerHtml]="trainer.qualifications"></p>
+                <p class="description" [innerHtml]="trainer.achievements"></p>
             </div>
         </div>
     </div>
 </section>
-<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && (trainer.user.instagramUrl != '' || trainer.user.facebookUrl != '' || trainer.user.twitterUrl != '')" class="mt-5">
+<section
+    *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && (trainer.user.instagramUrl != '' || trainer.user.instagramUrl != null || trainer.user.facebookUrl != ''  || trainer.user.facebookUrl != null || trainer.user.twitterUrl != '' || trainer.user.twitterUrl != null )"
+    class="mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
             <div class="  col-lg-9 col-xl-9 col-md-12 col-11">
                 <h5 style="padding-left: 10px;">SOCIAL
                 </h5>
                 <p style="padding-left:10px">
-                    <a *ngIf="trainer.user.facebookUrl != ''" href="{{trainer.user.facebookUrl}}" target="_blank" class="btn btn-facebook">FACEBOOK</a>
-                    <a *ngIf="trainer.user.instagramUrl != ''" href="{{trainer.user.instagramUrl}}" class="btn btn-instagram" target="_blank">INSTAGRAM</a>
-                    <a *ngIf="trainer.user.twitterUrl != ''" href="{{trainer.user.twitterUrl}}" class="btn btn-twitter" target="_blank">TWITTER</a>
+                    <a *ngIf="trainer.user.facebookUrl != ''" href="{{trainer.user.facebookUrl}}" target="_blank"
+                        class="btn btn-facebook">FACEBOOK</a>
+                    <a *ngIf="trainer.user.instagramUrl != ''" href="{{trainer.user.instagramUrl}}"
+                        class="btn btn-instagram" target="_blank">INSTAGRAM</a>
+                    <a *ngIf="trainer.user.twitterUrl != ''" href="{{trainer.user.twitterUrl}}" class="btn btn-twitter"
+                        target="_blank">TWITTER</a>
                 </p>
             </div>
         </div>
     </div>
 </section>
 
-<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && trainer.user.testimonials != null" class=" mt-5">
+<section class=" mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
             <div class=" col-lg-9 col-xl-9 col-md-12 col-11">
                 <h5 style="padding-left: 10px;">TESTIMONIALS
                 </h5>
-                <p style="padding-left:10px" [html]="trainer.user.testimonials"></p>
+
+                <div *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && trainer.totalTestimonial > 0"
+                    class="slide-show-container--middle-page testimonials">
+                    <div class="slide-show__box-center testimonials">
+                        <!-- <div ng2-carouselamos [width]="1138" [items]="lstTestimonial" [$item]="itemTemplate2"
+                            [$prev]="prevTemplate" [$next]="nextTemplate">
+                        </div>
+                        <ng-template #prevTemplate>
+                            <i class="icon-left-arrow"></i>
+                        </ng-template>
+                        <ng-template #nextTemplate>
+                            <i class="icon-right-arrow"></i>
+                        </ng-template> -->
+                        <!-- <ng-template let-item let-i="index" #itemTemplate2> -->
+                            <div class="testimonials-item">
+                                <div class="block-left">
+                                    <div class="avt">
+                                        <img
+                                            src="http://api.pummel.fit//api/uploads/349/render?width=450&amp;height=550">
+                                    </div>
+                                    <div class="mt-3 rating">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </div>
+                                </div>
+                                <div class="block-right">
+                                    <p>A wiki is run using wiki software, otherwise known as a wiki engine. A wiki
+                                        engine is
+                                        a type of content management system, but it differs from most other such
+                                        systems, including blog software, in that the content is created without any
+                                        defined owner or leader, and wikis have little inherent structure, allowing
+                                        structure to emerge according to the needs of the users.[2] There are dozens of
+                                        different wiki engines in use, both standalone and part of other software, such
+                                        as bug tracking systems. Some wiki engines are open source, whereas others are
+                                        proprietary. Some permit control over different functions (levels of access);
+                                        for example, editing rights may permit changing, adding, or removing material.
+                                        Others may permit access without enforcing access control. Other rules may be
+                                        imposed to organize content. </p>
+                                    <p class="mt-2"><strong>Wayne Ryan </strong> Gold Coast, QLD </p>
+                                </div>
+                            </div>
+                            <div class="clearfix" style="clear: both;"></div>
+
+
+                        <!-- </ng-template> -->
+                    </div>
+                </div>
+
+                <p style=" padding-left:10px;">
+
+                    <button class="btn btn-testimonial">ADD TESTIMONIAL</button>
+                </p>
             </div>
         </div>
     </div>
 </section>
 <section *ngIf="trainer != undefiend && trainer != null && trainer.long != null && trainer.lat != null" class="map">
-    <one-point  [pointInfo]="trainer"
-        width="100%" height="100%"></one-point>
+    <one-point [pointInfo]="trainer" width="100%" height="100%"></one-point>
 </section>
