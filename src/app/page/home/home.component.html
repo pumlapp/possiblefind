@@ -279,7 +279,11 @@
                     </div>
                     <p routerLink="/trainer-profile/{{item.user.id}}" class="trainer-name">{{item.user.firstname}} <i
                             class="icon-right-arrow"></i>
-                        <p class="trainer-location"><i class="fa fa-map-marker"></i> {{item.serviceArea}}</p>
+                        <p class="trainer-location"><i class="fa fa-map-marker"></i> {{item.serviceArea}}
+                            <span title="{{item.distance}}km away" style="font-size:10px;font-weight:600;color: #ff6420" class="ml-2"> {{item.distance}}km away</span>
+                        
+                        </p>
+                        
                         <div class="trainer-tag">
                             <div *ngIf="item.user.tags.length>0" class="tag-items">
                                 <div class="item" *ngFor="let tag of item.user.tags">

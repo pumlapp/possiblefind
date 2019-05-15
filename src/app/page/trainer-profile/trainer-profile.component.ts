@@ -32,22 +32,7 @@ export class TrainerProfileComponent {
     ]
     urlPrefix: any = environment.orginUrl;
     lstOfImages = [
-      { imageUrl: '/api/uploads/447/render' },
-      { imageUrl: '/api/uploads/447/render' },
-      { imageUrl: '/api/uploads/447/render' },
-      { imageUrl: '/api/uploads/447/render' },
-      { imageUrl: '/api/uploads/447/render' },
-      { imageUrl: '/api/uploads/447/render' },
-      { imageUrl: '/api/uploads/447/render' },
-      { imageUrl: '/api/uploads/447/render' },
-      { imageUrl: '/api/uploads/447/render' },
-      { imageUrl: '/api/uploads/447/render' },
-      { imageUrl: '/api/uploads/447/render' },
-      { imageUrl: '/api/uploads/447/render' },
-      { imageUrl: '/api/uploads/447/render' },
-
-        
-
+      
     ]
     trainer:any = undefined;
     trainerId: 0;
@@ -118,8 +103,9 @@ export class TrainerProfileComponent {
     getUserPhotos() {
         this.http.getCoachesPhotos(this.trainerId, 0, 10).subscribe( resp => {
             const res = resp.json();
-            if(res && res.length == 0) return;
-            this.lstOfImages = res;
+            this.lstOfImages = []
+            //if(res && res.length == 0) return;
+           // this.lstOfImages = res;
         })
     }
 }

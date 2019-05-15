@@ -1,8 +1,8 @@
 <section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend" class="trainer-profile">
     <div class="container">
         <div class="row justify-content-center">
-            <div class=" col-lg-8 col-xl-9 col-md-10 col-11">
-                <div class="trainer-info">
+            <div class=" col-lg-9 col-xl-9 col-md-12 col-11">
+                <div class="trainer-info" [style.marginBottom.px]="(lstOfImages && lstOfImages.length > 0) ? 0 : 80">
                     <div class="img-thumb mt-4 mr-4">
                         <span class="border-avatar2"></span>
                         <span class="border-avatar"></span>
@@ -46,9 +46,6 @@
                             <button class="btn btn-puml">REQUEST A CALL BACK</button>
                         </p>
                     </div>
-
-
-
                     <div class="slide-show-container--middle-page" *ngIf="lstOfImages && lstOfImages.length > 0">
                         <div class="slide-show__box-center">
                             <div ng2-carouselamos [width]="1138" [items]="lstOfImages" [$item]="itemTemplate2"
@@ -68,6 +65,7 @@
                             </ng-template>
                         </div>
                     </div>
+                    <div class="clearfix" style="clear: both;"></div>
 
                 </div>
             </div>
@@ -78,7 +76,7 @@
 <section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend" class="mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
-            <div class=" col-lg-8 col-xl-9 col-md-10 col-11">
+            <div class=" col-lg-9 col-xl-9 col-md-12 col-11">
                 <h5 style="padding-left: 12px;">SPECIALITIES
                 </h5>
                 <div class="tag">
@@ -92,10 +90,10 @@
     </div>
 </section>
 
-<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend" class=" mt-5">
+<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && trainer.user.bio != null" class=" mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
-            <div class=" col-lg-8 col-xl-9 col-md-10 col-11">
+            <div class="  col-lg-9 col-xl-9 col-md-12 col-11">
                 <h5 style="padding-left: 10px;">ABOUT
                 </h5>
                 <p class="description">{{trainer.user.bio}}</p>
@@ -104,10 +102,10 @@
     </div>
 </section>
 
-<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend" class="mt-5">
+<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && trainer.websiteUrl != ''" class="mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
-            <div class=" col-lg-8 col-xl-9 col-md-10 col-11">
+            <div class="  col-lg-9 col-xl-9 col-md-12 col-11">
                 <h5 style="padding-left: 10px;">WEBSITE
                 </h5>
                 <p class="description">{{trainer.websiteUrl}}</p>
@@ -115,10 +113,10 @@
         </div>
     </div>
 </section>
-<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend" class=" mt-5">
+<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && trainer.qualifications != null" class=" mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
-            <div class=" col-lg-8 col-xl-9 col-md-10 col-11">
+            <div class="  col-lg-9 col-xl-9 col-md-12 col-11">
                 <h5 style="padding-left: 10px;">QUALITIFICATIONS
                 </h5>
                 <p class="description" [innerHtml]="trainer.qualifications"></p>
@@ -126,10 +124,10 @@
         </div>
     </div>
 </section>
-<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend" class=" mt-5">
+<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && trainer.qualifications != null" class=" mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
-            <div class=" col-lg-8 col-xl-9 col-md-10 col-11">
+            <div class="  col-lg-9 col-xl-9 col-md-12 col-11">
                 <h5 style="padding-left: 10px;">ACHIEVEMENTS
                 </h5>
                 <p class="description" [innerHtml]="trainer.qualifications"></p>
@@ -137,34 +135,34 @@
         </div>
     </div>
 </section>
-<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend" class="mt-5">
+<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && (trainer.user.instagramUrl != '' || trainer.user.facebookUrl != '' || trainer.user.twitterUrl != '')" class="mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
-            <div class=" col-lg-8 col-xl-9 col-md-10 col-11">
+            <div class="  col-lg-9 col-xl-9 col-md-12 col-11">
                 <h5 style="padding-left: 10px;">SOCIAL
                 </h5>
                 <p style="padding-left:10px">
-                    <a href="{{trainer.user.facebookUrl}}" target="_blank" class="btn btn-facebook">FACEBOOK</a>
-                    <a href="{{trainer.user.instagramUrl}}" class="btn btn-instagram" target="_blank">INSTAGRAM</a>
-                    <a href="{{trainer.user.twitterUrl}}" class="btn btn-twitter" target="_blank">TWITTER</a>
+                    <a *ngIf="trainer.user.facebookUrl != ''" href="{{trainer.user.facebookUrl}}" target="_blank" class="btn btn-facebook">FACEBOOK</a>
+                    <a *ngIf="trainer.user.instagramUrl != ''" href="{{trainer.user.instagramUrl}}" class="btn btn-instagram" target="_blank">INSTAGRAM</a>
+                    <a *ngIf="trainer.user.twitterUrl != ''" href="{{trainer.user.twitterUrl}}" class="btn btn-twitter" target="_blank">TWITTER</a>
                 </p>
             </div>
         </div>
     </div>
 </section>
 
-<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend" class=" mt-5">
+<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && trainer.user.testimonials != null" class=" mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
-            <div class=" col-lg-8 col-xl-9 col-md-10 col-11">
+            <div class=" col-lg-9 col-xl-9 col-md-12 col-11">
                 <h5 style="padding-left: 10px;">TESTIMONIALS
                 </h5>
-                <p style="padding-left:10px" [html]="trainer.qualifications"></p>
+                <p style="padding-left:10px" [html]="trainer.user.testimonials"></p>
             </div>
         </div>
     </div>
 </section>
-<section class="map">
-    <one-point *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend" [pointInfo]="trainer"
+<section *ngIf="trainer != undefiend && trainer != null && trainer.long != null && trainer.lat != null" class="map">
+    <one-point  [pointInfo]="trainer"
         width="100%" height="100%"></one-point>
 </section>
