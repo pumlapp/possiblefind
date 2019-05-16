@@ -17,18 +17,20 @@ body {
   //margin: 0 auto;
   font-size: 12px;
 }
-.btn-primary{
-  border-color:$puml-orange;
-  background:$puml-orange;
-  color:$white;
+.btn-primary {
+  border-color: $puml-orange;
+  background: $puml-orange;
+  color: $white;
 }
-.btn-primary:hover, .btn-primary:active, .btn-primary:focus{
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
   color: $white;
   background-color: #b27007 !important;
   border-color: #b27007 !important;
-  
 }
-.btn:focus, .btn:hover {
+.btn:focus,
+.btn:hover {
   outline: 0 !important;
   box-shadow: none !important;
 }
@@ -47,7 +49,7 @@ body {
     font-family: inherit;
     font-size: 1.3em;
     font-weight: 500;
-    
+
     .bootbox-body {
       margin-top: 20px;
     }
@@ -91,7 +93,6 @@ body {
   border: 1px solid #ff562d !important;
 }
 
-
 .btn-puml {
   background: $white;
   background: #ffffff;
@@ -106,37 +107,37 @@ body {
   font-size: 13px;
 }
 
-.bg-turquoise{
-  background:#00a07c !important;
-  color:  $white !important;
+.bg-turquoise {
+  background: #00a07c !important;
+  color: $white !important;
   border: 1px solid #00a07c !important;
 }
 
-.bg-light-red{
-  background:#ffbfca !important;
-  color:  $white !important;
+.bg-light-red {
+  background: #ffbfca !important;
+  color: $white !important;
   border: 1px solid #ffbfca !important;
 }
 
-.bg-light-gray{
-  background:#686868 !important;
-  color:  $white !important;
+.bg-light-gray {
+  background: #686868 !important;
+  color: $white !important;
   border: 1px solid #686868 !important;
 }
-.bg-medium-orange{
+.bg-medium-orange {
   background: #f4cdab !important;
-  color:  $white !important;
+  color: $white !important;
   border: 1px solid #f4cdab !important;
 }
-.bg-light-orange{
+.bg-light-orange {
   background: #cf8812 !important;
-  color:  $white !important;
+  color: $white !important;
   border: 1px solid #cf8812 !important;
 }
-.bg-blue{
+.bg-blue {
   background: #007cc0 !important;
-    color:  $white !important;
-    border: 1px solid #007cc0 !important;
+  color: $white !important;
+  border: 1px solid #007cc0 !important;
 }
 .bg-light-purple {
   background-color: #9011fe !important;
@@ -154,7 +155,7 @@ body {
   background-color: #2c3e50 !important;
 }
 
-.bg-orange{
+.bg-orange {
   color: $white !important;
   border: 1px solid #c25b2b !important;
   background-color: #c25b2b !important;
@@ -199,7 +200,7 @@ i.cl-radical-red {
   height: 34px;
 }
 
-.switch input { 
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
@@ -213,8 +214,8 @@ i.cl-radical-red {
   right: 0;
   bottom: 0;
   background-color: #efeeee;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider:before {
@@ -225,8 +226,8 @@ i.cl-radical-red {
   left: 1px;
   bottom: 1px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 input:checked + .slider {
@@ -250,4 +251,58 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1rem 1rem 0 1rem;
+  border-bottom: unset;
+  border-top-left-radius: 0.3rem;
+  border-top-right-radius: 0.3rem;
+}
+.modal-title {
+  text-align: center;
+  font-family: "Playfair Display", serif;
+}
+.modal-dialog {
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: auto;
+  overflow-x: hidden !important;
+  @media (max-width: 768px) {
+    min-height: calc(100vh - 20px);
+  }
+  .btn-primary {
+    background-color: $puml-orange;
+    color: $white;
+    border-color: $puml-orange;
+    outline: 0;
+  }
+}
+.modal-content {
+  .modal-footer {
+    border-top: unset;
+    justify-content: center;
+    button {
+      outline: 0;
+    }
+  }
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 460px;
+    margin: 1.75rem auto;
+  }
+}
+
+
+
+.form-control{
+  font-size: 0.8rem;
+  background-color: #f3f2f2;
 }

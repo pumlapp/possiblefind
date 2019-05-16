@@ -31,7 +31,10 @@
     font-size: 1.7rem;
     margin-right: 6px;
   }
-  
+  .icon-comment:before{
+    content: "\e903";
+    color: #000;
+  }
   .icon-map:before {
     content: "\e901";
     color: #000;
@@ -41,44 +44,44 @@
     color: #000;
   }
   .icon-right-arrow:before {
-    content: "\e903";
-    color: #000;
-  }
-  .icon-arrow-down:before {
     content: "\e904";
     color: #000;
   }
-  .icon-arrow-up:before {
+  .icon-arrow-down:before {
     content: "\e905";
     color: #000;
   }
-  .icon-award:before {
+  .icon-arrow-up:before {
     content: "\e906";
     color: #000;
   }
-  .icon-clear:before {
+  .icon-award:before {
     content: "\e907";
     color: #000;
   }
-  .icon-email:before {
+  .icon-clear:before {
     content: "\e908";
     color: #000;
   }
-  .icon-facebook:before {
+  .icon-email:before {
     content: "\e909";
     color: #000;
   }
+  .icon-facebook:before {
+    content: "\e90a";
+    color: #000;
+  }
  .icon-globe:before{
-  content: "\e90a";
+  content: "\e90b";
   color: #000;
  }
 
   .icon-google-plus:before {
-    content: "\e90b";
+    content: "\e90c";
     color: #000;
   }
   .icon-instagram:before {
-    content: "\e90c";
+    content: "\e90e";
     color: #000;
   }
   .icon-left-arrow:before {
@@ -87,16 +90,16 @@
   }
   
   .icon-look:before {
-    content: "\e90e";
+    content: "\e90f";
     color: rgb(46, 45, 45);
   }
   .icon-menu:before {
-    content: "\e90f";
+    content: "\e910";
     color: rgb(46, 45, 45);
   }
 
   .icon-printerest:before {
-    content: "\e910";
+    content: "\e911";
     color: #000;
   }
 

@@ -39,6 +39,7 @@ export class TrainerProfileComponent {
     trainerId: 0;
     lstTag:any[] = []
     carouselOne: NgxCarousel;
+    requestCallBackForm: any;
     constructor(
         private formBuilder: FormBuilder,
         private activatedRoute: ActivatedRoute,
@@ -61,6 +62,13 @@ export class TrainerProfileComponent {
             else {
                 this.router.navigate(['/'])
             }
+        });
+
+        this.requestCallBackForm = this.formBuilder.group({
+            'fullname': ['', [Validators.required]],
+            'email':  ['', [Validators.required]],
+            'mobile': ['', [Validators.required]],
+            'callbacktime': ['', [Validators.required]],
         });
 
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true)

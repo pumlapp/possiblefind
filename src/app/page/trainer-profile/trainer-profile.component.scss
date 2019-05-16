@@ -477,3 +477,21 @@ h5 {
   font-size: 12px;
   font-weight: 600;
 }
+
+
+.btn-request-callback{
+  border-radius: 3px;
+  padding: 0.9rem 1rem;
+  font-size: 1.2em;
+  font-weight: bold;
+  font-family: Comfortaa;
+}
+
+.modal-title {
+  .icon-comment{
+    font-size: 1.2em;
+    &::before{
+      color:$orange;
+    }
+  }
+}

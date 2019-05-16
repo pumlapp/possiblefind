@@ -43,7 +43,7 @@
                         </div>
                         <p style=" padding-left:10px;">
                             <button class="btn  mr-3"><i class="fa fa-inbox"></i></button>
-                            <button class="btn btn-puml">REQUEST A CALL BACK</button>
+                            <button data-toggle="modal" data-target="#requestCallBackModal" class="btn btn-puml">REQUEST A CALL BACK</button>
                         </p>
                     </div>
                     <div class="slide-show-container--middle-page" *ngIf="lstOfImages && lstOfImages.length > 3">
@@ -171,7 +171,7 @@
                 <div *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && trainer.totalTestimonial > 0"
                     class="slide-show-container--middle-page testimonials">
                     <div class="slide-show__box-center testimonials">
-                        <!-- <div ng2-carouselamos [width]="1138" [items]="lstTestimonial" [$item]="itemTemplate2"
+                        <div ng2-carouselamos [items]="lstTestimonial" [$item]="itemTemplate2"
                             [$prev]="prevTemplate" [$next]="nextTemplate">
                         </div>
                         <ng-template #prevTemplate>
@@ -179,8 +179,8 @@
                         </ng-template>
                         <ng-template #nextTemplate>
                             <i class="icon-right-arrow"></i>
-                        </ng-template> -->
-                        <!-- <ng-template let-item let-i="index" #itemTemplate2> -->
+                        </ng-template>
+                        <ng-template let-item let-i="index" #itemTemplate2>
                             <div class="testimonials-item">
                                 <div class="block-left">
                                     <div class="avt">
@@ -214,7 +214,7 @@
                             <div class="clearfix" style="clear: both;"></div>
 
 
-                        <!-- </ng-template> -->
+                            </ng-template>
                     </div>
                 </div>
 
@@ -229,3 +229,77 @@
 <section *ngIf="trainer != undefiend && trainer != null && trainer.long != null && trainer.lat != null" class="map">
     <one-point [pointInfo]="trainer" width="100%" height="100%"></one-point>
 </section>
+
+
+<div class="modal" id="requestCallBackModal" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <div [formGroup]="requestCallBackForm" class="form">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" data-dismiss="modal" class="close"><i class="icon-clear"></i></button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="modal-title mb-3"><i class="icon-comment"></i></h4>
+                    <h4 class="modal-title mb-3">Request a call back</h4>
+                    <div class="row " style="padding: 1rem 2rem">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-12 mb-3" style="position: relative;">
+                                    <input name="fullname" type="text" placeholder="FULL NAME"
+                                        formControlName="fullname" class="form-control" required />
+                                    <app-control-message [control]="requestCallBackForm.controls.fullname">
+                                    </app-control-message>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-12 col-md-12">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-12 mb-3" style="position: relative;">
+
+                                    <input name="email" type="text" placeholder="EMAIL" formControlName="email"
+                                        class="form-control" required />
+                                    <app-control-message [control]="requestCallBackForm.controls.email">
+                                    </app-control-message>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-12 col-md-12">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-12 mb-3" style="position: relative;">
+                                    <input name="mobile" type="text" placeholder="MOBILE" formControlName="mobile"
+                                        class="form-control" required />
+                                    <app-control-message [control]="requestCallBackForm.controls.mobile">
+                                    </app-control-message>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-12">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-12 mb-3" style="position: relative;">
+                                    <input name="callbacktime" type="number" placeholder="CALL BACK ME TIME"
+                                        formControlName="callbacktime" class="form-control" required />
+                                    <app-control-message [control]="requestCallBackForm.controls.callbacktime">
+                                    </app-control-message>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center mb-2">
+                    <button type="button" class="btn btn-primary btn-request-callback">
+                        REQUEST A CALL BACK
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
