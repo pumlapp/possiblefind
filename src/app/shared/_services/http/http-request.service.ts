@@ -111,86 +111,86 @@ export class HttpRequestService {
     return formBody.join('&');
   }
 
-  getListTag(offset, limit){
+  getListTag(offset, limit) {
     return this.getRequestMethodGet(`api/searchTags?offset=${offset}&limit=${limit}`);
   }
 
-  getAllCoaches(offset, limit){
+  getAllCoaches(offset, limit) {
     return this.getRequestMethodGet(`api/coaches/getAllCoaches?offset=${offset}&limit=${limit}`);
   }
-  getTopFeaturedCoaches(offset, limit){
+  getTopFeaturedCoaches(offset, limit) {
     return this.getRequestMethodGet(`api/coaches/getTopFeaturedCoaches?offset=${offset}&limit=${limit}`);
   }
 
-  getBusinesses(businessId){
+  getBusinesses(businessId) {
     return this.getRequestMethodGet(`/api/businesses/${businessId}`);
   }
   getUserIP() {
     const headers = new HttpHeaders();
     headers.append('Access-Control-Allow-Origin', '*');
     return this.httpClient.get<any>('https://pro.ip-api.com/json?key=51iPzMPnp1eZMmi', { headers: headers });
-   // return this.getRequestMethodGet('https://pro.ip-api.com/json?key=51iPzMPnp1eZMmi');
-  } 
-  getTopCityCountry(country){
+    // return this.getRequestMethodGet('https://pro.ip-api.com/json?key=51iPzMPnp1eZMmi');
+  }
+  getTopCityCountry(country) {
     return this.getRequestMethodGet(`api/topCityCountry/${country}/cities`);
   }
-  getCoaches(params){
+  getCoaches(params) {
     const formBody = [];
     for (const property in params) {
 
-      const encodedKey = encodeURIComponent(property);      
+      const encodedKey = encodeURIComponent(property);
       const encodedValue = params[property];
-      if(encodedValue != undefined){
+      if (encodedValue != undefined) {
         formBody.push(encodedKey + '=' + encodedValue);
       }
-     
+
     }
-  console.log(formBody.join('&'));
+    console.log(formBody.join('&'));
 
     return this.getRequestMethodGet(`api/coaches/searchdistanceV3?${formBody.join('&')}`);
   }
-  getCoachesByLocation(location, offset, limit){
+  getCoachesByLocation(location, offset, limit) {
     return this.getRequestMethodGet(`api/coaches/searchdistanceV3?long=${location.long}&lat=${location.lat}&offset=${offset}&limit=${limit}`);
   }
-  getCoachesById(id){
+  getCoachesById(id) {
     return this.getRequestMethodGet(`api/coaches/${id}`);
   }
-  getCoachesTag(id){
+  getCoachesTag(id) {
     return this.getRequestMethodGet(`api/users/${id}/tags`);
   }
-  getCoachesPhotos(id, offset, limit){
+  getCoachesPhotos(id, offset, limit) {
     return this.getRequestMethodGet(`api/users/${id}/photos?offset=${offset}&limit=${limit}`);
-  } 
-  getAllTestimonial(id, offset, limit){
+  }
+  getAllTestimonial(id, offset, limit) {
     return this.getRequestMethodGet(`api/users/${id}/getAllTestimonial?offset=${offset}&limit=${limit}`);
   }
 
 
 
   /****HereMap API */
-  getGeocoderPlacesByFreetext(freeText){
-    var params = 
-        'query=' +  encodeURIComponent(freeText) +   // The search text which is the basis of the query
-        '&beginHighlight=' + encodeURIComponent('<mark>') + //  Mark the beginning of the match in a token. 
-        '&endHighlight=' + encodeURIComponent('</mark>') + //  Mark the end of the match in a token. 
-        '&maxresults=10' +  // The upper limit the for number of suggestions to be included 
-                          // in the response.  Default is set to 5.
-        '&app_id=' + '4MAhCHY78b0WBe7MzQ1l' +
-        '&app_code=' + 'RHqFN-bf3g7CsUfvYtKvUQ';
-        const headers = new HttpHeaders();
-        headers.append('Access-Control-Allow-Origin', '*');
-        return this.httpClient.get<any>(`https://autocomplete.geocoder.api.here.com/6.2/suggest.json?${params}`, { headers: headers });
+  getGeocoderPlacesByFreetext(freeText) {
+    var params =
+      'query=' + encodeURIComponent(freeText) +   // The search text which is the basis of the query
+      '&beginHighlight=' + encodeURIComponent('<mark>') + //  Mark the beginning of the match in a token. 
+      '&endHighlight=' + encodeURIComponent('</mark>') + //  Mark the end of the match in a token. 
+      '&maxresults=10' +  // The upper limit the for number of suggestions to be included 
+      // in the response.  Default is set to 5.
+      '&app_id=' + '4MAhCHY78b0WBe7MzQ1l' +
+      '&app_code=' + 'RHqFN-bf3g7CsUfvYtKvUQ';
+    const headers = new HttpHeaders();
+    headers.append('Access-Control-Allow-Origin', '*');
+    return this.httpClient.get<any>(`https://autocomplete.geocoder.api.here.com/6.2/suggest.json?${params}`, { headers: headers });
 
   }
 
-  getLocationByLocationId(locationId, onGeocodeSuccess, onGeocodeError){
+  getLocationByLocationId(locationId, onGeocodeSuccess, onGeocodeError) {
     let platform = new H.service.Platform({
       "app_id": "4MAhCHY78b0WBe7MzQ1l",
       "app_code": "RHqFN-bf3g7CsUfvYtKvUQ"
-  });
+    });
     var geocoder = platform.getGeocodingService();
     let geocodingParameters = {
-      locationId : locationId
+      locationId: locationId
     };
 
     geocoder.geocode(
@@ -199,7 +199,25 @@ export class HttpRequestService {
       onGeocodeError
     );
   }
+  getAddressByLocation(lat, long, onGeocodeSuccess, onGeocodeError) {
+    let platform = new H.service.Platform({
+      "app_id": "4MAhCHY78b0WBe7MzQ1l",
+      "app_code": "RHqFN-bf3g7CsUfvYtKvUQ"
+    });
+    var geocoder = platform.getGeocodingService(),
+      reverseGeocodingParameters = {
+        prox: `${lat},${long}`, // Berlin
+        mode: 'retrieveAddresses',
+        maxresults: '1',
+        jsonattributes: 1
+      };
 
+    geocoder.reverseGeocode(
+      reverseGeocodingParameters,
+      onGeocodeSuccess,
+      onGeocodeError
+    );
+  }
 
   /****End Heremap API */
 }
