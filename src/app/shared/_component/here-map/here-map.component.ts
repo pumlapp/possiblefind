@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, OnChanges, Output, EventEmitter, Renderer2 } from '@angular/core';
 
 import { Observable, Observer, interval, Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -34,7 +34,12 @@ export class HereMapComponent implements OnInit, OnChanges {
     @Input()
     public height: any;
     @Output() bindingDone = new EventEmitter();
-    public constructor() { }
+
+    private map: any;
+
+    public constructor(private renderer2: Renderer2) { 
+
+    }
     private isBinding: any = false;
     public ngOnInit() { }
     public ngOnChanges(): void {
@@ -66,8 +71,12 @@ export class HereMapComponent implements OnInit, OnChanges {
 
         } else {
             navigator.geolocation.getCurrentPosition((position) => {
-
-                let map = new H.Map(
+                if(this.map){
+                    this.map.removeObjects(this.map.getObjects())
+               
+                }
+            else{
+                this.map = new H.Map(
                     this.mapElement.nativeElement,
                     defaultLayers.normal.map,
                     {
@@ -76,13 +85,16 @@ export class HereMapComponent implements OnInit, OnChanges {
                         pixelRatio: pixelRatio
                     }
                 );
-                console.log(map)
+                 // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+                 var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));
+                 behavior.disable(H.mapevents.Behavior.WHEELZOOM);
+                 // Create the default UI components
+                 var ui = H.ui.UI.createDefault(this.map, defaultLayers);
+            }
+              
+                console.log(this.map)
             
-                // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
-                var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
-                behavior.disable(H.mapevents.Behavior.WHEELZOOM);
-                // Create the default UI components
-                var ui = H.ui.UI.createDefault(map, defaultLayers);
+               
 
                 let zIndex = 900;
                 this.locations.forEach((item) => {
@@ -156,7 +168,7 @@ export class HereMapComponent implements OnInit, OnChanges {
                     var bearsMarker = new H.map.DomMarker({ lat: item.lat, lng: item.long }, {
                         icon: domIcon
                     });
-                    map.addObject(bearsMarker);
+                    this.map.addObject(bearsMarker);
 
                     // map.addEventListener('tap', function (evt) {
                     //     if (evt.target instanceof mapsjs.map.Marker) {
@@ -165,8 +177,8 @@ export class HereMapComponent implements OnInit, OnChanges {
                     //     }
                     // });
 
-                    window.addEventListener('resize', function () {
-                        map.getViewPort().resize();
+                    window.addEventListener('resize', () => {
+                        this.map.getViewPort().resize();
                     });
 
                     // var madridMarker = new H.map.Marker({ lat: item.lat, lng: item.long });

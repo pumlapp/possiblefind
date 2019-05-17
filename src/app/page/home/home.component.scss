@@ -44,6 +44,13 @@ section {
         display: block;
         padding-right: 24rem;
         position: relative;
+        a.btn-remove{
+          cursor: pointer;
+          position: absolute;
+          top: 7px;
+          right: 380px;
+        }
+  
         input {
           width: 100%;
           border: 1px solid $light-grey;
@@ -156,6 +163,9 @@ section {
         }
         .search-bar__input-container {
           padding-right: 0;
+          a.btn-remove{
+            right: 0;
+          }
           .response-suggestion-places {
             width: 100%;
           }
@@ -223,7 +233,7 @@ h5 a:hover {
 }
 .top-location {
   @extend %shared;
-  justify-content: space-between;
+  justify-content: flex-start;
   display: flex;
   text-align: center;
   .btn-location {

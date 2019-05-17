@@ -98,6 +98,18 @@ export class HomeComponent implements OnInit {
             navigator.geolocation.getCurrentPosition((position) => {
                 this.searchParameter.lat = position.coords.latitude;
                 this.searchParameter.long = position.coords.longitude;
+                this.http.getAddressByLocation(position.coords.latitude, position.coords.longitude, 
+                    (result) =>{
+                      
+                        if(result.response.view && result.response.view.length > 0 && result.response.view[0].result && result.response.view[0].result.length > 0 && result.response.view[0].result[0].location){
+                            this.searchParameter.city = result.response.view[0].result[0].location.address.city;
+                            console.log('currentLocation', result.response.view[0].result[0].location.address)
+                        }
+                   
+                    }, (error) => {
+
+                    });
+              
             });
         }
     }
@@ -177,23 +189,22 @@ export class HomeComponent implements OnInit {
             if (res && res.length == 0) {
                 return;
             }
-            console.log(this.lstTag)
             this.offsetTag += this.limitTag;
             await this.getListTag();
-
         })
     }
-    getTopCity() {
-        this.http.getTopCityCountry("Australia").subscribe(resp => {
+
+    async getTopCity() {
+        let currentLocation = await this.http.getUserIP().toPromise();
+        this.http.getTopCityCountry(currentLocation ? currentLocation.country : "Australia").subscribe(resp => {
             const res = resp.json();
             this.lstTopCity = res;
-            console.log(res)
         })
     }
 
     searchByGender(gender) {
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
-        if (gender == 'Any Gender') {
+        if (this.isSearch == false && gender == 'Any Gender') {
             this.isSearch = false;
             this.offset = 0;
             this.limit = 30;
@@ -203,31 +214,58 @@ export class HomeComponent implements OnInit {
             this.getAllCoaches();
         }
         else {
-            this.lstTrainer = []
+            this.lstTrainerFilter = []
             this.isSearch = true;
             this.searchParameter.limit = 30;
             this.searchParameter.offset = 0;
-            this.getCoachesByGender(gender);
+            this.searchParameter.gender = gender == 'Any Gender' ? undefined : gender;
+            this.getCoachesByGender();
         }
         this.genderModel = gender;
     }
 
-    getCoachesByGender(gender) {
-        this.searchParameter.gender = gender
-        if (this.places && this.places.length > 0 && this.places.trim() != '') {
+    getCoachesByGender() {
+        if (this.searchParameter.lat == undefined ||  this.searchParameter.long == undefined  || this.searchParameter.city == undefined) {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((position) => {
                     this.searchParameter.lat = position.coords.latitude;
                     this.searchParameter.long = position.coords.longitude;
+                    this.http.getAddressByLocation(position.coords.latitude, position.coords.longitude, 
+                        (result) =>{
+                          
+                            if(result.response.view && result.response.view.length > 0 && result.response.view[0].result && result.response.view[0].result.length > 0 && result.response.view[0].result[0].location){
+                                this.searchParameter.city = result.response.view[0].result[0].location.address.city;
+                                this.isDisabledSearch = true;
+                                this.places = this.searchParameter.city;
+                                this.isDisabledSearch = false;
+                            }
+                       
+                        }, (error) => {
+    
+                        });
+                  
+
                 });
             } else {
                 return;
             }
-
         }
         this.getCoaches()
     }
+    getTrainerByCity(city){
+        this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
+        this.isDisabledSearch = true;
+        this.places = city.city;
+        this.searchParameter.city = "Gold Coast";//city.city;
+        this.searchParameter.lat = -28.0167;//city.lat;
+        this.searchParameter.long = 153.4000;//city.long;
+        this.searchParameter.offset = 0;
+        this.searchParameter.limit = 30;
+        this.isSearch = true;
+        this.lstTrainerFilter = []
+        this.getCoaches();
 
+    }
     getMoreTrainerFilter() {
         this.isLoadingMap = true;
         if (this.isMapFilter == true && this.isSearch != true) {
@@ -263,6 +301,9 @@ export class HomeComponent implements OnInit {
 
             this.isLoadMore = false;
             this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false);
+            if ($('#searchResultId').length > 0) {
+                $('html, body').animate({ scrollTop: $('#searchResultId').offset().top - 350 }, 1000);
+            }
         })
     }
     searchByTags(tag, e) {
@@ -328,7 +369,16 @@ export class HomeComponent implements OnInit {
             }
         )
     }
-
+    removeSearchPlace() {
+        this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
+        this.places = "";
+        this.genderModel = "Any Gender";
+        this.isMapFilter = false;
+        this.isSearch = false;
+        this.offset = 0;
+        this.limit = 30;
+        this.getAllCoaches();
+    }
     isLoadingMap: any = true;
     bindingLocationOnMap(done) {
         console.log(123)

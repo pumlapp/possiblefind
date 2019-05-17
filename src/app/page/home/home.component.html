@@ -8,6 +8,7 @@
                         <div class="search-bar-keyword-container">
                             <form novalidate="">
                                 <span class="search-bar__input-container">
+                                        <a *ngIf="places && places.length > 0" (click)="removeSearchPlace()" class="btn btn-remove"><i class="icon-clear"></i></a>
                                     <input [(ngModel)]="places" [ngModelOptions]="{standalone: true}"
                                         (ngModelChange)="searchPlacesFreetext()"
                                         placeholder="City, Suburb or Post Code" />
@@ -85,7 +86,7 @@
 
                         <div class="block-trainer">
                             <div class="trainer-info featured">
-                                <div class="img-thumb ">
+                                <div routerLink="/trainer-profile/{{item.user.id}}" class="img-thumb ">
                                     <img src="http://api.pummel.fit/{{item.user.imageUrl}}?width=350&height=450">
                                     <div *ngIf="item.user.businessId != 0" class="img-qualifications">
                                         <img
@@ -138,7 +139,7 @@
             <h5 style="padding-left: 12px;">All Personal Trainers</h5>
             <div class="block-trainer" *ngFor="let item of lstTrainer; index as i">
                 <div class="trainer-info {{item.isFeatured == true ? 'featured' : ''}}">
-                    <div class="img-thumb">
+                    <div routerLink="/trainer-profile/{{item.user.id}}" class="img-thumb">
                         <img src="http://api.pummel.fit/{{item.user.imageUrl}}?width=350&height=450">
                         <div *ngIf="item.user.businessId != 0" class="img-qualifications">
                             <img src="http://api.pummel.fit/{{item.user.businessImage}}?width=100&height=100">
@@ -194,13 +195,13 @@
             </h5>
             <div class="block-trainer" *ngFor="let item of lstTrainerFilter; index as i">
                 <div class="trainer-info {{item.isFeatured == true ? 'featured' : ''}}">
-                    <div class="img-thumb">
+                    <div routerLink="/trainer-profile/{{item.user.id}}" class="img-thumb">
                         <img src="http://api.pummel.fit/{{item.user.imageUrl}}?width=350&height=450">
                         <div *ngIf="item.user.businessId != 0" class="img-qualifications">
                             <img src="http://api.pummel.fit/{{item.user.businessImage}}?width=100&height=100">
                         </div>
                     </div>
-                    <p class="trainer-name">{{item.user.firstname}} <i class="icon-right-arrow"></i>
+                    <p routerLink="/trainer-profile/{{item.user.id}}" class="trainer-name">{{item.user.firstname}} <i class="icon-right-arrow"></i>
                         <p class="trainer-location"><i class="fa fa-map-marker"></i> {{item.serviceArea}}</p>
                         <div class="trainer-tag">
                             <div *ngIf="item.user.tags.length>0" class="tag-items">
@@ -250,7 +251,7 @@
                     </h5>
                     <div class="block-trainer" *ngFor="let item of lstTrainerFilter; index as i">
                         <div class="trainer-info {{item.isFeatured == true ? 'featured' : ''}}">
-                            <div class="img-thumb">
+                            <div routerLink="/trainer-profile/{{item.user.id}}" class="img-thumb">
                                 <img src="http://api.pummel.fit/{{item.user.imageUrl}}?width=350&height=450">
                                 <div class="img-qualifications">
                                     <img src="http://api.pummel.fit/{{item.user.businessImage}}?width=100&height=100">
@@ -318,7 +319,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12 col-lg-12">
             <div class="top-location">
-                <button *ngFor="let item of lstTopCity" class="btn-location">
+                <button (click)="getTrainerByCity(item)" *ngFor="let item of lstTopCity" class="btn-location">
                     <i class="icon-location"></i> {{item.city}} <i class="material-icons">
                         chevron_right</i> </button>
 
