@@ -122,6 +122,9 @@ export class HomeComponent implements OnInit {
             if (res && res.length < this.limit) {
                 this.noMore = true;
             }
+            if (this.isMapFilter == true) {
+                this.lstTrainerFilter = this.lstTrainer;
+            }
             this.isLoadMore = false;
             this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false);
 
@@ -226,9 +229,16 @@ export class HomeComponent implements OnInit {
     }
 
     getMoreTrainerFilter() {
-        this.isLoadMore = true;
-        this.offsetFilter += this.limitFilter;
-        this.getCoachesByGender(this.genderModel);
+        this.isLoadingMap = true;
+        if (this.isMapFilter == true && this.isSearch != true) {
+            this.getMoreTrainer();
+        }
+        else {
+            this.isLoadMore = true;
+            this.searchParameter.offset += this.searchParameter.limit;
+            this.getCoaches();
+        }
+
     }
     getCoaches() {
         this.http.getCoaches(this.searchParameter).subscribe(resp => {
@@ -256,9 +266,9 @@ export class HomeComponent implements OnInit {
         })
     }
     searchByTags(tag, e) {
-        var lstTagSelect = this.lstTag.filter(o=> o.checked == true);
-        
-        if(tag.checked == false && lstTagSelect && lstTagSelect.length == 3){
+        var lstTagSelect = this.lstTag.filter(o => o.checked == true);
+
+        if (tag.checked == false && lstTagSelect && lstTagSelect.length == 3) {
             bootbox.alert("You already selected maximum 3 tags.");
             return;
         }
@@ -277,6 +287,9 @@ export class HomeComponent implements OnInit {
     }
 
     showMapFilter() {
+        if (this.isMapFilter == false && this.isSearch != true) {
+            this.lstTrainerFilter = this.lstTrainer;
+        }
         this.isMapFilter = !this.isMapFilter;
     }
 
@@ -316,7 +329,9 @@ export class HomeComponent implements OnInit {
         )
     }
 
-
-
-
+    isLoadingMap: any = true;
+    bindingLocationOnMap(done) {
+        console.log(123)
+        this.isLoadingMap = !done
+    }
 }

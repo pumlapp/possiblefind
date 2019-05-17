@@ -1,5 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 
+import { Observable, Observer, interval, Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 declare var H: any;
 declare var mapsjs: any;
 
@@ -7,7 +9,7 @@ declare var mapsjs: any;
     selector: 'here-map',
     templateUrl: './here-map.component.html'
 })
-export class HereMapComponent implements OnInit {
+export class HereMapComponent implements OnInit, OnChanges {
 
     @ViewChild("map")
     public mapElement: ElementRef;
@@ -23,18 +25,31 @@ export class HereMapComponent implements OnInit {
 
     @Input()
     public lat: any;
+    @Input()
+    public changeInscrement: any;
 
     @Input()
     public width: any;
 
     @Input()
     public height: any;
-
+    @Output() bindingDone = new EventEmitter();
     public constructor() { }
-
+    private isBinding: any = false;
     public ngOnInit() { }
-
+    public ngOnChanges(): void {
+        if (this.isBinding == true) return;
+        this.isBinding = true;
+        this.bindDataIntoMaps();
+    }
     public ngAfterViewInit() {
+        if (this.isBinding == true) return;
+        this.isBinding = true;
+        this.bindDataIntoMaps();
+
+    }
+
+    public bindDataIntoMaps() {
         let platform = new H.service.Platform({
             "app_id": "4MAhCHY78b0WBe7MzQ1l",
             "app_code": "RHqFN-bf3g7CsUfvYtKvUQ"
@@ -56,14 +71,16 @@ export class HereMapComponent implements OnInit {
                     this.mapElement.nativeElement,
                     defaultLayers.normal.map,
                     {
-                        zoom: 7,
+                        zoom: 2,
                         center: { lat: position.coords.latitude, lng: position.coords.longitude },
                         pixelRatio: pixelRatio
                     }
                 );
+                console.log(map)
+            
                 // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
                 var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
-
+                behavior.disable(H.mapevents.Behavior.WHEELZOOM);
                 // Create the default UI components
                 var ui = H.ui.UI.createDefault(map, defaultLayers);
 
@@ -81,7 +98,7 @@ export class HereMapComponent implements OnInit {
                     outerElement.style.msUserSelect = 'none';
                     outerElement.style.cursor = 'default';
 
-                  
+
 
                     innerElementBorder1.style.borderRadius = "50%";
                     innerElementBorder1.style.width = "80px";
@@ -156,16 +173,15 @@ export class HereMapComponent implements OnInit {
                     // map.addObject(madridMarker);
                     // console.log(item.long, item.lat)
                 });
-
-
-
-
+                this.bindingLocationOnMapEvent(true);
+                this.isBinding = false;
             });
 
         }
-
-
-
     }
+    bindingLocationOnMapEvent(done) {
+        this.bindingDone.emit({ done });
 
+        console.log('done')
+    }
 }
