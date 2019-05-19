@@ -1,3 +1,85 @@
-
 @import "../../../../assets/variables.scss";
 
+.modal-dialog {
+  max-width: 700px !important;
+}
+.modal-body {
+  padding: 0 !important;
+}
+.modal-content {
+  height: 500px !important;
+}
+
+.video-bg {
+  width: 100%;
+  height: 100%;
+  background: url(https://pmcvariety.files.wordpress.com/2018/01/supergirl-3x10.jpg?w=1000);
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  .fa-play {
+    position: absolute;
+    font-size: 5em;
+    color: #fff;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%);
+  }
+  .icon-clear {
+    position: absolute;
+    font-size: 2em;
+
+    font-weight: bold;
+    font-family: Raleway;
+    top: 5%;
+    right: 37px;
+    &:before {
+      color: #d7d6d6;
+    }
+  }
+}
+
+.block-avatar {
+  position: absolute;
+  padding-left: 10px;
+  bottom: -72px;
+  left: 0;
+  .avatar {
+    float: left;
+    width: 60px;
+    height: 60px;
+
+    img {
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+    }
+  }
+ 
+}
+
+p {
+  position: absolute;
+  padding-left: 10px;
+  bottom: -80px;
+  right: 0;
+  button:first-child {
+    font-size: 18px;
+    padding: 0.375rem 0.75rem;
+    width: 42px;
+    height: 42px;
+    background: #fff;
+    border-radius: 50%;
+    color: #fe7336 !important;
+    border: 1px solid #fe7336 !important;
+  }
+  button:last-child {
+    border: 1px solid #fe7336 !important;
+    color: #fe7336 !important;
+    font-family: "Raleway";
+    letter-spacing: 1px;
+    font-size: 12px;
+  }
+}

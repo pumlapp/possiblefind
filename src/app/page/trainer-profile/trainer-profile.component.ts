@@ -30,6 +30,7 @@ export class TrainerProfileComponent {
         { color: 'cl-turquoise', background: 'bg-turquoise' },
         { color: 'cl-radical-red', background: 'bg-radical-red' },
     ]
+    currentVideo: any;
     urlPrefix: any = environment.orginUrl;
     lstOfImages = [
     ]
@@ -40,6 +41,7 @@ export class TrainerProfileComponent {
     lstTag:any[] = []
     carouselOne: NgxCarousel;
     requestCallBackForm: any;
+    sendMessageForm: any;
     constructor(
         private formBuilder: FormBuilder,
         private activatedRoute: ActivatedRoute,
@@ -70,7 +72,12 @@ export class TrainerProfileComponent {
             'mobile': ['', [Validators.required]],
             'callbacktime': ['', [Validators.required]],
         });
-
+        this.sendMessageForm = this.formBuilder.group({
+            'fullname': ['', [Validators.required]],
+            'email':  ['', [Validators.required]],
+            'message': ['', [Validators.required]]
+           
+        });
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true)
        
     }
@@ -82,6 +89,7 @@ export class TrainerProfileComponent {
              const res = resp.json();
              if(res){
                 this.trainer = res;
+                this.trainer.user.videoUrl = "https://d22kb9sinmfyk6.cloudfront.net/958a52d4-b9bb-4cea-8df4-60ecf6cc4f4b/172_thegreatest.m3u8";
                 console.log(res)
              }
            
@@ -113,5 +121,13 @@ export class TrainerProfileComponent {
             if(res && res.length == 0) return;
             this.lstTestimonial = res.list;
         })
+    }
+    isPlay:any= false;
+    videoUrl: any = "";
+    currentTrainer:any ;
+    playVideo(trainer){
+        this.isPlay = true;
+        this.currentTrainer = trainer;
+        this.videoUrl = "https://d22kb9sinmfyk6.cloudfront.net/958a52d4-b9bb-4cea-8df4-60ecf6cc4f4b/172_thegreatest.m3u8";//trainer.user.videoUrl;
     }
 }

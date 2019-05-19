@@ -8,6 +8,7 @@ import { MaterialModule } from '../../shared/material.module';
 import { HereMapComponent } from '../../shared/_component/here-map/here-map.component';
 import { SharedModule } from '../../shared/shared.module';
 import { HereMapModule } from '../../shared/_component/here-map/here-map.module';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { HereMapModule } from '../../shared/_component/here-map/here-map.module'
     HomeRoutingModule,
     NgxCarouselModule,
     MaterialModule,
-    HereMapModule
+    HereMapModule,
+    NgSelectModule
   ],
   exports:[
   ],

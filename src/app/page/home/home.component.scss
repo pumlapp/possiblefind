@@ -25,7 +25,7 @@ section {
   align-items: center;
   text-align: left;
   position: relative;
-  background:linear-gradient(-135deg, rgba(243, 156, 19, 0.2), rgba(154, 62, 19, 0.3));
+  background: linear-gradient(-135deg, rgba(243, 156, 19, 0.2), rgba(154, 62, 19, 0.3));
   .container {
     .container {
       max-width: 1140px;
@@ -44,13 +44,13 @@ section {
         display: block;
         padding-right: 24rem;
         position: relative;
-        a.btn-remove{
+        a.btn-remove {
           cursor: pointer;
           position: absolute;
           top: 7px;
           right: 380px;
         }
-  
+
         input {
           width: 100%;
           border: 1px solid $light-grey;
@@ -163,7 +163,7 @@ section {
         }
         .search-bar__input-container {
           padding-right: 0;
-          a.btn-remove{
+          a.btn-remove {
             right: 0;
           }
           .response-suggestion-places {
@@ -184,7 +184,7 @@ section {
   display: block;
   position: absolute;
   top: 0;
-  background-image: url('../../../assets/image/find-posible-bg.PNG');
+  background-image: url("../../../assets/image/find-posible-bg.PNG");
   left: 0;
   width: 100%;
   margin-top: 100px;
@@ -296,7 +296,6 @@ h5 a:hover {
   }
 }
 @media (max-width: 414px) {
-  
   .maps-filter {
     .block-trainer {
       width: 100% !important;
@@ -317,6 +316,14 @@ h5 a:hover {
 @media (min-width: 768px) {
   .block-trainer {
     width: 33.333333%;
+  }
+  .maps-filter {
+    .block-trainer {
+      width: 50% !important;
+      .img-thumb{
+        height: 150px;
+      }
+    }
   }
 }
 @media (min-width: 992px) {
@@ -976,9 +983,35 @@ label.isloading {
   font-size: 14px;
 }
 
-
-
-.position-absolute{
+.sort-by-container {
+  .sort-select {
+    text-align: right;
+    font-size: 16px;
+    position: relative;
+    padding: 0 0.4rem 0 1.7rem;
+    width: auto;
+    background: #fff;
+    i {
+      float: right;
+      font-size: 25px;
+      color: #b9b9b9;
+    }
+  }
+  .dropdown-menu {
+    left: -107px !important;
+    width: 200px;
+    border: 1px solid #eaeaea;
+    .dropdown-item {
+      font-family: $primary-font-family;
+      padding: 0.85rem 1.5rem !important;
+      border-bottom: 1px solid #eaeaea;
+      &:last-child {
+        border-bottom: none !important;
+      }
+    }
+  }
+}
+.position-absolute {
   position: absolute !important;
   top: 100%;
   width: 100%;

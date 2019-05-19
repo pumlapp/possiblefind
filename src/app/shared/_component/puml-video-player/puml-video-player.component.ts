@@ -12,23 +12,25 @@ export class PumlVideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
 
   @ViewChild('videoPlayer') videoPlayer: ElementRef;
 
-  @Input() video: any;
-
+  @Input() videoUrl: any;
+@Input() trainer: any;
 
   constructor() {
   }
   ngOnInit() {
 
   }
+  isPlaying: any = false;
   ngOnChanges() {
-  this.play();
+    //this.play();
+    $('#playVideoModel').modal('show');
   }
   ngOnDestroy() {
-  this.close();
-  
+    this.close();
+
   }
   play() {
-    var url = this.video.m3u8Url;
+    var url = this.videoUrl;
     if (Hls.isSupported()) {
       var hls = new Hls();
       hls.loadSource(url);
@@ -37,10 +39,11 @@ export class PumlVideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
         this.videoPlayer.nativeElement.play();
       });
     }
-    $('#playVideoModel').modal('show');
+   
   }
   close() {
-   this.videoPlayer.nativeElement.pause();
+
+    this.videoPlayer.nativeElement.pause();
     $('#playVideoModel').modal('hide');
   }
 

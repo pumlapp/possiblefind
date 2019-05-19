@@ -59,7 +59,6 @@ export class HttpRequestService {
   login(params) {
     return this.getRequestMethodPost('/api/login', params).map(resp => {
       const user = JSON.parse(JSON.stringify(resp.json()));
-      //console.log(user)
       if (user && user.id) {
         this.loginInfo.next({ loggedIn: true, email: "", token: user.id, userId: user.userId, fullname: "" });
         localStorage.clear();
@@ -137,16 +136,24 @@ export class HttpRequestService {
   getCoaches(params) {
     const formBody = [];
     for (const property in params) {
-
-      const encodedKey = encodeURIComponent(property);
-      const encodedValue = params[property];
-      if (encodedValue != undefined) {
-        formBody.push(encodedKey + '=' + encodedValue);
+      if (property == "tagIds") {
+        for (const tag in params[property]) {
+          const encodedKey = property;
+          const encodedValue = params[property][tag];
+          if (encodedValue != undefined) {
+            formBody.push(encodedKey + '=' + encodedValue);
+          }
+        }
       }
-
+      else {
+        const encodedKey = encodeURIComponent(property);
+        const encodedValue = params[property];
+        if (encodedValue != undefined) {
+          formBody.push(encodedKey + '=' + encodedValue);
+        }
+      }
     }
     console.log(formBody.join('&'));
-
     return this.getRequestMethodGet(`api/coaches/searchdistanceV3?${formBody.join('&')}`);
   }
   getCoachesByLocation(location, offset, limit) {
@@ -163,6 +170,10 @@ export class HttpRequestService {
   }
   getAllTestimonial(id, offset, limit) {
     return this.getRequestMethodGet(`api/users/${id}/getAllTestimonial?offset=${offset}&limit=${limit}`);
+  }
+
+  getBusinessById(id) {
+    return this.getRequestMethodGet(`api/businesses/${id}`);
   }
 
 

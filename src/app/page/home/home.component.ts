@@ -43,10 +43,15 @@ export class HomeComponent implements OnInit {
     carouselThree: NgxCarousel;
     noMore: any = false;
     isSearch: any = false;
-    genderModel = "Any Gender"
-    isMapFilter: any = false;
-    places: any = "";
+    isViewMap: any = false;
     lstSuggests = [];
+
+    model: any = {
+        places: "",
+        gender: 'Any Gender',
+        cbViewMap: false,
+        sort: 'All'
+    }
 
     searchParameter = {
         gender: undefined,
@@ -56,10 +61,16 @@ export class HomeComponent implements OnInit {
         limit: 10,
         city: undefined,
         state: undefined,
-        tagIds: undefined,
-        tagIds1: undefined,
-        tagIds2: undefined,
+        tagIds: []
     }
+
+    listOfSort: Array<any> = [
+        { sort: 'ALL', name: 'All' },
+        { sort: 'FEATURED', name: 'Featured' },
+        { sort: 'NEWEST', name: 'Newest' },
+        { sort: 'NAME', name: 'Name' },
+        { sort: 'RATING', name: 'Rating' }
+    ];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -98,18 +109,18 @@ export class HomeComponent implements OnInit {
             navigator.geolocation.getCurrentPosition((position) => {
                 this.searchParameter.lat = position.coords.latitude;
                 this.searchParameter.long = position.coords.longitude;
-                this.http.getAddressByLocation(position.coords.latitude, position.coords.longitude, 
-                    (result) =>{
-                      
-                        if(result.response.view && result.response.view.length > 0 && result.response.view[0].result && result.response.view[0].result.length > 0 && result.response.view[0].result[0].location){
+                this.http.getAddressByLocation(position.coords.latitude, position.coords.longitude,
+                    (result) => {
+
+                        if (result.response.view && result.response.view.length > 0 && result.response.view[0].result && result.response.view[0].result.length > 0 && result.response.view[0].result[0].location) {
                             this.searchParameter.city = result.response.view[0].result[0].location.address.city;
                             console.log('currentLocation', result.response.view[0].result[0].location.address)
                         }
-                   
+
                     }, (error) => {
 
                     });
-              
+
             });
         }
     }
@@ -118,7 +129,7 @@ export class HomeComponent implements OnInit {
         this.http.getAllCoaches(this.offset, this.limit).subscribe(resp => {
             const res = resp.json();
             this.lstTrainer = this.lstTrainer.concat(res);
-            this.lstTrainer.forEach((item) => {
+            for (let item of this.lstTrainer) {
                 item.user.tags.forEach((tag) => {
                     var tagParent = this.lstTag.filter(o => o.id == tag.id)[0];
                     if (tagParent) {
@@ -128,13 +139,19 @@ export class HomeComponent implements OnInit {
                         tag.color = this.lstColor[Math.floor(Math.random() * this.lstColor.length)]
                     }
                 })
-                item.user.businessImage = "/api/uploads/1185/render"
-            })
+                if (item.bussinessId > 0) {
+                    this.http.getBusinessById(item.bussinessId).subscribe(resp => {
+                        const res = resp.json()
+                        item.user.businessImage = res.imageUrl
+                    })
+                }
+            }
 
             if (res && res.length < this.limit) {
+
                 this.noMore = true;
             }
-            if (this.isMapFilter == true) {
+            if (this.isViewMap == true) {
                 this.lstTrainerFilter = this.lstTrainer;
             }
             this.isLoadMore = false;
@@ -150,7 +167,7 @@ export class HomeComponent implements OnInit {
         this.http.getTopFeaturedCoaches(this.offset, this.limit).subscribe(resp => {
             const res = resp.json();
             this.lstTopTrainer = res;
-            this.lstTopTrainer.forEach((item) => {
+            for (let item of this.lstTopTrainer) {
                 item.user.tags.forEach((tag) => {
                     var tagParent = this.lstTag.filter(o => o.id == tag.id)[0];
                     if (tagParent) {
@@ -160,8 +177,13 @@ export class HomeComponent implements OnInit {
                         tag.color = this.lstColor[Math.floor(Math.random() * this.lstColor.length)]
                     }
                 })
-                item.user.businessImage = "/api/uploads/1185/render"
-            })
+                if (item.bussinessId > 0) {
+                    this.http.getBusinessById(item.bussinessId).subscribe(resp => {
+                        const res = resp.json()
+                        item.user.businessImage = res.imageUrl
+                    })
+                }
+            }
 
         })
     }
@@ -209,7 +231,7 @@ export class HomeComponent implements OnInit {
             this.offset = 0;
             this.limit = 30;
             this.lstTrainer = []
-            this.places = ''
+            this.model.places = ''
             this.isDisabledSearch = false;
             this.getAllCoaches();
         }
@@ -219,46 +241,21 @@ export class HomeComponent implements OnInit {
             this.searchParameter.limit = 30;
             this.searchParameter.offset = 0;
             this.searchParameter.gender = gender == 'Any Gender' ? undefined : gender;
-            this.getCoachesByGender();
+            this.getCoaches();
         }
-        this.genderModel = gender;
+        this.noMore = false;
+        this.model.gender = gender;
     }
 
-    getCoachesByGender() {
-        if (this.searchParameter.lat == undefined ||  this.searchParameter.long == undefined  || this.searchParameter.city == undefined) {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    this.searchParameter.lat = position.coords.latitude;
-                    this.searchParameter.long = position.coords.longitude;
-                    this.http.getAddressByLocation(position.coords.latitude, position.coords.longitude, 
-                        (result) =>{
-                          
-                            if(result.response.view && result.response.view.length > 0 && result.response.view[0].result && result.response.view[0].result.length > 0 && result.response.view[0].result[0].location){
-                                this.searchParameter.city = result.response.view[0].result[0].location.address.city;
-                                this.isDisabledSearch = true;
-                                this.places = this.searchParameter.city;
-                                this.isDisabledSearch = false;
-                            }
-                       
-                        }, (error) => {
-    
-                        });
-                  
 
-                });
-            } else {
-                return;
-            }
-        }
-        this.getCoaches()
-    }
-    getTrainerByCity(city){
+    getTrainerByCity(city) {
+        console.log(city)
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
         this.isDisabledSearch = true;
-        this.places = city.city;
-        this.searchParameter.city = "Gold Coast";//city.city;
-        this.searchParameter.lat = -28.0167;//city.lat;
-        this.searchParameter.long = 153.4000;//city.long;
+        this.model.places = city.city;
+        this.searchParameter.city = city.city;
+        this.searchParameter.lat = city.lat == 0 || city.lat == null ? undefined : city.lat;
+        this.searchParameter.long = city.long == 0 || city.long == null ? undefined : city.long;
         this.searchParameter.offset = 0;
         this.searchParameter.limit = 30;
         this.isSearch = true;
@@ -268,7 +265,7 @@ export class HomeComponent implements OnInit {
     }
     getMoreTrainerFilter() {
         this.isLoadingMap = true;
-        if (this.isMapFilter == true && this.isSearch != true) {
+        if (this.isViewMap == true && this.isSearch != true) {
             this.getMoreTrainer();
         }
         else {
@@ -279,11 +276,33 @@ export class HomeComponent implements OnInit {
 
     }
     getCoaches() {
+        if (this.searchParameter.lat == undefined || this.searchParameter.long == undefined || this.searchParameter.city == undefined) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    this.searchParameter.lat = position.coords.latitude;
+                    this.searchParameter.long = position.coords.longitude;
+                    this.http.getAddressByLocation(position.coords.latitude, position.coords.longitude,
+                        (result) => {
+                            if (result.response.view && result.response.view.length > 0 && result.response.view[0].result && result.response.view[0].result.length > 0 && result.response.view[0].result[0].location) {
+                                this.searchParameter.city = result.response.view[0].result[0].location.address.city;
+                                this.isDisabledSearch = true;
+                                this.model.places = this.searchParameter.city;
+                                this.isDisabledSearch = false;
+                            }
+                        }, (error) => {
+
+                        });
+                });
+            } else {
+                return;
+            }
+        }
+
         this.http.getCoaches(this.searchParameter).subscribe(resp => {
             const res = resp.json();
 
             this.lstTrainerFilter = res;
-            this.lstTrainerFilter.forEach((item) => {
+            for (let item of this.lstTrainerFilter) {
                 item.user.tags.forEach((tag) => {
                     var tagParent = this.lstTag.filter(o => o.id == tag.id)[0];
                     if (tagParent) {
@@ -293,8 +312,13 @@ export class HomeComponent implements OnInit {
                         tag.color = this.lstColor[Math.floor(Math.random() * this.lstColor.length)]
                     }
                 })
-                item.user.businessImage = "/api/uploads/1185/render"
-            })
+                if (item.bussinessId > 0) {
+                    this.http.getBusinessById(item.bussinessId).subscribe(resp => {
+                        const res = resp.json()
+                        item.user.businessImage = res.imageUrl
+                    })
+                }
+            }
             if (res && res.length < this.limitFilter) {
                 this.noMore = true;
             }
@@ -306,38 +330,55 @@ export class HomeComponent implements OnInit {
             }
         })
     }
-    searchByTags(tag, e) {
-        var lstTagSelect = this.lstTag.filter(o => o.checked == true);
 
-        if (tag.checked == false && lstTagSelect && lstTagSelect.length == 3) {
-            bootbox.alert("You already selected maximum 3 tags.");
-            return;
-        }
-
-        this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
-        tag.checked = !tag.checked;
-        this.lstTag[this.lstTag.indexOf(tag)] = tag;
-
-        this.lstTrainerFilter = []
-        this.isSearch = true;
-        this.searchParameter.offset = 0;
-        this.searchParameter.limit = 30;
-        this.getCoaches();
-
+    getBusinessById(bussinessId) {
 
     }
 
+    searchByTags(tag, e) {
+        var lstTagSelect = this.lstTag.filter(o => o.checked == true);
+        if (tag.checked == false && lstTagSelect && lstTagSelect.length == 4) {
+            bootbox.alert("You already selected maximum 4 tags.");
+            return;
+        }
+        this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
+        tag.checked = !tag.checked;
+        this.lstTag[this.lstTag.indexOf(tag)] = tag;
+        let lst = this.searchParameter.tagIds.filter(o => o == tag.id);
+        if (lst && lst.length > 0) {
+            for (const item of lst) {
+                this.searchParameter.tagIds.splice(this.searchParameter.tagIds.indexOf(item), 1);
+                if (this.searchParameter.tagIds.length == 0) {
+                    this.isSearch = false;
+                    this.noMore = false;
+                    this.searchByGender('Any Gender')
+                    return;
+                }
+            }
+        }
+        else {
+            this.searchParameter.tagIds.push(tag.id);
+        }
+        if (this.isSearch != true) {
+            this.lstTrainerFilter = []
+            this.isSearch = true;
+            this.searchParameter.offset = 0;
+            this.searchParameter.limit = 30;
+        }
+        this.getCoaches();
+    }
+
     showMapFilter() {
-        if (this.isMapFilter == false && this.isSearch != true) {
+        if (this.isViewMap == false && this.isSearch != true) {
             this.lstTrainerFilter = this.lstTrainer;
         }
-        this.isMapFilter = !this.isMapFilter;
+        this.isViewMap = !this.isViewMap;
     }
 
     searchPlacesFreetext() {
         if (this.isDisabledSearch == true) return;
-        if (this.places == "" || this.places.trim() == "") return;
-        this.http.getGeocoderPlacesByFreetext(this.places).subscribe(resp => {
+        if (this.model.places == "" || this.model.places.trim() == "") return;
+        this.http.getGeocoderPlacesByFreetext(this.model.places).subscribe(resp => {
             if (resp && resp.suggestions && resp.suggestions.length > 0) {
                 console.log(resp)
                 this.lstSuggests = resp.suggestions;
@@ -355,14 +396,16 @@ export class HomeComponent implements OnInit {
         this.searchParameter.offset = 0;
         this.isDisabledSearch = true;
         this.lstSuggests = [];
-        this.places = `${suggestion.address.city.replace('<mark>', '').replace('</mark>', '')} ${suggestion.address.state}, ${suggestion.address.country}`
+        this.model.places = `${suggestion.address.city.replace('<mark>', '').replace('</mark>', '')} ${suggestion.address.state}, ${suggestion.address.country}`
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
         this.http.getLocationByLocationId(suggestion.locationId,
             (result) => {
                 let locations = result.Response.View[0].Result;
                 this.searchParameter.lat = locations[0].Location.DisplayPosition.Latitude;
                 this.searchParameter.long = locations[0].Location.DisplayPosition.Longitude;
+                this.searchParameter.city = suggestion.address.city.replace('<mark>', '').replace('</mark>', '');
                 this.getCoaches();
+                this.isDisabledSearch = false;
             },
             (error) => {
                 console.log('Ooops!');
@@ -371,9 +414,15 @@ export class HomeComponent implements OnInit {
     }
     removeSearchPlace() {
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
-        this.places = "";
-        this.genderModel = "Any Gender";
-        this.isMapFilter = false;
+        this.model.places = "";
+        this.model.cbViewMap = false;
+        this.model.gender = "Any Gender";
+        this.searchParameter.tagIds = [];
+        this.lstTag.forEach(tag => {
+            tag.checked = false;
+        });
+        this.noMore = false;
+        this.isViewMap = false;
         this.isSearch = false;
         this.offset = 0;
         this.limit = 30;
@@ -381,7 +430,6 @@ export class HomeComponent implements OnInit {
     }
     isLoadingMap: any = true;
     bindingLocationOnMap(done) {
-        console.log(123)
         this.isLoadingMap = !done
     }
 }

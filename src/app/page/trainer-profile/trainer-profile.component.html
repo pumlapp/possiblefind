@@ -10,9 +10,9 @@
                         <div *ngIf="trainer.user.businessId > 0" class="img-qualifications">
                             <img src="http://api.pummel.fit//api/uploads/752/render?width=100&height=100">
                         </div>
-                        <div *ngIf="trainer.user.videoUrl != null" class="video-profile">
+                        <div *ngIf="trainer.user.videoUrl != null && trainer.user.videoUrl != ''" class="video-profile">
                             <span class="btn-video"><i class="fa fa-play"></i></span>
-                            <div style="background-image: url(http://api.pummel.fit/api/uploads/372/render?width=100&height=100)"
+                            <div (click)="playVideo(trainer)" style="background-image: url(http://api.pummel.fit/api/uploads/372/render?width=100&height=100)"
                                 class="video-thumbnail">
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                             </div>
                         </div>
                         <p style=" padding-left:10px;">
-                            <button class="btn  mr-3"><i class="fa fa-inbox"></i></button>
+                            <button data-toggle="modal" data-target="#sendMessengeModal" class="btn  mr-3"><i class="fa fa-inbox"></i></button>
                             <button data-toggle="modal" data-target="#requestCallBackModal" class="btn btn-puml">REQUEST A CALL BACK</button>
                         </p>
                     </div>
@@ -240,11 +240,13 @@
                 </div>
                 <div class="modal-body">
                     <h4 class="modal-title mb-3"><i class="icon-comment"></i></h4>
-                    <h4 class="modal-title mb-3">Request a call back</h4>
-                    <div class="row " style="padding: 1rem 2rem">
+                    <h3 class="modal-title mb-3">Request a call back</h3>
+                    <div class="row " style="padding:1rem 0.6rem">
                         <div class="col-xs-12 col-md-12">
                             <div class="row">
-                                <div class="col-xs-12 col-md-12 mb-3" style="position: relative;">
+                                <div class="col-xs-12 col-md-12 mb-2" style="position: relative;">
+                                    <i class="fa fa-user-circle">
+                                    </i>
                                     <input name="fullname" type="text" placeholder="FULL NAME"
                                         formControlName="fullname" class="form-control" required />
                                     <app-control-message [control]="requestCallBackForm.controls.fullname">
@@ -256,8 +258,9 @@
                         </div>
                         <div class="col-xs-12 col-md-12">
                             <div class="row">
-                                <div class="col-xs-12 col-md-12 mb-3" style="position: relative;">
-
+                                <div class="col-xs-12 col-md-12 mb-2" style="position: relative;">
+                                    <i class="fa fa-envelope">
+                                    </i>
                                     <input name="email" type="text" placeholder="EMAIL" formControlName="email"
                                         class="form-control" required />
                                     <app-control-message [control]="requestCallBackForm.controls.email">
@@ -269,7 +272,9 @@
                         </div>
                         <div class="col-xs-12 col-md-12">
                             <div class="row">
-                                <div class="col-xs-12 col-md-12 mb-3" style="position: relative;">
+                                <div class="col-xs-12 col-md-12 mb-2" style="position: relative;">
+                                        <i class="fa material-icons">phone_iphone
+                                            </i>
                                     <input name="mobile" type="text" placeholder="MOBILE" formControlName="mobile"
                                         class="form-control" required />
                                     <app-control-message [control]="requestCallBackForm.controls.mobile">
@@ -279,7 +284,8 @@
                         </div>
                         <div class="col-xs-12 col-md-12">
                             <div class="row">
-                                <div class="col-xs-12 col-md-12 mb-3" style="position: relative;">
+                                <div class="col-xs-12 col-md-12 mb-2" style="position: relative;">
+                                    <i class="fa material-icons">access_time</i>
                                     <input name="callbacktime" type="number" placeholder="CALL BACK ME TIME"
                                         formControlName="callbacktime" class="form-control" required />
                                     <app-control-message [control]="requestCallBackForm.controls.callbacktime">
@@ -289,13 +295,10 @@
                             </div>
 
                         </div>
+                        <button  class="btn btn-primary btn-request-callback mt-2" type="button" > REQUEST A CALL BACK </button>
                     </div>
                 </div>
-                <div class="modal-footer justify-content-center mb-2">
-                    <button type="button" class="btn btn-primary btn-request-callback">
-                        REQUEST A CALL BACK
-                    </button>
-                </div>
+             
 
             </div>
 
@@ -303,3 +306,73 @@
 
     </div>
 </div>
+
+
+
+<div class="modal" id="sendMessengeModal" data-backdrop="static" data-keyboard="false" role="dialog">
+        <div class="modal-dialog">
+            <div [formGroup]="sendMessageForm" class="form">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" data-dismiss="modal" class="close"><i class="icon-clear"></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <h4 class="modal-title mb-3"><i class="icon-comment"></i></h4>
+                        <h3 class="modal-title mb-3">Send a Message</h3>
+                        <div class="row " style="padding:1rem 0.6rem">
+                            <div class="col-xs-12 col-md-12">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12 mb-2" style="position: relative;">
+                                        <i class="fa fa-user-circle">
+                                        </i>
+                                        <input name="fullname" type="text" placeholder="FULL NAME"
+                                            formControlName="fullname" class="form-control" required />
+                                        <app-control-message [control]="sendMessageForm.controls.fullname">
+                                        </app-control-message>
+    
+                                    </div>
+                                </div>
+    
+                            </div>
+                            <div class="col-xs-12 col-md-12">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12 mb-2" style="position: relative;">
+                                        <i class="fa fa-envelope">
+                                        </i>
+                                        <input name="email" type="text" placeholder="EMAIL" formControlName="email"
+                                            class="form-control" required />
+                                        <app-control-message [control]="sendMessageForm.controls.email">
+                                        </app-control-message>
+    
+                                    </div>
+                                </div>
+    
+                            </div>
+                            <div class="col-xs-12 col-md-12">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12 mb-2" style="position: relative;">
+                                            <i class="fa material-icons">phone_iphone
+                                                </i>
+                                        <textarea name="message" rows="3"  placeholder="MESSAGE" formControlName="message"
+                                            class="form-control" required ></textarea>
+                                            <span class="text-length-required">0/200</span>
+                                        <app-control-message [control]="sendMessageForm.controls.message">
+                                        </app-control-message>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                            <button  class="btn btn-primary btn-request-callback mt-2" type="button" > SEND MESSAGE </button>
+                        </div>
+                    </div>
+                 
+    
+                </div>
+    
+            </div>
+    
+        </div>
+    </div>
+    
+
+    <puml-video-player *ngIf="isPlay" [trainer]="currentTrainer" [videoUrl]="videoUrl"></puml-video-player>
