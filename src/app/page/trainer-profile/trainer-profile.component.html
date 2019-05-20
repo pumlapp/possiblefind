@@ -10,9 +10,9 @@
                         <div *ngIf="trainer.user.businessId > 0" class="img-qualifications">
                             <img src="http://api.pummel.fit//api/uploads/752/render?width=100&height=100">
                         </div>
-                        <div *ngIf="trainer.user.videoUrl != null && trainer.user.videoUrl != ''" class="video-profile">
+                        <div (click)="playVideo(trainer)"  *ngIf="trainer.user.videoUrl != null && trainer.user.videoUrl != ''" class="video-profile">
                             <span class="btn-video"><i class="fa fa-play"></i></span>
-                            <div (click)="playVideo(trainer)" style="background-image: url(http://api.pummel.fit/api/uploads/372/render?width=100&height=100)"
+                            <div  style="background-image: url(http://api.pummel.fit/api/uploads/372/render?width=100&height=100)"
                                 class="video-thumbnail">
                             </div>
                         </div>

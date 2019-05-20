@@ -3,26 +3,20 @@
         <div class="form">
             <div class="modal-content">
                 <div class="modal-body">
-                    <div class="video-bg">
+                    <div [style]="backgroundUrl"  class="video-bg">
                         <i class="fa fa-play" ></i>
-                        <i data-dismiss="modal" class="icon-clear" ></i>
+                        <i (click)="close()" style="padding:10px;cursor: pointer;" class="icon-clear" ></i>
                         <div class="block-avatar">
                             <div class="avatar">
                                     <img src="http://api.pummel.fit/{{trainer.user.imageUrl}}?width=450&height=550">
                             </div>
+                            <div class="trainer-name">{{trainer.user.firstname}} {{trainer.user.lastname}} </div>
                         </div>
-                          <p style=" padding-left:10px;">
-                                <button data-toggle="modal" data-target="#sendMessengeModal" class="btn  mr-3"><i class="fa fa-inbox"></i></button>
-                                <button data-toggle="modal" data-target="#requestCallBackModal" class="btn btn-puml">REQUEST A CALL BACK</button>
+                          <p style="padding-left:10px;">
+                                <button (click)="showSendMessageModal()" class="btn  mr-3"><i class="fa fa-inbox"></i></button>
+                                <button (click)="showRequestCallBackModal()" class="btn btn-puml">REQUEST A CALL BACK</button>
                             </p>
                     </div>
-                    <!-- <div *ngIf="isPlaying" class="row ">
-                        <div class="col-xs-12 col-md-12">
-
-                            <video #videoPlayer style="width:100%;height: 100%" crossorigin id="video"></video>
-
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>

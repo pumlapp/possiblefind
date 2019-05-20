@@ -9,7 +9,7 @@ import { ValidationFormService } from '../../shared/_services/validation-form/va
 import { EventMessage } from '../../shared/_services/event-message/event-message.service';
 import { NgxCarousel } from 'ngx-carousel';
 import { environment } from '../../../environments/environment';
-
+declare var $: any;
 declare var bootbox: any;
 @Component({
     moduleId: module.id,
@@ -126,8 +126,11 @@ export class TrainerProfileComponent {
     videoUrl: any = "";
     currentTrainer:any ;
     playVideo(trainer){
+        
         this.isPlay = true;
         this.currentTrainer = trainer;
-        this.videoUrl = "https://d22kb9sinmfyk6.cloudfront.net/958a52d4-b9bb-4cea-8df4-60ecf6cc4f4b/172_thegreatest.m3u8";//trainer.user.videoUrl;
+        this.videoUrl = trainer.user.videoUrl;
+        console.log('123')
+        $('#playVideoModel').modal('show');
     }
 }

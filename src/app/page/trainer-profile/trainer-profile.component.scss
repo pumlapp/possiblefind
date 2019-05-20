@@ -70,6 +70,7 @@ h5 {
     }
 
     .video-profile {
+      cursor: pointer;
       @extend %sub-image-shared;
       right: 4px;
       .video-thumbnail {
@@ -144,7 +145,7 @@ h5 {
       }
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 1200px) {
       .img-thumb,
       .info {
         left: 50%;

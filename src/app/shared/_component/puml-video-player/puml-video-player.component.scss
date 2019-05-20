@@ -8,17 +8,16 @@
 }
 .modal-content {
   height: 500px !important;
+  border-radius: 10px;
 }
 
 .video-bg {
   width: 100%;
   height: 100%;
-  background: url(https://pmcvariety.files.wordpress.com/2018/01/supergirl-3x10.jpg?w=1000);
-
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  border-radius: 10px;
   .fa-play {
     position: absolute;
     font-size: 5em;
@@ -56,6 +55,16 @@
       width: 100%;
       height: 100%;
     }
+  }
+
+  .trainer-name {
+    float:right;
+    margin-bottom: 0.5rem;
+    padding-left: 10px;
+    font-size: 1.4em;
+    font-family: "Playfair Display", serif;
+    margin-top: 1.2rem;
+    color: #fff;
   }
  
 }
