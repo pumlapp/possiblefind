@@ -18,9 +18,9 @@ body {
   font-size: 12px;
 }
 .btn-primary {
-  border-color: $puml-orange;
-  background: $puml-orange;
-  color: $white;
+  border-color: $puml-orange !important;
+  background: $puml-orange !important;
+  color: $white !important;
 }
 .btn-primary:hover,
 .btn-primary:active,
