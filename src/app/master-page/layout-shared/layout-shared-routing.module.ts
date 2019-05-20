@@ -9,8 +9,10 @@ const routes: Routes = [
     path: '', component: LayoutSharedComponent,
     //canActivate: [AuthGuard],
     children: [
-      { path: '',  loadChildren: () => HomeModule  },
-      { path: 'trainer-profile/:id',  loadChildren: () => TrainerProfileModule  },
+      { path: '',  loadChildren: '../../page/home/home.module#HomeModule'  },
+    //  { path: 'trainer-profile/:id',  loadChildren: () => TrainerProfileModule  },
+      { path: 'trainer-profile/:id',  loadChildren: '../../page/trainer-profile/trainer-profile.module#TrainerProfileModule'  },
+
     ]
   }
 ];
