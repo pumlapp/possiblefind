@@ -57,7 +57,8 @@ export class HereMapComponent implements OnInit, OnChanges {
     public bindDataIntoMaps() {
         let platform = new H.service.Platform({
             "app_id": "4MAhCHY78b0WBe7MzQ1l",
-            "app_code": "RHqFN-bf3g7CsUfvYtKvUQ"
+            "app_code": "RHqFN-bf3g7CsUfvYtKvUQ",
+            "useHTTPS": "true"
         });
         var pixelRatio = window.devicePixelRatio || 1;
         var defaultLayers = platform.createDefaultLayers({
