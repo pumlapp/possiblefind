@@ -197,7 +197,8 @@ export class HttpRequestService {
   getLocationByLocationId(locationId, onGeocodeSuccess, onGeocodeError) {
     let platform = new H.service.Platform({
       "app_id": "4MAhCHY78b0WBe7MzQ1l",
-      "app_code": "RHqFN-bf3g7CsUfvYtKvUQ"
+      "app_code": "RHqFN-bf3g7CsUfvYtKvUQ",
+      "useHTTPS": "true"
     });
     var geocoder = platform.getGeocodingService();
     let geocodingParameters = {
@@ -213,7 +214,8 @@ export class HttpRequestService {
   getAddressByLocation(lat, long, onGeocodeSuccess, onGeocodeError) {
     let platform = new H.service.Platform({
       "app_id": "4MAhCHY78b0WBe7MzQ1l",
-      "app_code": "RHqFN-bf3g7CsUfvYtKvUQ"
+      "app_code": "RHqFN-bf3g7CsUfvYtKvUQ",
+      "useHTTPS": "true"
     });
     var geocoder = platform.getGeocodingService(),
       reverseGeocodingParameters = {

@@ -94,17 +94,17 @@ body {
 }
 
 .btn-puml {
-  background: $white;
-  background: #ffffff;
-  border-color: #f39c13;
-  color: #f39c13;
-  font-weight: 600;
-  border: 2px solid $puml-orange;
+  background: $white !important;
+  background: #ffffff !important;
+  border-color: #f39c13 !important;
+  color: #f39c13 !important;
+  font-weight: 600 !important;
+  border: 2px solid $puml-orange !important;
 }
 .btn {
-  padding: 0.6rem 1.4rem;
-  border-radius: 27px;
-  font-size: 13px;
+  padding: 0.6rem 1.4rem !important;
+  border-radius: 27px !important;
+  font-size: 13px !important;
 }
 
 .bg-turquoise {
@@ -277,10 +277,10 @@ input:checked + .slider:before {
     min-height: calc(100vh - 20px);
   }
   .btn-primary {
-    background-color: $puml-orange;
-    color: $white;
-    border-color: $puml-orange;
-    outline: 0;
+    background-color: $puml-orange !important;
+    color: $white !important;
+    border-color: $puml-orange !important;
+    outline: 0 !important;
   }
 }
 .modal-content {

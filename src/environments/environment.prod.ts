@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-    apiUrl: 'https://api.pummel.fit/'
+    apiUrl: 'https://localhost:8888/api.pummel.fit/'
 };
 
  
