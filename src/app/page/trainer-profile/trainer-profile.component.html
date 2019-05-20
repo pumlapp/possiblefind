@@ -1,4 +1,4 @@
-<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend" class="trainer-profile">
+<section *ngIf="trainer != undefined && trainer != null && trainer.user != undefined" class="trainer-profile">
     <div class="container">
         <div class="row justify-content-center">
             <div class=" col-lg-9 col-xl-9 col-md-12 col-11">
@@ -73,7 +73,7 @@
     </div>
 </section>
 
-<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend" class="mt-5">
+<section *ngIf="trainer != undefined && trainer != null && trainer.user != undefined" class="mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
             <div class=" col-lg-9 col-xl-9 col-md-12 col-11">
@@ -90,7 +90,7 @@
     </div>
 </section>
 
-<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && trainer.user.bio != null"
+<section *ngIf="trainer != undefined && trainer != null && trainer.user != undefined && trainer.user.bio != null"
     class=" mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
@@ -104,7 +104,7 @@
 </section>
 
 <section
-    *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && (trainer.websiteUrl != '' || trainer.websiteUrl != null)"
+    *ngIf="trainer != undefined && trainer != null && trainer.user != undefined && (trainer.websiteUrl != '' || trainer.websiteUrl != null)"
     class="mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
@@ -116,7 +116,7 @@
         </div>
     </div>
 </section>
-<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && trainer.qualifications != null"
+<section *ngIf="trainer != undefined && trainer != null && trainer.user != undefined && trainer.qualifications != null"
     class=" mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
@@ -128,7 +128,7 @@
         </div>
     </div>
 </section>
-<section *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && trainer.achievements != null"
+<section *ngIf="trainer != undefined && trainer != null && trainer.user != undefined && trainer.achievements != null"
     class=" mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
@@ -141,7 +141,7 @@
     </div>
 </section>
 <section
-    *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && (trainer.user.instagramUrl != '' || trainer.user.instagramUrl != null || trainer.user.facebookUrl != ''  || trainer.user.facebookUrl != null || trainer.user.twitterUrl != '' || trainer.user.twitterUrl != null )"
+    *ngIf="trainer != undefined && trainer != null && trainer.user != undefined && (trainer.user.instagramUrl != '' || trainer.user.instagramUrl != null || trainer.user.facebookUrl != ''  || trainer.user.facebookUrl != null || trainer.user.twitterUrl != '' || trainer.user.twitterUrl != null )"
     class="mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
@@ -168,7 +168,7 @@
                 <h5 style="padding-left: 10px;">TESTIMONIALS
                 </h5>
 
-                <div *ngIf="trainer != undefiend && trainer != null && trainer.user != undefiend && trainer.totalTestimonial > 0"
+                <div *ngIf="trainer != undefined && trainer != null && trainer.user != undefined && trainer.totalTestimonial > 0"
                     class="slide-show-container--middle-page testimonials">
                     <div class="slide-show__box-center testimonials">
                         <div ng2-carouselamos [items]="lstTestimonial" [$item]="itemTemplate2"
@@ -226,7 +226,7 @@
         </div>
     </div>
 </section>
-<section *ngIf="trainer != undefiend && trainer != null && trainer.long != null && trainer.lat != null" class="map">
+<section *ngIf="trainer != undefined && trainer != null && trainer.long != null && trainer.lat != null" class="map">
     <one-point [pointInfo]="trainer" width="100%" height="100%"></one-point>
 </section>
 

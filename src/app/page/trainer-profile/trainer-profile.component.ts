@@ -31,7 +31,7 @@ export class TrainerProfileComponent {
         { color: 'cl-radical-red', background: 'bg-radical-red' },
     ]
     currentVideo: any;
-    urlPrefix: any = environment.orginUrl;
+    urlPrefix: any = environment.apiUrl;
     lstOfImages = [
     ]
     lstTestimonial = []
