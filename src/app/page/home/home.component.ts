@@ -288,11 +288,11 @@ export class HomeComponent implements OnInit {
 
     }
     getCoaches() {
-        if (this.searchParameter.lat == undefined || this.searchParameter.long == undefined || this.searchParameter.city1 == undefined ||  this.searchParameter.city2 == undefined) {
+        if (this.searchParameter.lat == undefined || this.searchParameter.long == undefined || this.searchParameter.city2 == undefined) {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((position) => {
-                    this.searchParameter.lat = position.coords.latitude;
-                    this.searchParameter.long = position.coords.longitude;
+                    this.searchParameter.lat = this.searchParameter.lat == undefined ? position.coords.latitude : this.searchParameter.lat;
+                    this.searchParameter.long = this.searchParameter.long == undefined ? position.coords.longitude : this.searchParameter.lat;
                     this.http.getAddressByLocation(position.coords.latitude, position.coords.longitude,
                         (result) => {
                             if (result.response.view && result.response.view.length > 0 && result.response.view[0].result && result.response.view[0].result.length > 0 && result.response.view[0].result[0].location) {
@@ -413,7 +413,7 @@ export class HomeComponent implements OnInit {
         this.searchParameter.offset = 0;
         this.isDisabledSearch = true;
         this.lstSuggests = [];
-        this.model.places = `${suggestion.address.district ? suggestion.address.district.replace('<mark>', '').replace('</mark>', '') + ',' : ''} ${suggestion.address.city.replace('<mark>', '').replace('</mark>', '')} ${suggestion.address.state} ${suggestion.address.postalCode ? suggestion.address.postalCode.replace('<mark>', '').replace('</mark>', '') + ',' : ''} ${suggestion.address.country}`
+        this.model.places = `${suggestion.address.district ? suggestion.address.district.replace('<mark>', '').replace('</mark>', '') + ',' : ''} ${suggestion.address.city.replace('<mark>', '').replace('</mark>', '')} ${suggestion.address.state ? suggestion.address.state.replace('<mark>', '').replace('</mark>', '') : '' } ${suggestion.address.postalCode ? suggestion.address.postalCode.replace('<mark>', '').replace('</mark>', '') + ',' : ''} ${suggestion.address.country ? suggestion.address.country.replace('<mark>', '').replace('</mark>', '') : ''}`
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
         this.http.getLocationByLocationId(suggestion.locationId,
             (result) => {
@@ -423,6 +423,7 @@ export class HomeComponent implements OnInit {
                 this.searchParameter.city1 = suggestion.address.district ? suggestion.address.district.replace('<mark>', '').replace('</mark>', '') : undefined;
                 this.searchParameter.city2 = suggestion.address.city ? suggestion.address.city.replace('<mark>', '').replace('</mark>', '') : undefined;
                 this.searchParameter.state =suggestion.address.state ? suggestion.address.state.replace('<mark>', '').replace('</mark>', '') : undefined;
+
                 this.getCoaches();
                 this.isDisabledSearch = false;
             },
