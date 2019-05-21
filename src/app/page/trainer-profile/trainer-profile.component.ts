@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
-
 import { MESSAGE_EVENT } from '../../../constants';
 import { HttpRequestService } from '../../shared/_services/http/http-request.service';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -17,7 +15,7 @@ declare var bootbox: any;
     styleUrls: ["./trainer-profile.component.scss"],
 })
 
-export class TrainerProfileComponent {
+export class TrainerProfileComponent implements OnInit {
     lstColor = [
         { color: 'cl-blue', background: 'bg-blue' },
         { color: 'cl-light-orange', background: 'bg-light-orange' },
@@ -77,6 +75,9 @@ export class TrainerProfileComponent {
         });
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
     }
+    ngOnInit(){
+      
+    }
     getTrainerProfile(id) {
          this.http.getCoachesById(id).subscribe(resp => {
              const res = resp.json();
@@ -84,7 +85,10 @@ export class TrainerProfileComponent {
                 this.trainer = res;
                 //this.trainer.user.videoUrl = "https://d22kb9sinmfyk6.cloudfront.net/958a52d4-b9bb-4cea-8df4-60ecf6cc4f4b/172_thegreatest.m3u8";
              }
-           
+             $(document).ready(()=>{
+                $('html, body').animate({ scrollTop: $('.trainer-profile').offset().top - 350 }, 200);
+            })
+        
             this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false);
          })
     }

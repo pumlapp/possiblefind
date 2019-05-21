@@ -34,6 +34,7 @@ export class AppComponent implements OnInit {
   
   onActivate(e, scrollContainer) {
     scrollContainer.scrollTop = 0;
+    console.log('smooth')
   }
 
 }

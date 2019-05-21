@@ -149,8 +149,8 @@ export class HomeComponent implements OnInit {
                         tag.color = this.lstColor[Math.floor(Math.random() * this.lstColor.length)]
                     }
                 })
-                if (item.bussinessId > 0) {
-                    this.http.getBusinessById(item.bussinessId).subscribe(resp => {
+                if (item.user.businessId > 0) {
+                    this.http.getBusinessById(item.user.businessId).subscribe(resp => {
                         const res = resp.json()
                         item.user.businessImage = res.imageUrl
                     })
@@ -187,10 +187,12 @@ export class HomeComponent implements OnInit {
                         tag.color = this.lstColor[Math.floor(Math.random() * this.lstColor.length)]
                     }
                 })
-                if (item.bussinessId > 0) {
-                    this.http.getBusinessById(item.bussinessId).subscribe(resp => {
+                if (item.user.businessId > 0) {
+                    this.http.getBusinessById(item.user.businessId).subscribe(resp => {
                         const res = resp.json()
-                        item.user.businessImage = res.imageUrl
+                        console.log(res)
+                        item.user.businessImage = res.imageUrl;
+                        
                     })
                 }
             }
@@ -327,8 +329,8 @@ export class HomeComponent implements OnInit {
                         tag.color = this.lstColor[Math.floor(Math.random() * this.lstColor.length)]
                     }
                 })
-                if (item.bussinessId > 0) {
-                    this.http.getBusinessById(item.bussinessId).subscribe(resp => {
+                if (item.user.businessId > 0) {
+                    this.http.getBusinessById(item.user.businessId).subscribe(resp => {
                         const res = resp.json()
                         item.user.businessImage = res.imageUrl
                     })
@@ -346,7 +348,7 @@ export class HomeComponent implements OnInit {
         })
     }
 
-    getBusinessById(bussinessId) {
+    getBusinessById(businessId) {
 
     }
 
@@ -411,10 +413,7 @@ export class HomeComponent implements OnInit {
         this.searchParameter.offset = 0;
         this.isDisabledSearch = true;
         this.lstSuggests = [];
-        this.model.places = `${suggestion.address.district ? suggestion.address.district.replace('<mark>', '').replace('</mark>', '') + ', ' : ''}
-        ${suggestion.address.city.replace('<mark>', '').replace('</mark>', '')} ${suggestion.address.state},
-        ${suggestion.address.postalCode ? suggestion.address.postalCode.replace('<mark>', '').replace('</mark>', '') + ', ' : ''}
-         ${suggestion.address.country}`
+        this.model.places = `${suggestion.address.district ? suggestion.address.district.replace('<mark>', '').replace('</mark>', '') + ',' : ''} ${suggestion.address.city.replace('<mark>', '').replace('</mark>', '')} ${suggestion.address.state} ${suggestion.address.postalCode ? suggestion.address.postalCode.replace('<mark>', '').replace('</mark>', '') + ',' : ''} ${suggestion.address.country}`
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
         this.http.getLocationByLocationId(suggestion.locationId,
             (result) => {

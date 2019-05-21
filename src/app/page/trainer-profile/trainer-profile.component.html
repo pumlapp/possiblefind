@@ -380,3 +380,8 @@
     
 
     <puml-video-player *ngIf="isPlay" [trainer]="currentTrainer" [videoUrl]="videoUrl"></puml-video-player>
+
+
+    <section *ngIf="trainer == undefined">
+        <div style="margin-bottom:100vh"></div>
+    </section>
