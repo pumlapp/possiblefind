@@ -8,7 +8,8 @@
                         <div class="search-bar-keyword-container">
                             <form novalidate="">
                                 <span class="search-bar__input-container">
-                                        <a *ngIf="model.places && model.places.length > 0" (click)="removeSearchPlace()" class="btn btn-remove"><i class="icon-clear"></i></a>
+                                    <a *ngIf="model.places && model.places.length > 0" (click)="removeSearchPlace()"
+                                        class="btn btn-remove"><i class="icon-clear"></i></a>
                                     <input [(ngModel)]="model.places" [ngModelOptions]="{standalone: true}"
                                         (ngModelChange)="searchPlacesFreetext()"
                                         placeholder="City, Suburb or Post Code" />
@@ -48,7 +49,8 @@
                             <div class="search-select-map">
                                 <i class="icon-map-with-placeholder"></i> Map
                                 <label class="switch">
-                                    <input  [(ngModel)]="model.cbViewMap" [ngModelOptions]="{standalone: true}" (change)="showMapFilter()"  type="checkbox">
+                                    <input [(ngModel)]="model.cbViewMap" [ngModelOptions]="{standalone: true}"
+                                        (change)="showMapFilter()" type="checkbox">
                                     <span class="slider round"></span>
                                 </label>
                             </div>
@@ -86,14 +88,17 @@
 
                         <div class="block-trainer">
                             <div class="trainer-info featured">
-                                <div routerLink="/trainer-profile/{{item.user.id}}" class="img-thumb ">
-                                    <img src="{{urlPrefix}}{{item.user.imageUrl}}?width=350&height=450">
-                                    <div *ngIf="item.user.businessId != 0" class="img-qualifications">
-                                        <img
-                                            src="{{urlPrefix}}{{item.user.businessImage}}?width=100&height=100">
+                                <div routerLink="/trainer-profile/{{(item.user.firstname != undefined && item.user.firstname != null) ? item.user.firstname.trim() :''}}-{{(item.user.lastname != undefined && item.user.lastname != null) ? item.user.lastname.trim() :''}}/{{item.user.id}}"
+                                    class="img-thumb ">
+                                    <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') > -1"
+                                    src="{{urlPrefix}}{{item.user.imageUrl}}?width=350&height=450">
+                                <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') == -1" src="{{item.user.imageUrl}}">  
+                                  <div *ngIf="item.user.businessId != 0" class="img-qualifications">
+                                        <img src="{{urlPrefix}}{{item.user.businessImage}}?width=100&height=100">
                                     </div>
                                 </div>
-                                <p routerLink="/trainer-profile/{{item.user.id}}" class="trainer-name">
+                                <p routerLink="/trainer-profile/{{(item.user.firstname != undefined && item.user.firstname != null) ? item.user.firstname.trim() :''}}-{{(item.user.lastname != undefined && item.user.lastname != null) ? item.user.lastname.trim() :''}}/{{item.user.id}}"
+                                    class="trainer-name">
                                     {{item.user.firstname}} <i class="icon-right-arrow"></i>
                                 </p>
                                 <p class="trainer-location"><i class="fa fa-map-marker"></i> {{item.serviceArea}}</p>
@@ -105,9 +110,12 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div *ngIf="item.user.tags.length==0" style="margin-bottom:2px" class="tag-items">
+
+                                    <div *ngIf="item.user.tags.length==0" style="margin-bottom:6px" class="tag-items">
                                         <div class="item">
-                                            <button class="btn-tag">
+                                            <button
+                                                style="visibility: '{{item.user.tags.length==0 ? hidden : visible}}'"
+                                                class="btn-tag">
                                             </button>
                                         </div>
                                     </div>
@@ -138,37 +146,41 @@
         <div class="col-md-12 col-lg-12">
             <div class="row">
                 <div class="col-md-12 col-lg-12 " style="justify-content:space-around">
-                        <h5 class="float-left" style="display:inline-block;padding-left: 12px;">All Personal Trainers</h5>
-                        <div class="float-right sort-by-container" >
-                                <h5 style="display:inline-block;">Sort by: </h5>
-                                <div class="btn-group" style="cursor: pointer;">
-                                        <div data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true"
-                                            aria-expanded="false" class="sort-select">
-                                            <h5 style="display:inline-block;color:#ff562c">{{model.sort}}</h5>
-                                            <i class="material-icons">keyboard_arrow_down</i>
-                                        </div>
-                                        <div class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" *ngFor="let sort of listOfSort" (click)="sortListTrainer(sort)">{{sort.name}}</a>
-                                          
-                                            <!-- <a class="dropdown-item" (click)="searchByGender('Male')">Male</a>
+                    <h5 class="float-left" style="display:inline-block;padding-left: 12px;">All Personal Trainers</h5>
+                    <div class="float-right sort-by-container">
+                        <h5 style="display:inline-block;">Sort by: </h5>
+                        <div class="btn-group" style="cursor: pointer;">
+                            <div data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true"
+                                aria-expanded="false" class="sort-select">
+                                <h5 style="display:inline-block;color:#ff562c">{{model.sort}}</h5>
+                                <i class="material-icons">keyboard_arrow_down</i>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" *ngFor="let sort of listOfSort"
+                                    (click)="sortListTrainer(sort)">{{sort.name}}</a>
+
+                                <!-- <a class="dropdown-item" (click)="searchByGender('Male')">Male</a>
                                             <a class="dropdown-item" (click)="searchByGender('Female')">Female</a>
                                             <a class="dropdown-item" (click)="searchByGender('Any Gender')">Any Gender</a> -->
-                                        </div>
-                                    </div>
-                              </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-       
+
             <div class="block-trainer" *ngFor="let item of lstTrainer; index as i">
                 <div class="trainer-info {{item.isFeatured == true ? 'featured' : ''}}">
-                    <div routerLink="/trainer-profile/{{item.user.id}}" class="img-thumb">
-                        <img src="{{urlPrefix}}{{item.user.imageUrl}}?width=350&height=450">
-                        <div *ngIf="item.user.businessId != 0" class="img-qualifications">
+                    <div routerLink="/trainer-profile/{{(item.user.firstname != undefined && item.user.firstname != null) ? item.user.firstname.trim() :''}}-{{(item.user.lastname != undefined && item.user.lastname != null) ? item.user.lastname.trim() :''}}/{{item.user.id}}"
+                        class="img-thumb">
+                        <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') > -1"
+                                    src="{{urlPrefix}}{{item.user.imageUrl}}?width=350&height=450">
+                                <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') == -1" src="{{item.user.imageUrl}}"> 
+                                <div *ngIf="item.user.businessId != 0" class="img-qualifications">
                             <img src="{{urlPrefix}}{{item.user.businessImage}}?width=100&height=100">
                         </div>
                     </div>
-                    <p routerLink="/trainer-profile/{{item.user.id}}" class="trainer-name">{{item.user.firstname}} <i
-                            class="icon-right-arrow"></i>
+                    <p routerLink="/trainer-profile/{{(item.user.firstname != undefined && item.user.firstname != null) ? item.user.firstname.trim() :''}}-{{(item.user.lastname != undefined && item.user.lastname != null) ? item.user.lastname.trim() :''}}/{{item.user.id}}"
+                        class="trainer-name">{{item.user.firstname}} <i class="icon-right-arrow"></i>
                         <p class="trainer-location"><i class="fa fa-map-marker"></i> {{item.serviceArea}}</p>
                         <div class="trainer-tag">
                             <div *ngIf="item.user.tags.length>0" class="tag-items">
@@ -178,9 +190,10 @@
                                     </button>
                                 </div>
                             </div>
-                            <div *ngIf="item.user.tags.length==0" style="margin-bottom:2px" class="tag-items">
+                            <div *ngIf="item.user.tags.length==0" style="margin-bottom:6px" class="tag-items">
                                 <div class="item">
-                                    <button class="btn-tag">
+                                    <button style="visibility: '{{item.user.tags.length==0 ? hidden : visible}}'"
+                                        class="btn-tag">
                                     </button>
                                 </div>
                             </div>
@@ -217,13 +230,17 @@
             </h5>
             <div class="block-trainer" *ngFor="let item of lstTrainerFilter; index as i">
                 <div class="trainer-info {{item.isFeatured == true ? 'featured' : ''}}">
-                    <div routerLink="/trainer-profile/{{item.user.id}}" class="img-thumb">
-                        <img src="{{urlPrefix}}{{item.user.imageUrl}}?width=350&height=450">
-                        <div *ngIf="item.user.businessId != 0" class="img-qualifications">
+                    <div routerLink="/trainer-profile/{{(item.user.firstname != undefined && item.user.firstname != null) ? item.user.firstname.trim() :''}}-{{(item.user.lastname != undefined && item.user.lastname != null) ? item.user.lastname.trim() :''}}/{{item.user.id}}"
+                        class="img-thumb">
+                        <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') > -1"
+                        src="{{urlPrefix}}{{item.user.imageUrl}}?width=350&height=450">
+                    <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') == -1" src="{{item.user.imageUrl}}">  
+                    <div *ngIf="item.user.businessId != 0" class="img-qualifications">
                             <img src="{{urlPrefix}}{{item.user.businessImage}}?width=100&height=100">
                         </div>
                     </div>
-                    <p routerLink="/trainer-profile/{{item.user.id}}" class="trainer-name">{{item.user.firstname}} <i class="icon-right-arrow"></i>
+                    <p routerLink="/trainer-profile/{{(item.user.firstname != undefined && item.user.firstname != null) ? item.user.firstname.trim() :''}}-{{(item.user.lastname != undefined && item.user.lastname != null) ? item.user.lastname.trim() :''}}/{{item.user.id}}"
+                        class="trainer-name">{{item.user.firstname}} <i class="icon-right-arrow"></i>
                         <p class="trainer-location"><i class="fa fa-map-marker"></i> {{item.serviceArea}}</p>
                         <div class="trainer-tag">
                             <div *ngIf="item.user.tags.length>0" class="tag-items">
@@ -233,9 +250,10 @@
                                     </button>
                                 </div>
                             </div>
-                            <div *ngIf="item.user.tags.length==0" style="margin-bottom:2px" class="tag-items">
+                            <div *ngIf="item.user.tags.length==0" style="margin-bottom:6px" class="tag-items">
                                 <div class="item">
-                                    <button class="btn-tag">
+                                    <button style="visibility: '{{item.user.tags.length==0 ? hidden : visible}}'"
+                                        class="btn-tag">
                                     </button>
                                 </div>
                             </div>
@@ -266,52 +284,59 @@
 
 <section *ngIf="isViewMap" class="maps-filter container mb-5">
     <h5 style="padding-left: 12px;">{{this.lstTrainerFilter.length}} personal trainers found
-            </h5>
+    </h5>
     <div class="row justify-content-left border-bottom">
-        <div class="col-md-6 col-lg-6" style="height:100vh;overflow: auto;box-shadow:inset rgba(162, 162, 162, 0.2) 0px -1px 1px 1px;">
+        <div class="col-md-6 col-lg-6"
+            style="height:100vh;overflow: auto;box-shadow:inset rgba(162, 162, 162, 0.2) 0px -1px 1px 1px;">
             <div class="row justify-content-center">
                 <div class="col-lg-12 col-12">
-                   
-                        <div class="block-trainer" *ngFor="let item of lstTrainerFilter; index as i">
-                                <div class="trainer-info {{item.isFeatured == true ? 'featured' : ''}}">
-                                    <div routerLink="/trainer-profile/{{item.user.id}}" class="img-thumb">
-                                        <img src="{{urlPrefix}}{{item.user.imageUrl}}?width=350&height=450">
-                                        <div class="img-qualifications">
-                                            <img src="{{urlPrefix}}{{item.user.businessImage}}?width=100&height=100">
+
+                    <div class="block-trainer" *ngFor="let item of lstTrainerFilter; index as i">
+                        <div class="trainer-info {{item.isFeatured == true ? 'featured' : ''}}">
+                            <div routerLink="/trainer-profile/{{(item.user.firstname != undefined && item.user.firstname != null) ? item.user.firstname.trim() :''}}-{{(item.user.lastname != undefined && item.user.lastname != null) ? item.user.lastname.trim() :''}}/{{item.user.id}}"
+                                class="img-thumb">
+                                <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') > -1"
+                                src="{{urlPrefix}}{{item.user.imageUrl}}?width=350&height=450">
+                            <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') == -1" src="{{item.user.imageUrl}}"> 
+                                <div *ngIf="item.user.businessId != 0" class="img-qualifications">
+                                    <img src="{{urlPrefix}}{{item.user.businessImage}}?width=100&height=100">
+                                </div>
+                            </div>
+                            <p routerLink="/trainer-profile/{{(item.user.firstname != undefined && item.user.firstname != null) ? item.user.firstname.trim() :''}}-{{(item.user.lastname != undefined && item.user.lastname != null) ? item.user.lastname.trim() :''}}/{{item.user.id}}"
+                                class="trainer-name">
+                                {{item.user.firstname}} <i class="icon-right-arrow"></i>
+                                <p class="trainer-location"><i class="fa fa-map-marker"></i> {{item.serviceArea}}
+                                    <span title="{{item.distance}}km away"
+                                        style="font-size:10px;font-weight:600;color: #ff6420" class="ml-2">
+                                        {{item.distance}}km away</span>
+
+                                </p>
+
+                                <div class="trainer-tag">
+                                    <div *ngIf="item.user.tags.length>0" class="tag-items">
+                                        <div class="item" *ngFor="let tag of item.user.tags">
+                                            <button class="btn-tag">
+                                                <i class="fa fa-circle {{tag.color}}"></i> {{tag.title}}
+                                            </button>
                                         </div>
                                     </div>
-                                    <p routerLink="/trainer-profile/{{item.user.id}}" class="trainer-name">
-                                        {{item.user.firstname}} <i class="icon-right-arrow"></i>
-                                        <p class="trainer-location"><i class="fa fa-map-marker"></i> {{item.serviceArea}}
-                                            <span title="{{item.distance}}km away"
-                                                style="font-size:10px;font-weight:600;color: #ff6420" class="ml-2">
-                                                {{item.distance}}km away</span>
-            
-                                        </p>
-            
-                                        <div class="trainer-tag">
-                                            <div *ngIf="item.user.tags.length>0" class="tag-items">
-                                                <div class="item" *ngFor="let tag of item.user.tags">
-                                                    <button class="btn-tag">
-                                                        <i class="fa fa-circle {{tag.color}}"></i> {{tag.title}}
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div *ngIf="item.user.tags.length==0" style="margin-bottom:2px" class="tag-items">
-                                                <div class="item">
-                                                    <button class="btn-tag">
-                                                    </button>
-                                                </div>
-                                            </div>
+                                    <div *ngIf="item.user.tags.length==0" style="margin-bottom:6px" class="tag-items">
+                                        <div class="item">
+                                            <button
+                                                style="visibility: '{{item.user.tags.length==0 ? hidden : visible}}'"
+                                                class="btn-tag">
+                                            </button>
                                         </div>
+                                    </div>
                                 </div>
-            
-                                <div style="clear: both;"></div>
-            
-                            </div>
+                        </div>
+
+                        <div style="clear: both;"></div>
+
+                    </div>
                 </div>
             </div>
-          
+
             <div *ngIf="!noMore" class="row justify-content-center mt-5 mb-5">
                 <div class="col-lg-12 text-center">
                     <button *ngIf="!isLoadMore" type="button" (click)="getMoreTrainerFilter()" class="btn btn-primary">
@@ -334,7 +359,8 @@
                 <div class="bounce2" style="background-color: rgb(255, 172, 134);"></div>
                 <div class="bounce3" style="background-color: rgb(255, 123, 63);"></div>
             </div>
-            <here-map (bindingDone)="bindingLocationOnMap($event)" [locations]="lstTrainerFilter" [changeInscrement]="lstTrainerFilter.length" width="100%" height="100vh"></here-map>
+            <here-map (bindingDone)="bindingLocationOnMap($event)" [locations]="lstTrainerFilter"
+                [changeInscrement]="lstTrainerFilter.length" width="100%" height="100vh"></here-map>
         </div>
     </div>
 </section>
@@ -369,7 +395,8 @@
 
     <div class="row justify-content-center">
         <div class="col-md-12 col-lg-12">
-            <h5 class="text-center color-master">Are You a Personal Trainer? <a>Add Your Profile Now?</a></h5>
+            <h5 class="text-center color-master">Are You a Personal Trainer? <a
+                    href="https://possible.fit/register-free/" target="_blank">Add Your Profile Now?</a></h5>
         </div>
     </div>
 

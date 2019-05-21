@@ -37,7 +37,7 @@ export class HereMapComponent implements OnInit, OnChanges {
 
     private map: any;
 
-    public constructor(private renderer2: Renderer2) { 
+    public constructor(private renderer2: Renderer2) {
 
     }
     private isBinding: any = false;
@@ -58,7 +58,7 @@ export class HereMapComponent implements OnInit, OnChanges {
         let platform = new H.service.Platform({
             "app_id": "4MAhCHY78b0WBe7MzQ1l",
             "app_code": "RHqFN-bf3g7CsUfvYtKvUQ",
-            "useHTTPS": "true"
+            //"useHTTPS": "true"
         });
         var pixelRatio = window.devicePixelRatio || 1;
         var defaultLayers = platform.createDefaultLayers({
@@ -72,31 +72,26 @@ export class HereMapComponent implements OnInit, OnChanges {
 
         } else {
             navigator.geolocation.getCurrentPosition((position) => {
-                if(this.map){
+                if (this.map) {
                     this.map.removeObjects(this.map.getObjects())
-               
-                }
-            else{
-                this.map = new H.Map(
-                    this.mapElement.nativeElement,
-                    defaultLayers.normal.map,
-                    {
-                        zoom: 2,
-                        center: { lat: position.coords.latitude, lng: position.coords.longitude },
-                        pixelRatio: pixelRatio
-                    }
-                );
-                 // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
-                 var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));
-                 behavior.disable(H.mapevents.Behavior.WHEELZOOM);
-                 // Create the default UI components
-                 var ui = H.ui.UI.createDefault(this.map, defaultLayers);
-            }
-              
-                console.log(this.map)
-            
-               
 
+                }
+                else {
+                    this.map = new H.Map(
+                        this.mapElement.nativeElement,
+                        defaultLayers.normal.map,
+                        {
+                            zoom: 8,
+                            center: { lat: position.coords.latitude, lng: position.coords.longitude },
+                            pixelRatio: pixelRatio
+                        }
+                    );
+                    // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+                    var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));
+                    behavior.disable(H.mapevents.Behavior.WHEELZOOM);
+                    // Create the default UI components
+                    var ui = H.ui.UI.createDefault(this.map, defaultLayers);
+                }
                 let zIndex = 900;
                 this.locations.forEach((item) => {
 

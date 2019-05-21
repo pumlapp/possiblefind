@@ -130,6 +130,8 @@ export class HomeComponent implements OnInit {
     getAllCoaches() {
         this.http.getAllCoaches(this.offset, this.limit).subscribe(resp => {
             const res = resp.json();
+            if(res == undefined || res == []) return;
+            console.log(res)
             this.lstTrainer = this.lstTrainer.concat(res);
             for (let item of this.lstTrainer) {
                 item.user.tags.forEach((tag) => {
@@ -302,7 +304,8 @@ export class HomeComponent implements OnInit {
 
         this.http.getCoaches(this.searchParameter).subscribe(resp => {
             const res = resp.json();
-
+            if(res == undefined || res == []) return;
+            this.lstTrainerFilter = this.lstTrainerFilter.concat(res);
             this.lstTrainerFilter = res;
             for (let item of this.lstTrainerFilter) {
                 item.user.tags.forEach((tag) => {

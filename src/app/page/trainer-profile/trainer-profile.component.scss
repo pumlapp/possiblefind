@@ -237,12 +237,12 @@ h5 {
     }
     p {
       button:first-child {
-        font-size: 18px;
-        padding: 0.375rem 0.75rem;
+        font-size: 18px !important;
+        padding: 0.375rem 0.75rem !important;
         width: 42px;
         height: 42px;
         background: #fff;
-        border-radius: 50%;
+        border-radius: 50% !important;
         color: #fe7336 !important;
         border: 1px solid #fe7336 !important;
       }
