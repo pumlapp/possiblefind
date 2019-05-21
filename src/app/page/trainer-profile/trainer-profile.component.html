@@ -6,7 +6,9 @@
                     <div class="img-thumb mt-4 mr-4">
                         <span class="border-avatar2"></span>
                         <span class="border-avatar"></span>
-                        <img src="{{urlPrefix}}{{trainer.user.imageUrl}}?width=450&height=550">
+                        <img *ngIf="trainer.user.imageUrl && trainer.user.imageUrl.indexOf('render') > -1"
+                                src="{{urlPrefix}}{{trainer.user.imageUrl}}?width=450&height=550">
+                            <img *ngIf="trainer.user.imageUrl && trainer.user.imageUrl.indexOf('render') == -1" src="{{trainer.user.imageUrl}}"> 
                         <div *ngIf="trainer.user.businessId > 0" class="img-qualifications">
                             <img src="{{urlPrefix}}api/uploads/752/render?width=100&height=100">
                         </div>

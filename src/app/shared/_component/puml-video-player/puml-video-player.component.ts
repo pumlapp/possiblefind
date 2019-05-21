@@ -15,7 +15,7 @@ export class PumlVideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   backgroundUrl:any = '';
   @Input() videoUrl: any;
   @Input() trainer: any;
-
+  urlPrefix:any = 
   constructor(private sanitizer: DomSanitizer) {
   }
   ngOnInit() {
