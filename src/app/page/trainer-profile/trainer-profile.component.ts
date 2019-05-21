@@ -32,10 +32,8 @@ export class TrainerProfileComponent {
     ]
     currentVideo: any;
     urlPrefix: any = environment.apiUrl;
-    lstOfImages = [
-    ]
+    lstOfImages = []
     lstTestimonial = []
-  
     trainer:any = undefined;
     trainerId: 0;
     lstTag:any[] = []
@@ -65,7 +63,6 @@ export class TrainerProfileComponent {
                 this.router.navigate(['/'])
             }
         });
-
         this.requestCallBackForm = this.formBuilder.group({
             'fullname': ['', [Validators.required]],
             'email':  ['', [Validators.required]],
@@ -78,26 +75,20 @@ export class TrainerProfileComponent {
             'message': ['', [Validators.required]]
            
         });
-        this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true)
-       
+        this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
     }
-    
-    
-
     getTrainerProfile(id) {
          this.http.getCoachesById(id).subscribe(resp => {
              const res = resp.json();
              if(res){
                 this.trainer = res;
-                this.trainer.user.videoUrl = "https://d22kb9sinmfyk6.cloudfront.net/958a52d4-b9bb-4cea-8df4-60ecf6cc4f4b/172_thegreatest.m3u8";
-                console.log(res)
+                //this.trainer.user.videoUrl = "https://d22kb9sinmfyk6.cloudfront.net/958a52d4-b9bb-4cea-8df4-60ecf6cc4f4b/172_thegreatest.m3u8";
              }
            
             this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false);
          })
     }
-
-     getUserTag() {
+    getUserTag() {
         this.http.getCoachesTag(this.trainerId).subscribe( resp => {
             const res = resp.json();
             this.lstTag = res;
@@ -126,11 +117,9 @@ export class TrainerProfileComponent {
     videoUrl: any = "";
     currentTrainer:any ;
     playVideo(trainer){
-        
         this.isPlay = true;
         this.currentTrainer = trainer;
         this.videoUrl = trainer.user.videoUrl;
-        console.log('123')
         $('#playVideoModel').modal('show');
     }
 }

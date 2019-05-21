@@ -8,11 +8,10 @@
                         <i (click)="close()" style="padding:10px;cursor: pointer;" class="icon-clear" ></i>
                         <div class="block-avatar">
                             <div class="avatar">
-<!--                                 
-                                    <img src="http://api.pummel.fit/{{trainer.user.imageUrl}}?width=450&height=550"> -->
-                                    <img *ngIf="trainer.user.imageUrl && trainer.user.imageUrl.indexOf('render') > -1"
-                                    src="{{urlPrefix}}{{trainer.user.imageUrl}}?width=450&height=550">
-                                <img *ngIf="trainer.user.imageUrl && trainer.user.imageUrl.indexOf('render') == -1" src="{{trainer.user.imageUrl}}"> 
+
+                                    <img 
+                                    src="{{imageUrl}}">
+                             
                             </div>
                             <div class="trainer-name">{{trainer.user.firstname}} {{trainer.user.lastname}} </div>
                         </div>

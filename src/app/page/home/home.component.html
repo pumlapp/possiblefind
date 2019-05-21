@@ -22,7 +22,7 @@
                                                 [innerHtml]="place.address.district"></strong>
                                             <strong class="mr-1" [innerHtml]="place.address.city"></strong> <small>
                                                 <span class="mr-1" [innerHtml]="place.address.state"></span>
-                                                <strong *ngIf="place.address.district" class="mr-1"
+                                                <strong *ngIf="place.address.postalCode" class="mr-1"
                                                     [innerHtml]="place.address.postalCode"></strong>
                                                 <span class="mr-1" [innerHtml]="place.address.country"></span>
                                             </small>
@@ -31,7 +31,6 @@
                                     <i class="icon-search"></i>
                                 </span>
                             </form>
-
                             <div class="btn-group float-left" style="cursor: pointer;">
                                 <div data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true"
                                     aria-expanded="false" class="search-select-gender">
@@ -44,8 +43,6 @@
                                     <a class="dropdown-item" (click)="searchByGender('Any Gender')">Any Gender</a>
                                 </div>
                             </div>
-
-
                             <div class="search-select-map">
                                 <i class="icon-map-with-placeholder"></i> Map
                                 <label class="switch">
@@ -55,7 +52,6 @@
                                 </label>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -85,15 +81,15 @@
                 <h5 _ngcontent-c2="" style="padding-left: 12px;">Personal Trainers in the Spotlight</h5>
                 <ngx-carousel class="custom-carousel-home-component" [inputs]="carouselOne">
                     <ngx-item NgxCarouselItem *ngFor="let item of lstTopTrainer; index as i">
-
                         <div class="block-trainer">
                             <div class="trainer-info featured">
                                 <div routerLink="/trainer-profile/{{(item.user.firstname != undefined && item.user.firstname != null) ? item.user.firstname.trim() :''}}-{{(item.user.lastname != undefined && item.user.lastname != null) ? item.user.lastname.trim() :''}}/{{item.user.id}}"
                                     class="img-thumb ">
                                     <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') > -1"
-                                    src="{{urlPrefix}}{{item.user.imageUrl}}?width=350&height=450">
-                                <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') == -1" src="{{item.user.imageUrl}}">  
-                                  <div *ngIf="item.user.businessId != 0" class="img-qualifications">
+                                        src="{{urlPrefix}}{{item.user.imageUrl}}?width=350&height=450">
+                                    <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') == -1"
+                                        src="{{item.user.imageUrl}}">
+                                    <div *ngIf="item.user.businessId != 0" class="img-qualifications">
                                         <img src="{{urlPrefix}}{{item.user.businessImage}}?width=100&height=100">
                                     </div>
                                 </div>
@@ -147,7 +143,7 @@
             <div class="row">
                 <div class="col-md-12 col-lg-12 " style="justify-content:space-around">
                     <h5 class="float-left" style="display:inline-block;padding-left: 12px;">All Personal Trainers</h5>
-                    <div class="float-right sort-by-container">
+                    <!-- <div class="float-right sort-by-container">
                         <h5 style="display:inline-block;">Sort by: </h5>
                         <div class="btn-group" style="cursor: pointer;">
                             <div data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true"
@@ -158,13 +154,9 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" *ngFor="let sort of listOfSort"
                                     (click)="sortListTrainer(sort)">{{sort.name}}</a>
-
-                                <!-- <a class="dropdown-item" (click)="searchByGender('Male')">Male</a>
-                                            <a class="dropdown-item" (click)="searchByGender('Female')">Female</a>
-                                            <a class="dropdown-item" (click)="searchByGender('Any Gender')">Any Gender</a> -->
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
@@ -173,9 +165,10 @@
                     <div routerLink="/trainer-profile/{{(item.user.firstname != undefined && item.user.firstname != null) ? item.user.firstname.trim() :''}}-{{(item.user.lastname != undefined && item.user.lastname != null) ? item.user.lastname.trim() :''}}/{{item.user.id}}"
                         class="img-thumb">
                         <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') > -1"
-                                    src="{{urlPrefix}}{{item.user.imageUrl}}?width=350&height=450">
-                                <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') == -1" src="{{item.user.imageUrl}}"> 
-                                <div *ngIf="item.user.businessId != 0" class="img-qualifications">
+                            src="{{urlPrefix}}{{item.user.imageUrl}}?width=350&height=450">
+                        <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') == -1"
+                            src="{{item.user.imageUrl}}">
+                        <div *ngIf="item.user.businessId != 0" class="img-qualifications">
                             <img src="{{urlPrefix}}{{item.user.businessImage}}?width=100&height=100">
                         </div>
                     </div>
@@ -233,9 +226,10 @@
                     <div routerLink="/trainer-profile/{{(item.user.firstname != undefined && item.user.firstname != null) ? item.user.firstname.trim() :''}}-{{(item.user.lastname != undefined && item.user.lastname != null) ? item.user.lastname.trim() :''}}/{{item.user.id}}"
                         class="img-thumb">
                         <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') > -1"
-                        src="{{urlPrefix}}{{item.user.imageUrl}}?width=350&height=450">
-                    <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') == -1" src="{{item.user.imageUrl}}">  
-                    <div *ngIf="item.user.businessId != 0" class="img-qualifications">
+                            src="{{urlPrefix}}{{item.user.imageUrl}}?width=350&height=450">
+                        <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') == -1"
+                            src="{{item.user.imageUrl}}">
+                        <div *ngIf="item.user.businessId != 0" class="img-qualifications">
                             <img src="{{urlPrefix}}{{item.user.businessImage}}?width=100&height=100">
                         </div>
                     </div>
@@ -286,7 +280,7 @@
     <h5 style="padding-left: 12px;">{{this.lstTrainerFilter.length}} personal trainers found
     </h5>
     <div class="row justify-content-left border-bottom">
-        <div class="col-md-6 col-lg-6"
+        <div id="blockTrainerId" class="col-md-6 col-lg-6"
             style="height:100vh;overflow: auto;box-shadow:inset rgba(162, 162, 162, 0.2) 0px -1px 1px 1px;">
             <div class="row justify-content-center">
                 <div class="col-lg-12 col-12">
@@ -296,8 +290,9 @@
                             <div routerLink="/trainer-profile/{{(item.user.firstname != undefined && item.user.firstname != null) ? item.user.firstname.trim() :''}}-{{(item.user.lastname != undefined && item.user.lastname != null) ? item.user.lastname.trim() :''}}/{{item.user.id}}"
                                 class="img-thumb">
                                 <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') > -1"
-                                src="{{urlPrefix}}{{item.user.imageUrl}}?width=350&height=450">
-                            <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') == -1" src="{{item.user.imageUrl}}"> 
+                                    src="{{urlPrefix}}{{item.user.imageUrl}}?width=350&height=450">
+                                <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') == -1"
+                                    src="{{item.user.imageUrl}}">
                                 <div *ngIf="item.user.businessId != 0" class="img-qualifications">
                                     <img src="{{urlPrefix}}{{item.user.businessImage}}?width=100&height=100">
                                 </div>

@@ -8,13 +8,15 @@
                         <span class="border-avatar"></span>
                         <img *ngIf="trainer.user.imageUrl && trainer.user.imageUrl.indexOf('render') > -1"
                                 src="{{urlPrefix}}{{trainer.user.imageUrl}}?width=450&height=550">
+
                             <img *ngIf="trainer.user.imageUrl && trainer.user.imageUrl.indexOf('render') == -1" src="{{trainer.user.imageUrl}}"> 
+                            
                         <div *ngIf="trainer.user.businessId > 0" class="img-qualifications">
                             <img src="{{urlPrefix}}api/uploads/752/render?width=100&height=100">
                         </div>
                         <div (click)="playVideo(trainer)"  *ngIf="trainer.user.videoUrl != null && trainer.user.videoUrl != ''" class="video-profile">
                             <span class="btn-video"><i class="fa fa-play"></i></span>
-                            <div  style="background-image: url(https://api.pummel.fit/api/uploads/372/render?width=100&height=100)"
+                            <div  style="background:#000"
                                 class="video-thumbnail">
                             </div>
                         </div>
@@ -92,7 +94,7 @@
     </div>
 </section>
 
-<section *ngIf="trainer != undefined && trainer != null && trainer.user != undefined && trainer.user.bio != null"
+<section *ngIf="trainer != undefined && trainer != null && trainer.user != undefined && trainer.user.bio != null && trainer.user.bio != ''"
     class=" mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
@@ -106,7 +108,7 @@
 </section>
 
 <section
-    *ngIf="trainer != undefined && trainer != null && trainer.user != undefined && (trainer.websiteUrl != '' || trainer.websiteUrl != null)"
+    *ngIf="trainer != undefined && trainer != null && trainer.user != undefined && trainer.websiteUrl != '' && trainer.websiteUrl != null"
     class="mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
@@ -118,7 +120,7 @@
         </div>
     </div>
 </section>
-<section *ngIf="trainer != undefined && trainer != null && trainer.user != undefined && trainer.qualifications != null"
+<section *ngIf="trainer != undefined && trainer != null && trainer.user != undefined && trainer.qualifications != null && trainer.qualifications != ''"
     class=" mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
@@ -130,7 +132,7 @@
         </div>
     </div>
 </section>
-<section *ngIf="trainer != undefined && trainer != null && trainer.user != undefined && trainer.achievements != null"
+<section *ngIf="trainer != undefined && trainer != null && trainer.user != undefined && trainer.achievements != null && trainer.achievements != ''"
     class=" mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
@@ -163,14 +165,14 @@
     </div>
 </section>
 
-<section class=" mt-5">
+<section *ngIf="trainer != undefined && trainer != null && trainer.user != undefined && trainer.totalTestimonial > 0" class=" mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
             <div class=" col-lg-9 col-xl-9 col-md-12 col-11">
                 <h5 style="padding-left: 10px;">TESTIMONIALS
                 </h5>
 
-                <div *ngIf="trainer != undefined && trainer != null && trainer.user != undefined && trainer.totalTestimonial > 0"
+                <div 
                     class="slide-show-container--middle-page testimonials">
                     <div class="slide-show__box-center testimonials">
                         <div ng2-carouselamos [items]="lstTestimonial" [$item]="itemTemplate2"

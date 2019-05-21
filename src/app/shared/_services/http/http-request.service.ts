@@ -154,11 +154,9 @@ export class HttpRequestService {
       }
     }
     console.log(formBody.join('&'));
-    return this.getRequestMethodGet(`api/coaches/searchdistanceV3?${formBody.join('&')}`);
+    return this.getRequestMethodGet(`api/coaches/searchdistanceV4?${formBody.join('&')}`);
   }
-  getCoachesByLocation(location, offset, limit) {
-    return this.getRequestMethodGet(`api/coaches/searchdistanceV3?long=${location.long}&lat=${location.lat}&offset=${offset}&limit=${limit}`);
-  }
+ 
   getCoachesById(id) {
     return this.getRequestMethodGet(`api/coaches/${id}`);
   }

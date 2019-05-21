@@ -1021,3 +1021,17 @@ label.isloading {
   right: 0;
   bottom: 0;
 }
+
+#blockTrainer::-webkit-scrollbar {
+  width: 0.35em;
+  background:#eeeeee;
+}
+
+#blockTrainer::-webkit-scrollbar-track{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+#blockTrainer::-webkit-scrollbar-thumb{
+  background-color: #f5f6f7;
+  outline: 1px solid #f5f6f7;
+}
+
