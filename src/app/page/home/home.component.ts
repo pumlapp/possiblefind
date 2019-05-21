@@ -137,7 +137,6 @@ export class HomeComponent implements OnInit {
         this.http.getAllCoaches(this.offset, this.limit).subscribe(resp => {
             const res = resp.json();
             if(res == undefined || res == []) return;
-            console.log(res)
             this.lstTrainer = this.lstTrainer.concat(res);
             for (let item of this.lstTrainer) {
                 item.user.tags.forEach((tag) => {
@@ -153,6 +152,7 @@ export class HomeComponent implements OnInit {
                     this.http.getBusinessById(item.user.businessId).subscribe(resp => {
                         const res = resp.json()
                         item.user.businessImage = res.imageUrl
+                        console.log( item.user.businessImage )
                     })
                 }
             }
@@ -190,7 +190,6 @@ export class HomeComponent implements OnInit {
                 if (item.user.businessId > 0) {
                     this.http.getBusinessById(item.user.businessId).subscribe(resp => {
                         const res = resp.json()
-                        console.log(res)
                         item.user.businessImage = res.imageUrl;
                         
                     })
@@ -420,9 +419,9 @@ export class HomeComponent implements OnInit {
                 let locations = result.Response.View[0].Result;
                 this.searchParameter.lat = locations[0].Location.DisplayPosition.Latitude;
                 this.searchParameter.long = locations[0].Location.DisplayPosition.Longitude;
-                this.searchParameter.city1 = suggestion.address.district.replace('<mark>', '').replace('</mark>', '');
-                this.searchParameter.city2 = suggestion.address.city.replace('<mark>', '').replace('</mark>', '');
-                this.searchParameter.state = suggestion.address.state.replace('<mark>', '').replace('</mark>', '');
+                this.searchParameter.city1 = suggestion.address.district ? suggestion.address.district.replace('<mark>', '').replace('</mark>', '') : undefined;
+                this.searchParameter.city2 = suggestion.address.city ? suggestion.address.city.replace('<mark>', '').replace('</mark>', '') : undefined;
+                this.searchParameter.state =suggestion.address.state ? suggestion.address.state.replace('<mark>', '').replace('</mark>', '') : undefined;
                 this.getCoaches();
                 this.isDisabledSearch = false;
             },
