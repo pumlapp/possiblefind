@@ -61,7 +61,8 @@ export class HomeComponent implements OnInit {
         lat: undefined,
         offset: undefined,
         limit: 10,
-        city: undefined,
+        city1: undefined,
+        city2: undefined,
         state: undefined,
         tagIds: []
     }
@@ -115,8 +116,13 @@ export class HomeComponent implements OnInit {
                     (result) => {
 
                         if (result.response.view && result.response.view.length > 0 && result.response.view[0].result && result.response.view[0].result.length > 0 && result.response.view[0].result[0].location) {
-                            this.searchParameter.city = result.response.view[0].result[0].location.address.city;
-                            console.log('currentLocation', result.response.view[0].result[0].location.address)
+                           
+
+                            if(result.response.view[0].result[0].location.address.district)
+                                 this.searchParameter.city1 = result.response.view[0].result[0].location.address.district;
+                            this.searchParameter.city2 = result.response.view[0].result[0].location.address.city;
+                            this.searchParameter.state = result.response.view[0].result[0].location.address.state;
+                            console.log('currentLocation', result.response.view[0].result[0])
                         }
 
                     }, (error) => {
@@ -257,7 +263,7 @@ export class HomeComponent implements OnInit {
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
         this.isDisabledSearch = true;
         this.model.places = city.city;
-        this.searchParameter.city = city.city;
+        this.searchParameter.city2 = city.city;
         this.searchParameter.lat = city.lat == 0 || city.lat == null ? undefined : city.lat;
         this.searchParameter.long = city.long == 0 || city.long == null ? undefined : city.long;
         this.searchParameter.offset = 0;
@@ -280,7 +286,7 @@ export class HomeComponent implements OnInit {
 
     }
     getCoaches() {
-        if (this.searchParameter.lat == undefined || this.searchParameter.long == undefined || this.searchParameter.city == undefined) {
+        if (this.searchParameter.lat == undefined || this.searchParameter.long == undefined || this.searchParameter.city1 == undefined ||  this.searchParameter.city2 == undefined) {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((position) => {
                     this.searchParameter.lat = position.coords.latitude;
@@ -288,9 +294,13 @@ export class HomeComponent implements OnInit {
                     this.http.getAddressByLocation(position.coords.latitude, position.coords.longitude,
                         (result) => {
                             if (result.response.view && result.response.view.length > 0 && result.response.view[0].result && result.response.view[0].result.length > 0 && result.response.view[0].result[0].location) {
-                                this.searchParameter.city = result.response.view[0].result[0].location.address.city;
+                                if(result.response.view[0].result[0].location.address.district)
+                                    this.searchParameter.city1 = result.response.view[0].result[0].location.address.district;
+                                   
+                                this.searchParameter.city2 = result.response.view[0].result[0].location.address.city;
+                                this.searchParameter.state = result.response.view[0].result[0].location.address.state;
                                 this.isDisabledSearch = true;
-                                this.model.places = this.searchParameter.city;
+                                this.model.places = this.searchParameter.city2;
                                 this.isDisabledSearch = false;
                             }
                         }, (error) => {
@@ -401,14 +411,19 @@ export class HomeComponent implements OnInit {
         this.searchParameter.offset = 0;
         this.isDisabledSearch = true;
         this.lstSuggests = [];
-        this.model.places = `${suggestion.address.city.replace('<mark>', '').replace('</mark>', '')} ${suggestion.address.state}, ${suggestion.address.country}`
+        this.model.places = `${suggestion.address.district ? suggestion.address.district.replace('<mark>', '').replace('</mark>', '') + ', ' : ''}
+        ${suggestion.address.city.replace('<mark>', '').replace('</mark>', '')} ${suggestion.address.state},
+        ${suggestion.address.postalCode ? suggestion.address.postalCode.replace('<mark>', '').replace('</mark>', '') + ', ' : ''}
+         ${suggestion.address.country}`
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
         this.http.getLocationByLocationId(suggestion.locationId,
             (result) => {
                 let locations = result.Response.View[0].Result;
                 this.searchParameter.lat = locations[0].Location.DisplayPosition.Latitude;
                 this.searchParameter.long = locations[0].Location.DisplayPosition.Longitude;
-                this.searchParameter.city = suggestion.address.city.replace('<mark>', '').replace('</mark>', '');
+                this.searchParameter.city1 = suggestion.address.district.replace('<mark>', '').replace('</mark>', '');
+                this.searchParameter.city2 = suggestion.address.city.replace('<mark>', '').replace('</mark>', '');
+                this.searchParameter.state = suggestion.address.state.replace('<mark>', '').replace('</mark>', '');
                 this.getCoaches();
                 this.isDisabledSearch = false;
             },

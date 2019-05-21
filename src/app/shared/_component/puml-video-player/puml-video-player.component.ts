@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy, OnChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { environment } from '../../../../environments/environment.prod';
 
 
 declare var $: any;
@@ -15,11 +16,16 @@ export class PumlVideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   backgroundUrl:any = '';
   @Input() videoUrl: any;
   @Input() trainer: any;
-  urlPrefix:any = 
+  urlPrefix:any = environment.apiUrl; 
+  imageUrl: any = ''
   constructor(private sanitizer: DomSanitizer) {
   }
   ngOnInit() {
-    let style = `background: url('http://api.pummel.fit/${this.trainer.user.imageUrl}?width=768&height=1024')`;
+    this.imageUrl = this.trainer.user.imageUrl && this.trainer.user.imageUrl.indexOf('render') > -1 ?
+    `http://api.pummel.fit/${this.trainer.user.imageUrl}?width=768&height=1024` : 
+    this.trainer.user.imageUrl.replace('height=200&width=200','width=768&height=1024')
+    
+    let style = `background: url('${this.imageUrl}')`;
     this.backgroundUrl = this.sanitizer.bypassSecurityTrustStyle(style); 
 
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { environment } from '../../../../environments/environment.prod';
 
 declare var H: any;
 declare var mapsjs: any;
@@ -31,6 +32,8 @@ export class OnePointComponent implements OnInit {
 
     @Input()
     public height: any;
+
+private urlPrefix: any = environment.apiUrl;
 
     public constructor() { }
 
@@ -96,7 +99,7 @@ export class OnePointComponent implements OnInit {
 
         // add negative margin to inner element
         // to move the anchor to center of the div
-        
+    
         if (this.pointInfo.user.imageUrl == null) {
             innerElement.style.lineHeight = "3em";
             innerElement.style.fontSize = "20px";
@@ -106,8 +109,12 @@ export class OnePointComponent implements OnInit {
             innerElement.innerHTML = this.pointInfo.distance;
         }
         else {
+            let imageUrl = this.pointInfo.user.imageUrl && this.pointInfo.user.imageUrl.indexOf('render') > -1 ?
+            `${this.urlPrefix}${this.pointInfo.user.imageUrl}?width=80&height=80` : 
+            this.pointInfo.user.imageUrl.replace('height=200&width=200','width=80&height=80')
+      
             innerElement.style.border = '1px solid #ff5a0f'
-            innerElement.style.background = `url(http://api.pummel.fit/${this.pointInfo.user.imageUrl}?width=80&height=80`;
+            innerElement.style.background = `url(${imageUrl})`;
             innerElement.style.backgroundRepeat = 'no-repeat';
             innerElement.style.backgroundSize = 'cover';
             innerElement.style.backgroundPosition = 'center';
