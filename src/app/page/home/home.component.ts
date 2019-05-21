@@ -8,6 +8,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ValidationFormService } from '../../shared/_services/validation-form/validation-form.service';
 import { EventMessage } from '../../shared/_services/event-message/event-message.service';
 import { NgxCarousel } from 'ngx-carousel';
+import { environment } from '../../../environments/environment.prod';
 declare var bootbox: any;
 
 @Component({
@@ -29,6 +30,7 @@ export class HomeComponent implements OnInit {
         { color: 'cl-turquoise', background: 'bg-turquoise' },
         { color: 'cl-radical-red', background: 'bg-radical-red' },
     ]
+    urlPrefix: any = environment.apiUrl;
     lstTopTrainer: any[] = []
     lstTag: any = [];
     lstTrainer: any = [];

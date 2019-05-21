@@ -8,7 +8,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ValidationFormService } from '../../shared/_services/validation-form/validation-form.service';
 import { EventMessage } from '../../shared/_services/event-message/event-message.service';
 import { NgxCarousel } from 'ngx-carousel';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment.prod';
 declare var $: any;
 declare var bootbox: any;
 @Component({
