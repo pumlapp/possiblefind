@@ -73,7 +73,6 @@
         </div>
     </div>
 </section>
-
 <section *ngIf="!isSearch  && isViewMap == false" class="container mb-5">
     <div class="row justify-content-center">
         <div class="col-md-12 col-lg-12">
@@ -89,7 +88,8 @@
                                         src="{{urlPrefix}}{{item.user.imageUrl}}?width=350&height=450">
                                     <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') == -1"
                                         src="{{item.user.imageUrl}}">
-                                    <div *ngIf="item.user.businessId != 0" class="img-qualifications">
+                                    <div *ngIf="item.user.businessId != 0 && item.user.businessImage"
+                                        class="img-qualifications">
                                         <img src="{{urlPrefix}}{{item.user.businessImage}}?width=100&height=100">
                                     </div>
                                 </div>
@@ -97,9 +97,9 @@
                                     class="trainer-name">
                                     {{item.user.firstname}} <i class="icon-right-arrow"></i>
                                 </p>
-                                <p class="trainer-location"><i class="fa fa-map-marker"></i> {{item.serviceArea}}</p>
+                                <p *ngIf="item.serviceArea && item.serviceArea != ''" class="trainer-location"><i class="fa fa-map-marker"></i> {{item.serviceArea}}</p>
                                 <div class="trainer-tag">
-                                    <div *ngIf="item.user.tags.length>0" class="tag-items">
+                                    <div *ngIf="item.user.tags.length>0" class="tag-items" [ngClass]="{'location-null': !(item.serviceArea && item.serviceArea != '')}">
                                         <div class="item" *ngFor="let tag of item.user.tags">
                                             <button class="btn-tag">
                                                 <i class="fa fa-circle {{tag.color}}"></i> {{tag.title}}
@@ -107,24 +107,16 @@
                                         </div>
                                     </div>
 
-                                    <div *ngIf="item.user.tags.length==0" style="margin-bottom:6px" class="tag-items">
+                                    <div *ngIf="item.user.tags.length==0" style="margin-bottom:6px" class="tag-items" [ngClass]="{'location-null': !(item.serviceArea && item.serviceArea != '')}">
                                         <div class="item">
                                             <button
-                                                style="visibility: '{{item.user.tags.length==0 ? hidden : visible}}'"
-                                                class="btn-tag">
+                                                [ngStyle]="{'visibility': item.user.tags.length==0 ? 'hidden' : 'visible'}"
+                                                class="btn-tag"
+                                                [ngClass]="{'location-null': !(item.serviceArea && item.serviceArea != '')}">
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <p class="trainer-tag">
-                                <ngx-carousel class="custom-carousel-home-component" [inputs]="carouselThree">
-                                    <ngx-item NgxCarouselItem *ngFor="let tag of item.user.tags">
-                                        <button class="btn-tag">
-                                            <i class="fa fa-circle {{tag.color}}"></i> {{tag.title}}
-                                        </button>
-                                    </ngx-item>
-                                </ngx-carousel>
-                            </p> -->
                             </div>
                         </div>
                     </ngx-item>
@@ -164,29 +156,39 @@
                 <div class="trainer-info {{item.isFeatured == true ? 'featured' : ''}}">
                     <div routerLink="/trainer-profile/{{(item.user.firstname != undefined && item.user.firstname != null) ? item.user.firstname.toLowerCase().trim() :''}}-{{(item.user.lastname != undefined && item.user.lastname != null) ? item.user.lastname.toLowerCase().trim() :''}}/{{item.user.id}}"
                         class="img-thumb">
+
                         <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') > -1"
                             src="{{urlPrefix}}{{item.user.imageUrl}}?width=350&height=450">
                         <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') == -1"
                             src="{{item.user.imageUrl}}">
-                        <div *ngIf="item.user.businessId != 0" class="img-qualifications">
+                        <div *ngIf="item.user.businessId != 0 && item.user.businessImage" class="img-qualifications">
                             <img src="{{urlPrefix}}{{item.user.businessImage}}?width=100&height=100">
                         </div>
+
+
+
+
                     </div>
                     <p routerLink="/trainer-profile/{{(item.user.firstname != undefined && item.user.firstname != null) ? item.user.firstname.toLowerCase().trim() :''}}-{{(item.user.lastname != undefined && item.user.lastname != null) ? item.user.lastname.toLowerCase().trim() :''}}/{{item.user.id}}"
                         class="trainer-name">{{item.user.firstname}} <i class="icon-right-arrow"></i>
-                        <p class="trainer-location"><i class="fa fa-map-marker"></i> {{item.serviceArea}}</p>
+                        <p *ngIf="item.serviceArea && item.serviceArea != ''" class="trainer-location"><i
+                                class="fa fa-map-marker"></i> {{item.serviceArea}}</p>
                         <div class="trainer-tag">
-                            <div *ngIf="item.user.tags.length>0" class="tag-items">
+                            <div *ngIf="item.user.tags.length>0" class="tag-items"
+                                [ngClass]="{'location-null': !(item.serviceArea && item.serviceArea != '')}">
                                 <div class="item" *ngFor="let tag of item.user.tags">
-                                    <button class="btn-tag">
+                                    <button class="btn-tag"
+                                        [ngClass]="{'location-null': !(item.serviceArea && item.serviceArea != '')}">
                                         <i class="fa fa-circle {{tag.color}}"></i> {{tag.title}}
                                     </button>
                                 </div>
                             </div>
-                            <div *ngIf="item.user.tags.length==0" style="margin-bottom:6px" class="tag-items">
+                            <div *ngIf="item.user.tags.length==0" style="margin-bottom:6px" class="tag-items"
+                                [ngClass]="{'location-null': !(item.serviceArea && item.serviceArea != '')}">
                                 <div class="item">
-                                    <button style="visibility: '{{item.user.tags.length==0 ? hidden : visible}}'"
-                                        class="btn-tag">
+                                    <button [ngStyle]="{'visibility': item.user.tags.length==0 ? 'hidden' : 'visible'}"
+                                        class="btn-tag"
+                                        [ngClass]="{'location-null': !(item.serviceArea && item.serviceArea != '')}">
                                     </button>
                                 </div>
                             </div>
@@ -229,25 +231,26 @@
                             src="{{urlPrefix}}{{item.user.imageUrl}}?width=350&height=450">
                         <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') == -1"
                             src="{{item.user.imageUrl}}">
-                        <div *ngIf="item.user.businessId != 0" class="img-qualifications">
+                        <div *ngIf="item.user.businessId != 0 && item.user.businessImage" class="img-qualifications">
                             <img src="{{urlPrefix}}{{item.user.businessImage}}?width=100&height=100">
                         </div>
                     </div>
                     <p routerLink="/trainer-profile/{{(item.user.firstname != undefined && item.user.firstname != null) ? item.user.firstname.toLowerCase().trim() :''}}-{{(item.user.lastname != undefined && item.user.lastname != null) ? item.user.lastname.toLowerCase().trim() :''}}/{{item.user.id}}"
                         class="trainer-name">{{item.user.firstname}} <i class="icon-right-arrow"></i>
-                        <p class="trainer-location"><i class="fa fa-map-marker"></i> {{item.serviceArea}}</p>
+                        <p *ngIf="item.serviceArea && item.serviceArea != ''" class="trainer-location"><i class="fa fa-map-marker"></i> {{item.serviceArea}}</p>
                         <div class="trainer-tag">
-                            <div *ngIf="item.user.tags.length>0" class="tag-items">
+                            <div *ngIf="item.user.tags.length>0" class="tag-items" [ngClass]="{'location-null': !(item.serviceArea && item.serviceArea != '')}">
                                 <div class="item" *ngFor="let tag of item.user.tags">
                                     <button class="btn-tag">
                                         <i class="fa fa-circle {{tag.color}}"></i> {{tag.title}}
                                     </button>
                                 </div>
                             </div>
-                            <div *ngIf="item.user.tags.length==0" style="margin-bottom:6px" class="tag-items">
+                            <div *ngIf="item.user.tags.length==0" style="margin-bottom:6px" class="tag-items" [ngClass]="{'location-null': !(item.serviceArea && item.serviceArea != '')}">
                                 <div class="item">
-                                    <button style="visibility: '{{item.user.tags.length==0 ? hidden : visible}}'"
-                                        class="btn-tag">
+                                    <button [ngStyle]="{'visibility': item.user.tags.length==0 ? 'hidden' : 'visible'}"
+                                        class="btn-tag"
+                                        [ngClass]="{'location-null': !(item.serviceArea && item.serviceArea != '')}">
                                     </button>
                                 </div>
                             </div>
@@ -293,7 +296,8 @@
                                     src="{{urlPrefix}}{{item.user.imageUrl}}?width=350&height=450">
                                 <img *ngIf="item.user.imageUrl && item.user.imageUrl.indexOf('render') == -1"
                                     src="{{item.user.imageUrl}}">
-                                <div *ngIf="item.user.businessId != 0" class="img-qualifications">
+                                <div *ngIf="item.user.businessId != 0 && item.user.businessImage"
+                                    class="img-qualifications">
                                     <img src="{{urlPrefix}}{{item.user.businessImage}}?width=100&height=100">
                                 </div>
                             </div>
@@ -318,7 +322,7 @@
                                     <div *ngIf="item.user.tags.length==0" style="margin-bottom:6px" class="tag-items">
                                         <div class="item">
                                             <button
-                                                style="visibility: '{{item.user.tags.length==0 ? hidden : visible}}'"
+                                                [ngStyle]="{'visibility': item.user.tags.length==0 ? 'hidden' : 'visible'}"
                                                 class="btn-tag">
                                             </button>
                                         </div>

@@ -7,11 +7,6 @@ import { Router } from '@angular/router';
 export class LayoutSharedComponent  {
 
   constructor( private router: Router) {
-
-    console.log(router)
-    if(this.router.url == '/'){
-      //this.router.navigate(['home'])
-    }
   }
 
 }

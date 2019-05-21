@@ -10,13 +10,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Ng2CarouselamosModule } from 'ng2-carouselamos';
-import { NouisliderModule } from 'ng2-nouislider';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxCarouselModule } from 'ngx-carousel';
-import { RatingModule } from 'ngx-rating';
-import { SlideshowModule } from 'ng-simple-slideshow';
 import { LoadingModule } from 'ngx-loading';
-import { LazyImagesModule } from 'ngx-lazy-images';
 import { PerfectScrollbarModule, PerfectScrollbarConfigInterface, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { EventMessage } from './_services/event-message/event-message.service';
 import { Broadcaster } from './_services/event-message/broadcaster.service';
@@ -25,6 +21,7 @@ import { HttpService } from './_services/http/http-service.service';
 import { HttpRequestService } from './_services/http/http-request.service';
 import { ValidationFormService } from './_services/validation-form/validation-form.service';
 import { ControlMessageModule } from './_component/control-message/control-message.module';
+import { DeferLoadModule } from '@trademe/ng-defer-load';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -33,6 +30,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCknSrYr7gD6rLac1tF3BXopEwWrp-jwME'
     }),
+    DeferLoadModule,
     FlexLayoutModule,
     BrowserModule,
     BrowserAnimationsModule,
@@ -43,11 +41,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     TranslateModule.forRoot(),
     NgSelectModule,
     Ng2CarouselamosModule,
-    NouisliderModule,
     NgxPaginationModule,
     NgxCarouselModule,
-    RatingModule,
-    SlideshowModule,
     LoadingModule.forRoot({
       backdropBackgroundColour: 'rgba(255,255,255,0.5)',
       primaryColour: '#ffdecf',
@@ -55,7 +50,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       tertiaryColour: '#ff7b3f',
       fullScreenBackdrop: true
     }),
-    LazyImagesModule,
     PerfectScrollbarModule,
     HttpClientModule,
     ControlMessageModule
@@ -66,19 +60,15 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    //MaterialModule,
+    DeferLoadModule,
     FlexLayoutModule,
     NgxPaginationModule,
     AgmCoreModule,
     NgxCarouselModule,
     NgSelectModule,
     Ng2CarouselamosModule,
-    NouisliderModule,
     TranslateModule,
-    RatingModule,
-    SlideshowModule,
     LoadingModule,
-    LazyImagesModule,
     PerfectScrollbarModule,
     ControlMessageModule
   ],

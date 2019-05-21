@@ -122,7 +122,7 @@ export class HomeComponent implements OnInit {
                                  this.searchParameter.city1 = result.response.view[0].result[0].location.address.district;
                             this.searchParameter.city2 = result.response.view[0].result[0].location.address.city;
                             this.searchParameter.state = result.response.view[0].result[0].location.address.state;
-                            console.log('currentLocation', result.response.view[0].result[0])
+                            //console.log('currentLocation', result.response.view[0].result[0])
                         }
 
                     }, (error) => {
@@ -139,6 +139,7 @@ export class HomeComponent implements OnInit {
             if(res == undefined || res == []) return;
             this.lstTrainer = this.lstTrainer.concat(res);
             for (let item of this.lstTrainer) {
+             
                 item.user.tags.forEach((tag) => {
                     var tagParent = this.lstTag.filter(o => o.id == tag.id)[0];
                     if (tagParent) {
@@ -152,7 +153,7 @@ export class HomeComponent implements OnInit {
                     this.http.getBusinessById(item.user.businessId).subscribe(resp => {
                         const res = resp.json()
                         item.user.businessImage = res.imageUrl
-                        console.log( item.user.businessImage )
+                        //console.log( item.user.businessImage )
                     })
                 }
             }
@@ -260,7 +261,7 @@ export class HomeComponent implements OnInit {
 
 
     getTrainerByCity(city) {
-        console.log(city)
+        //console.log(city)
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
         this.isDisabledSearch = true;
         this.model.places = city.city;
@@ -347,9 +348,9 @@ export class HomeComponent implements OnInit {
         })
     }
 
-    getBusinessById(businessId) {
-
-    }
+    get totalImagesShown (): number {
+        return (this.lstTrainer.filter(o => o.user.imageShow) || []).length;
+      }
 
     searchByTags(tag, e) {
         var lstTagSelect = this.lstTag.filter(o => o.checked == true);
@@ -396,7 +397,7 @@ export class HomeComponent implements OnInit {
         if (this.model.places == "" || this.model.places.trim() == "") return;
         this.http.getGeocoderPlacesByFreetext(this.model.places).subscribe(resp => {
             if (resp && resp.suggestions && resp.suggestions.length > 0) {
-                console.log(resp)
+                //console.log(resp)
                 this.lstSuggests = resp.suggestions;
             }
             else {
@@ -426,7 +427,7 @@ export class HomeComponent implements OnInit {
                 this.isDisabledSearch = false;
             },
             (error) => {
-                console.log('Ooops!');
+                //console.log('Ooops!');
             }
         )
     }

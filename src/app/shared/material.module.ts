@@ -18,12 +18,9 @@ import {
   MatMenuModule,
   MatGridListModule
 } from '@angular/material';
-import { 
-  MatDatetimepickerModule,MAT_DATETIME_FORMATS, DatetimeAdapter,MatDatetimeFormats} from '@mat-datetimepicker/core';
 import { NgModule } from '@angular/core';
 
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
-import { MatMomentDatetimeModule, MomentDatetimeAdapter } from '@mat-datetimepicker/moment';
 
 // See the Moment.js docs for the meaning of these formats:
 // https://momentjs.com/docs/#/displaying/format/
@@ -53,8 +50,6 @@ export const MY_FORMATS = {
     MatMenuModule,
     MatButtonModule,
     MatExpansionModule,
-    MatDatetimepickerModule,
-    MatMomentDatetimeModule,
     MatGridListModule
   ],
   exports: [
@@ -70,8 +65,6 @@ export const MY_FORMATS = {
     MatMenuModule,
     MatButtonModule,
     MatExpansionModule,
-    MatDatetimepickerModule,
-    MatMomentDatetimeModule,
     MatGridListModule
   ],
   providers: [
@@ -95,30 +88,7 @@ export const MY_FORMATS = {
       provide: MAT_DIALOG_DATA,
       useValue: {} // Add any data you wish to test if it is passed/used correctly
     },
-    {
-      provide: DatetimeAdapter,
-      useClass: MomentDatetimeAdapter},
-    {  
-    provide: MAT_DATETIME_FORMATS,
-    
-    useValue: {
-      
-      parse: {
-        monthInput: "MM",
-        timeInput: "LT",
-        datetimeInput: "LL LT"
-      },
-      display: {
-        monthInput: "MM",
-        datetimeInput: "LL LT",
-        timeInput: "LT",
-        monthYearLabel: "MM, YYYY",
-        dateA11yLabel: "LL",
-        monthYearA11yLabel: "MM, YYYY",
-        popupHeaderDateLabel: "MMM D, YYYY",
-        popupHeaderTimeLabel: "LT",
-      }
-    }}
+   
   ],
 })
 

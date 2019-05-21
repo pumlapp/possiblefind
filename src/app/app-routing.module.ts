@@ -7,8 +7,8 @@ import { LayoutSharedModule } from '../app/master-page/layout-shared/layout-shar
 import { HomeComponent } from './page/home/home.component';
 
 const routes: Routes = [
-    //{ path: '', loadChildren: () => LayoutSharedModule},
-    { path: '', loadChildren: '../app/master-page/layout-shared/layout-shared.module#LayoutSharedModule'  },
+    { path: '', loadChildren: () => LayoutSharedModule},
+   // { path: '', loadChildren: '../app/master-page/layout-shared/layout-shared.module#LayoutSharedModule'  },
 
     // { path: '',   component: HomeComponent },
    //  { path: 'home', component: HomeComponent },

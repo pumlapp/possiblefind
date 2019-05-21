@@ -19,10 +19,6 @@ export class AppComponent implements OnInit {
     .subscribe((res: any) => {
       this.isShowLoading = res;
     });
-
-  console.log(router)
- 
-
   }
   ngOnInit(): void {
    

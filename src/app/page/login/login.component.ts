@@ -28,8 +28,7 @@ export class LoginComponent implements OnInit {
         private validationFormService: ValidationFormService,
         private eventMsg: EventMessage
     ) {
-        console.log('login')
-      //this.router.navigate(['home']);
+       
     }
 
     ngOnInit() {

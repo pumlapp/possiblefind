@@ -48,7 +48,7 @@ export class ValidationFormService {
   }
 
   passwordValidator(AC: AbstractControl) {
-    console.log(123)
+  
     if (!AC.parent || !AC) {
       return null;
     }
