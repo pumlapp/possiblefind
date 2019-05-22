@@ -365,7 +365,7 @@ export class HomeComponent implements OnInit {
         if (lst && lst.length > 0) {
             for (const item of lst) {
                 this.searchParameter.tagIds.splice(this.searchParameter.tagIds.indexOf(item), 1);
-                if (this.searchParameter.tagIds.length == 0) {
+                if (this.searchParameter.tagIds.length == 0 && (this.model.places == undefined || this.model.places.length == 0)) {
                     this.isSearch = false;
                     this.noMore = false;
                     this.searchByGender('Any Gender')
