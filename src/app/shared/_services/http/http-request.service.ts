@@ -173,9 +173,9 @@ export class HttpRequestService {
   getBusinessById(id) {
     return this.getRequestMethodGet(`api/businesses/${id}`);
   }
-
-
-
+  getMobileCoachTrack(id) {
+    return this.getRequestMethodPost(`api/mobileCoachTrack`, {coachId: id});
+  }
   /****HereMap API */
   getGeocoderPlacesByFreetext(freeText) {
     var params =

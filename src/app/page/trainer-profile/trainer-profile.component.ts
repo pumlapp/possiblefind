@@ -83,6 +83,7 @@ export class TrainerProfileComponent implements OnInit {
              const res = resp.json();
              if(res){
                 this.trainer = res;
+                this.getMobileCoachTrack(id);
                 //this.trainer.user.videoUrl = "https://d22kb9sinmfyk6.cloudfront.net/958a52d4-b9bb-4cea-8df4-60ecf6cc4f4b/172_thegreatest.m3u8";
              }
              $(document).ready(()=>{
@@ -92,6 +93,15 @@ export class TrainerProfileComponent implements OnInit {
             this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false);
          })
     }
+
+    getMobileCoachTrack(id){
+        this.trainer.user.points = '3,000';
+        // this.http.getMobileCoachTrack(this.trainer.user.id).subscribe(resp => {
+        //     const res = resp.json();
+        //     this.trainer.user.points = 3000;
+        // })
+    }
+
     getUserTag() {
         this.http.getCoachesTag(this.trainerId).subscribe( resp => {
             const res = resp.json();

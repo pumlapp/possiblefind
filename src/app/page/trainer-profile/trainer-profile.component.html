@@ -32,11 +32,12 @@
                         <div class="trainer-rating mb-2">
                             <div class="row">
                                 <div class="col-xl-4 col-lg-4 col-md-4 col-3 block">
-                                    <p>{{+((trainer.user.rating/5)*100)}}%</p>
+                                    <p>100%</p>
+                                    <!-- <p>{{+((trainer.user.rating/5)*100)}}%</p> -->
                                     <p>RATING</p>
                                 </div>
                                 <div *ngIf="trainer.user.points" class="col-xl-4 col-lg-4 col-md-4 col-3 block">
-                                    <p>2,700</p>
+                                    <p>{{trainer.user.points}}</p>
                                     <p>POINTS</p>
                                 </div>
                                 <div class="col-xl-4 col-lg-4 col-md-4 col-3 block">
@@ -115,7 +116,7 @@
             <div class="  col-lg-9 col-xl-9 col-md-12 col-11">
                 <h5 style="padding-left: 10px;">WEBSITE
                 </h5>
-                <p class="description">{{trainer.websiteUrl}}</p>
+                <p class="description"><a target="_blank" style="color:inherit; text-decoration: underline" href="{{trainer.websiteUrl}}">{{trainer.websiteUrl}}</a></p>
             </div>
         </div>
     </div>
@@ -165,14 +166,14 @@
     </div>
 </section>
 
-<section *ngIf="trainer != undefined && trainer != null && trainer.user != undefined && trainer.totalTestimonial > 0" class=" mt-5">
+<section class=" mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
             <div class=" col-lg-9 col-xl-9 col-md-12 col-11">
                 <h5 style="padding-left: 10px;">TESTIMONIALS
                 </h5>
 
-                <div 
+                <div *ngIf="trainer != undefined && trainer != null && trainer.user != undefined && trainer.totalTestimonial > 0"
                     class="slide-show-container--middle-page testimonials">
                     <div class="slide-show__box-center testimonials">
                         <div ng2-carouselamos [items]="lstTestimonial" [$item]="itemTemplate2"
@@ -286,7 +287,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-md-12">
+                        <!-- <div class="col-xs-12 col-md-12">
                             <div class="row">
                                 <div class="col-xs-12 col-md-12 mb-2" style="position: relative;">
                                     <i class="fa material-icons">access_time</i>
@@ -297,8 +298,7 @@
 
                                 </div>
                             </div>
-
-                        </div>
+                        </div> -->
                         <button  class="btn btn-primary btn-request-callback mt-2" type="button" > REQUEST A CALL BACK </button>
                     </div>
                 </div>
