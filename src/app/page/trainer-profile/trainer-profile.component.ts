@@ -71,7 +71,6 @@ export class TrainerProfileComponent implements OnInit {
             'fullname': ['', [Validators.required]],
             'email':  ['', [Validators.required]],
             'message': ['', [Validators.required]]
-           
         });
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
     }
