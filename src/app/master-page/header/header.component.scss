@@ -17,11 +17,11 @@
   left: 0;
   border-bottom: 1px solid #fff;
   .navbar-brand {
-    width: 185px;
+    max-width: 200px;
     height: auto;
     img {
       width: 100%;
-      height: 55px;
+      height: auto;
     }
   }
   .navbar-nav {
@@ -56,12 +56,13 @@
 
 @media screen and (max-width: 414px) {
   .navbar {
+    height: 60px;
     .navbar-brand {
-      width: 148px;
+      max-width: 125px;
       height: auto;
       img {
         width: 100%;
-        height: 45px;
+        height: auto;
       }
     }
 
