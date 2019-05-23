@@ -154,11 +154,11 @@
                 <h5 style="padding-left: 10px;">SOCIAL
                 </h5>
                 <p style="padding-left:10px">
-                    <a *ngIf="trainer.user.facebookUrl != ''" href="{{trainer.user.facebookUrl}}" target="_blank"
+                    <a *ngIf="trainer.user.facebookUrl != undefined && trainer.user.facebookUrl != null && trainer.user.facebookUrl != ''" href="{{trainer.user.facebookUrl}}" target="_blank"
                         class="btn btn-facebook">FACEBOOK</a>
-                    <a *ngIf="trainer.user.instagramUrl != ''" href="{{trainer.user.instagramUrl}}"
+                    <a *ngIf="trainer.user.instagramUrl != undefined && trainer.user.instagramUrl != null && trainer.user.instagramUrl != ''" href="{{trainer.user.instagramUrl}}"
                         class="btn btn-instagram" target="_blank">INSTAGRAM</a>
-                    <a *ngIf="trainer.user.twitterUrl != ''" href="{{trainer.user.twitterUrl}}" class="btn btn-twitter"
+                    <a *ngIf="trainer.user.twitterUrl != undefined && trainer.user.twitterUrl != null &&  trainer.user.twitterUrl != ''" href="{{trainer.user.twitterUrl}}" class="btn btn-twitter"
                         target="_blank">TWITTER</a>
                 </p>
             </div>
