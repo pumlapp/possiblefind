@@ -64,8 +64,8 @@ export class TrainerProfileComponent implements OnInit {
         this.requestCallBackForm = this.formBuilder.group({
             'fullname': ['', [Validators.required]],
             'email': ['', [Validators.required, this.validationFormService.emailValidator]],
-            'mobile': ['', [Validators.required, this.validationFormService.phoneNumberValidator]],
-            'callbacktime': ['', [Validators.required]],
+            'mobile': ['', [Validators.required]]
+
         });
         this.sendMessageForm = this.formBuilder.group({
             'fullname': ['', [Validators.required]],
