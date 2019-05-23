@@ -20,6 +20,7 @@ interface LoginInfo {
 export class HttpRequestService {
   private httpService: HttpService;
   public loginInfo: BehaviorSubject<LoginInfo>;
+
   constructor(private http: HttpService, private httpClient: HttpClient) {
     this.httpService = http;
     let pumlUser = JSON.parse(localStorage.getItem('pumlUser'));
@@ -100,7 +101,6 @@ export class HttpRequestService {
   }
 
   getFormUrlNotEncoded(toConvert) {
-
     const formBody = [];
     for (const property in toConvert) {
       const encodedKey = encodeURIComponent(property);
@@ -122,13 +122,18 @@ export class HttpRequestService {
   }
 
   getBusinesses(businessId) {
-    return this.getRequestMethodGet(`/api/businesses/${businessId}`);
+    return this.getRequestMethodGet(`api/businesses/${businessId}`);
+  }
+  phoneNumberValidator(phone) {
+    console.log(phone)
+    const headers = new HttpHeaders();
+    headers.append('Access-Control-Allow-Origin', '*');
+    return this.httpClient.get<any>(`http://apilayer.net/api/validate?access_key=073e4cae041f3556062f7611d1f21fe3&number=${phone}&country_code=&format = 1`, { headers: headers });
   }
   getUserIP() {
     const headers = new HttpHeaders();
     headers.append('Access-Control-Allow-Origin', '*');
     return this.httpClient.get<any>('https://pro.ip-api.com/json?key=51iPzMPnp1eZMmi', { headers: headers });
-    // return this.getRequestMethodGet('https://pro.ip-api.com/json?key=51iPzMPnp1eZMmi');
   }
   getTopCityCountry(country) {
     return this.getRequestMethodGet(`api/topCityCountry/${country}/cities`);
@@ -153,19 +158,22 @@ export class HttpRequestService {
         }
       }
     }
-    console.log(formBody.join('&'));
+    console.log(formBody.join('&'))
     return this.getRequestMethodGet(`api/coaches/searchdistanceV4?${formBody.join('&')}`);
   }
  
   getCoachesById(id) {
     return this.getRequestMethodGet(`api/coaches/${id}`);
   }
+
   getCoachesTag(id) {
     return this.getRequestMethodGet(`api/users/${id}/tags`);
   }
+
   getCoachesPhotos(id, offset, limit) {
     return this.getRequestMethodGet(`api/users/${id}/photos?offset=${offset}&limit=${limit}`);
   }
+
   getAllTestimonial(id, offset, limit) {
     return this.getRequestMethodGet(`api/users/${id}/getAllTestimonial?offset=${offset}&limit=${limit}`);
   }
@@ -173,9 +181,15 @@ export class HttpRequestService {
   getBusinessById(id) {
     return this.getRequestMethodGet(`api/businesses/${id}`);
   }
+
   getMobileCoachTrack(id) {
     return this.getRequestMethodPost(`api/mobileCoachTrack`, {coachId: id});
   }
+
+  requestACallBackOrMessage(params){
+    return this.getRequestMethodPost(`api/callBacks/requestACallBackOrMessage`, params);
+  }
+  
   /****HereMap API */
   getGeocoderPlacesByFreetext(freeText) {
     var params =

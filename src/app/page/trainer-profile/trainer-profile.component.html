@@ -1,7 +1,7 @@
 <section *ngIf="trainer != undefined && trainer != null && trainer.user != undefined" class="trainer-profile">
     <div class="container">
         <div class="row justify-content-center">
-            <div class=" col-lg-9 col-xl-9 col-md-12 col-11">
+            <div class=" col-lg-10 col-xl-9 col-md-8 col-11">
                 <div class="trainer-info" [style.marginBottom.px]="(lstOfImages && lstOfImages.length > 3) ? 0 : 80">
                     <div class="img-thumb mt-4 mr-4">
                         <span class="border-avatar2"></span>
@@ -295,11 +295,10 @@
                                         formControlName="callbacktime" class="form-control" required />
                                     <app-control-message [control]="requestCallBackForm.controls.callbacktime">
                                     </app-control-message>
-
                                 </div>
                             </div>
                         </div> -->
-                        <button  class="btn btn-primary btn-request-callback mt-2" type="button" > REQUEST A CALL BACK </button>
+                        <button [disabled]='requestCallBackForm.invalid' [ngClass]="{'disabled': requestCallBackForm.invalid}" (click)="sendCallBackOrMessage(true)" class="btn btn-primary btn-request-callback mt-2" type="button" > REQUEST A CALL BACK </button>
                     </div>
                 </div>
              
@@ -366,7 +365,7 @@
                                 </div>
                             </div>
                            
-                            <button  class="btn btn-primary btn-request-callback mt-2" type="button" > SEND MESSAGE </button>
+                            <button [disabled]='sendMessageForm.invalid' [ngClass]="{'disabled': sendMessageForm.invalid}" (click)="sendCallBackOrMessage(false)"  class="btn btn-primary btn-request-callback mt-2" type="button" > SEND MESSAGE </button>
                         </div>
                     </div>
                  

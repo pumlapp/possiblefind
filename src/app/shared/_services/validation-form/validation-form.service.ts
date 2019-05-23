@@ -1,12 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpRequestService } from '../http/http-request.service';
 import { AbstractControl } from '@angular/forms';
+import { HttpService } from '../http/http-service.service';
+import { HttpClient } from '@angular/common/http';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Injectable()
 export class ValidationFormService {
   static THIS;
 
-  constructor(private httpRequestService: HttpRequestService) {
+  constructor(@Inject(HttpRequestService) private http) {
     ValidationFormService.THIS = this;
   }
 
@@ -23,11 +26,24 @@ export class ValidationFormService {
       'minlength': `Minimum length ${validatorValue.requiredLength}`,
 
       'invalidNumber': 'Must be number',
+      'invalidPhonenumber': 'Phone number is invalid',
       'atLeast8Character': 'Password must be a minimum of 8 characters'
     };
     return config[validatorName];
   }
 
+  async phoneNumberValidator(AC: AbstractControl) {
+  //  console.log(this.http)
+  //   const response = await this.http.phoneNumberValidator(AC.value).toPromise();
+
+  //   if (response && response.valid == true) {
+  //     return null;
+  //   }
+  //   else {
+  //     return { 'invalidPhonenumber': true };
+  //   }
+  return null;
+  }
 
   passwordAtLeast8CharacterValidator(AC: AbstractControl) {
     if (!AC.parent || !AC) {
@@ -37,7 +53,7 @@ export class ValidationFormService {
 
 
 
-    if (!pwd ) {
+    if (!pwd) {
       return null;
     }
 
@@ -48,7 +64,7 @@ export class ValidationFormService {
   }
 
   passwordValidator(AC: AbstractControl) {
-  
+
     if (!AC.parent || !AC) {
       return null;
     }
@@ -84,7 +100,7 @@ export class ValidationFormService {
     if (!pwd || !cpwd) {
       return null;
     }
-    if (typeof cpwd.value != 'undefined' &&  cpwd.value.length < 8) {
+    if (typeof cpwd.value != 'undefined' && cpwd.value.length < 8) {
       return { 'atLeast8Character': true };
     }
 

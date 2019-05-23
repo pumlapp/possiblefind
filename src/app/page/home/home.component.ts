@@ -109,27 +109,27 @@ export class HomeComponent implements OnInit {
         if (!navigator.geolocation) {
 
         } else {
-            navigator.geolocation.getCurrentPosition((position) => {
-                this.searchParameter.lat = position.coords.latitude;
-                this.searchParameter.long = position.coords.longitude;
-                this.http.getAddressByLocation(position.coords.latitude, position.coords.longitude,
-                    (result) => {
+            // navigator.geolocation.getCurrentPosition((position) => {
+            //     this.searchParameter.lat = position.coords.latitude;
+            //     this.searchParameter.long = position.coords.longitude;
+            //     this.http.getAddressByLocation(position.coords.latitude, position.coords.longitude,
+            //         (result) => {
 
-                        if (result.response.view && result.response.view.length > 0 && result.response.view[0].result && result.response.view[0].result.length > 0 && result.response.view[0].result[0].location) {
+            //             if (result.response.view && result.response.view.length > 0 && result.response.view[0].result && result.response.view[0].result.length > 0 && result.response.view[0].result[0].location) {
                            
 
-                            if(result.response.view[0].result[0].location.address.district)
-                                 this.searchParameter.city1 = result.response.view[0].result[0].location.address.district;
-                            this.searchParameter.city2 = result.response.view[0].result[0].location.address.city;
-                            this.searchParameter.state = result.response.view[0].result[0].location.address.state;
-                            //console.log('currentLocation', result.response.view[0].result[0])
-                        }
+            //                 if(result.response.view[0].result[0].location.address.district)
+            //                      this.searchParameter.city1 = result.response.view[0].result[0].location.address.district;
+            //                 this.searchParameter.city2 = result.response.view[0].result[0].location.address.city;
+            //                 this.searchParameter.state = result.response.view[0].result[0].location.address.state;
+            //                 //console.log('currentLocation', result.response.view[0].result[0])
+            //             }
 
-                    }, (error) => {
+            //         }, (error) => {
 
-                    });
+            //         });
 
-            });
+            // });
         }
     }
 
@@ -289,29 +289,29 @@ export class HomeComponent implements OnInit {
     }
     getCoaches() {
         if (this.searchParameter.lat == undefined || this.searchParameter.long == undefined || this.searchParameter.city2 == undefined) {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    this.searchParameter.lat = this.searchParameter.lat == undefined ? position.coords.latitude : this.searchParameter.lat;
-                    this.searchParameter.long = this.searchParameter.long == undefined ? position.coords.longitude : this.searchParameter.lat;
-                    this.http.getAddressByLocation(position.coords.latitude, position.coords.longitude,
-                        (result) => {
-                            if (result.response.view && result.response.view.length > 0 && result.response.view[0].result && result.response.view[0].result.length > 0 && result.response.view[0].result[0].location) {
-                                if(result.response.view[0].result[0].location.address.district)
-                                    this.searchParameter.city1 = result.response.view[0].result[0].location.address.district;
+            // if (navigator.geolocation) {
+            //     navigator.geolocation.getCurrentPosition((position) => {
+            //         this.searchParameter.lat = this.searchParameter.lat == undefined ? position.coords.latitude : this.searchParameter.lat;
+            //         this.searchParameter.long = this.searchParameter.long == undefined ? position.coords.longitude : this.searchParameter.lat;
+            //         this.http.getAddressByLocation(position.coords.latitude, position.coords.longitude,
+            //             (result) => {
+            //                 if (result.response.view && result.response.view.length > 0 && result.response.view[0].result && result.response.view[0].result.length > 0 && result.response.view[0].result[0].location) {
+            //                     if(result.response.view[0].result[0].location.address.district)
+            //                         this.searchParameter.city1 = result.response.view[0].result[0].location.address.district;
                                    
-                                this.searchParameter.city2 = result.response.view[0].result[0].location.address.city;
-                                this.searchParameter.state = result.response.view[0].result[0].location.address.state;
-                                this.isDisabledSearch = true;
-                                this.model.places = this.searchParameter.city2;
-                                this.isDisabledSearch = false;
-                            }
-                        }, (error) => {
+            //                     this.searchParameter.city2 = result.response.view[0].result[0].location.address.city;
+            //                     this.searchParameter.state = result.response.view[0].result[0].location.address.state;
+            //                     this.isDisabledSearch = true;
+            //                     this.model.places = this.searchParameter.city2;
+            //                     this.isDisabledSearch = false;
+            //                 }
+            //             }, (error) => {
 
-                        });
-                });
-            } else {
-                return;
-            }
+            //             });
+            //     });
+            // } else {
+            //     return;
+            // }
         }
 
         this.http.getCoaches(this.searchParameter).subscribe(resp => {
@@ -368,6 +368,11 @@ export class HomeComponent implements OnInit {
                 if (this.searchParameter.tagIds.length == 0 && (this.model.places == undefined || this.model.places.length == 0)) {
                     this.isSearch = false;
                     this.noMore = false;
+                    this.searchParameter.long = undefined;
+                    this.searchParameter.lat = undefined;
+                    this.searchParameter.city1 = undefined;
+                    this.searchParameter.city2 = undefined;
+                    this.searchParameter.state = undefined;
                     this.searchByGender('Any Gender')
                     return;
                 }
@@ -438,6 +443,11 @@ export class HomeComponent implements OnInit {
         this.model.cbViewMap = false;
         this.model.gender = "Any Gender";
         this.searchParameter.tagIds = [];
+        this.searchParameter.long = undefined;
+        this.searchParameter.lat = undefined;
+        this.searchParameter.city1 = undefined;
+        this.searchParameter.city2 = undefined;
+        this.searchParameter.state = undefined;
         this.lstTag.forEach(tag => {
             tag.checked = false;
         });

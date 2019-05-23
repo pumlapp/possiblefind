@@ -8,6 +8,8 @@ import { MaterialModule } from '../../shared/material.module';
 import { OnePointModule } from '../../shared/_component/one-point/one-point.module';
 import { Ng2CarouselamosModule } from 'ng2-carouselamos';
 import { PumlVideoPlayerModule } from '../../shared/_component/puml-video-player/puml-video-player.module';
+import { ControlMessageModule } from '../../shared/_component/control-message/control-message.module';
+import { ValidationFormService } from '../../shared/_services/validation-form/validation-form.service';
 
 @NgModule({
   imports: [
@@ -18,7 +20,9 @@ import { PumlVideoPlayerModule } from '../../shared/_component/puml-video-player
     Ng2CarouselamosModule,
     MaterialModule, 
     OnePointModule,
-    PumlVideoPlayerModule
+    PumlVideoPlayerModule,
+    ControlMessageModule
+    
   ],
   exports:[
   ],

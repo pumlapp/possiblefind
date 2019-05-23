@@ -32,9 +32,9 @@ export class TrainerProfileComponent implements OnInit {
     urlPrefix: any = environment.apiUrl;
     lstOfImages = []
     lstTestimonial = []
-    trainer:any = undefined;
+    trainer: any = undefined;
     trainerId: 0;
-    lstTag:any[] = []
+    lstTag: any[] = []
     carouselOne: NgxCarousel;
     requestCallBackForm: any;
     sendMessageForm: any;
@@ -49,7 +49,7 @@ export class TrainerProfileComponent implements OnInit {
 
         this.activatedRoute.params.subscribe((res) => {
             var id = res["id"];
-            
+
             if (id) {
                 this.trainerId = id;
                 this.getTrainerProfile(id);
@@ -63,49 +63,81 @@ export class TrainerProfileComponent implements OnInit {
         });
         this.requestCallBackForm = this.formBuilder.group({
             'fullname': ['', [Validators.required]],
-            'email':  ['', [Validators.required]],
-            'mobile': ['', [Validators.required]],
+            'email': ['', [Validators.required, this.validationFormService.emailValidator]],
+            'mobile': ['', [Validators.required, this.validationFormService.phoneNumberValidator]],
             'callbacktime': ['', [Validators.required]],
         });
         this.sendMessageForm = this.formBuilder.group({
             'fullname': ['', [Validators.required]],
-            'email':  ['', [Validators.required]],
+            'email': ['', [Validators.required, this.validationFormService.emailValidator]],
             'message': ['', [Validators.required]]
         });
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
     }
-    ngOnInit(){
-      
+    ngOnInit() {
+
     }
     getTrainerProfile(id) {
-         this.http.getCoachesById(id).subscribe(resp => {
-             const res = resp.json();
-             if(res){
+        this.http.getCoachesById(id).subscribe(resp => {
+            const res = resp.json();
+            if (res) {
                 this.trainer = res;
                 this.getMobileCoachTrack(id);
                 //this.trainer.user.videoUrl = "https://d22kb9sinmfyk6.cloudfront.net/958a52d4-b9bb-4cea-8df4-60ecf6cc4f4b/172_thegreatest.m3u8";
-             }
-             $(document).ready(()=>{
+            }
+            $(document).ready(() => {
                 $('html, body').animate({ scrollTop: $('.trainer-profile').offset().top - 350 }, 200);
             })
-        
             this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false);
-         })
+        })
     }
 
-    getMobileCoachTrack(id){
-        this.trainer.user.points = '3,000';
-        // this.http.getMobileCoachTrack(this.trainer.user.id).subscribe(resp => {
-        //     const res = resp.json();
-        //     this.trainer.user.points = 3000;
-        // })
+    getMobileCoachTrack(id) {
+        this.http.getMobileCoachTrack(this.trainer.user.id).subscribe(resp => {
+            const res = resp.json();
+            this.trainer.user.points = res ? res.leads : 0;
+        })
+    }
+
+    sendCallBackOrMessage(isCallback = true) {
+        this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
+        let params = {
+
+        }
+        if (isCallback == true) {
+            params = {
+                fullName: this.requestCallBackForm.get('fullname').value,
+                email: this.requestCallBackForm.get('email').value,
+                mobile: this.requestCallBackForm.get('mobile').value,
+            }
+        }
+        else {
+            params = {
+                fullName: this.sendMessageForm.get('fullname').value,
+                email: this.sendMessageForm.get('email').value,
+                message: this.sendMessageForm.get('message').value,
+            }
+        }
+        this.http.requestACallBackOrMessage(params).subscribe(resp => {
+            const res = resp.json()
+            $(`#${isCallback == true ? 'requestCallBackModal' : 'sendMessengeModal'}`).modal('hide');
+
+        },
+            (error) => {
+                console.log(error)
+            },
+            () => {
+                this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false);
+                bootbox.alert(`Your ${isCallback == true ? 'request' : 'message'} has been sent.`)
+            })
+
     }
 
     getUserTag() {
-        this.http.getCoachesTag(this.trainerId).subscribe( resp => {
+        this.http.getCoachesTag(this.trainerId).subscribe(resp => {
             const res = resp.json();
             this.lstTag = res;
-           
+
             this.lstTag.forEach((item) => {
                 let index = Math.floor(Math.random() * this.lstColor.length);
                 item.color = this.lstColor[index].color;
@@ -113,23 +145,23 @@ export class TrainerProfileComponent implements OnInit {
         })
     }
     getUserPhotos() {
-        this.http.getCoachesPhotos(this.trainerId, 0, 10).subscribe( resp => {
+        this.http.getCoachesPhotos(this.trainerId, 0, 10).subscribe(resp => {
             const res = resp.json();
-            if(res && res.length == 0) return;
+            if (res && res.length == 0) return;
             this.lstOfImages = res;
         })
     }
     getAllTestimonial() {
-        this.http.getAllTestimonial(this.trainerId, 0, 10).subscribe( resp => {
+        this.http.getAllTestimonial(this.trainerId, 0, 10).subscribe(resp => {
             const res = resp.json();
-            if(res && res.length == 0) return;
+            if (res && res.length == 0) return;
             this.lstTestimonial = res.list;
         })
     }
-    isPlay:any= false;
+    isPlay: any = false;
     videoUrl: any = "";
-    currentTrainer:any ;
-    playVideo(trainer){
+    currentTrainer: any;
+    playVideo(trainer) {
         this.isPlay = true;
         this.currentTrainer = trainer;
         this.videoUrl = trainer.user.videoUrl;
