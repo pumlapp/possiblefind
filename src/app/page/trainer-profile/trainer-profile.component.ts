@@ -137,7 +137,6 @@ export class TrainerProfileComponent implements OnInit {
         this.http.getCoachesTag(this.trainerId).subscribe(resp => {
             const res = resp.json();
             this.lstTag = res;
-
             this.lstTag.forEach((item) => {
                 let index = Math.floor(Math.random() * this.lstColor.length);
                 item.color = this.lstColor[index].color;
