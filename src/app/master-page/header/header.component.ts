@@ -14,13 +14,5 @@ export class HeaderComponent {
 
     isMobile:any = false;
     ngOnInit() {
-       
-        // $(document).on("click", "#sidebar, #btnToggleMenu",function(e){
-        //         e.stopPropagation();
-        // })
-        // $(document).click(function(e){
-        // $('#sidebar').removeClass('showSidebar');
-        // $('#content').removeClass('expandeContent');
-        // })
     }
 }

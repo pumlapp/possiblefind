@@ -13,7 +13,7 @@
         <li class="nav-item ">
             <button class="nav-link btn btn-menu mr-2" (click)="isMobile=true"> <i class="icon-menu"></i> </button>
             <a href="https://possible.fit/personal-trainer/" target="_blank" class="btn btn-puml float-right"
-                style="">
+                >
                 DOWNLOAD NOW </a>
         </li>
     </ul>
@@ -26,9 +26,9 @@
     <div class="menu-inner">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item ">
-                <a class="nav-link mr-3">
+                <a [routerLink]="['/']" style="cursor:pointer" class="nav-link mr-3">
                     <i class="icon-pin"></i> FIND A PERSONAL TRAINER</a></li>
-            <li class="nav-item "><a class="nav-link mr-5"> BECOME A TRAINER</a></li>
+            <li class="nav-item "><a href="https://possible.fit/personal-trainer/" target="_blank" class="nav-link mr-5"> BECOME A TRAINER</a></li>
         </ul>
     </div>
 </nav>

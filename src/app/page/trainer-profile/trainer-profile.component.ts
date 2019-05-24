@@ -89,6 +89,12 @@ export class TrainerProfileComponent implements OnInit {
             const res = resp.json();
             if (res) {
                 this.trainer = res;
+                if (this.trainer.user.businessId > 0) {
+                    this.http.getBusinessById(this.trainer.user.businessId).subscribe(resp => {
+                        const res = resp.json()
+                        this.trainer.user.businessImage = res.imageUrl
+                    })
+                }
                 this.getMobileCoachTrack(id);
                 //this.trainer.user.videoUrl = "https://d22kb9sinmfyk6.cloudfront.net/958a52d4-b9bb-4cea-8df4-60ecf6cc4f4b/172_thegreatest.m3u8";
             }
@@ -106,8 +112,8 @@ export class TrainerProfileComponent implements OnInit {
         })
     }
 
-    addATestimonial(){
-this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
+    addATestimonial() {
+        this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
     }
 
     sendCallBackOrMessage(isCallback = true) {

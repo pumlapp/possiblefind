@@ -125,7 +125,6 @@ export class HttpRequestService {
     return this.getRequestMethodGet(`api/businesses/${businessId}`);
   }
   phoneNumberValidator(phone) {
-    console.log(phone)
     const headers = new HttpHeaders();
     headers.append('Access-Control-Allow-Origin', '*');
     return this.httpClient.get<any>(`http://apilayer.net/api/validate?access_key=073e4cae041f3556062f7611d1f21fe3&number=${phone}&country_code=&format = 1`, { headers: headers });
@@ -161,7 +160,7 @@ export class HttpRequestService {
     console.log(formBody.join('&'))
     return this.getRequestMethodGet(`api/coaches/searchdistanceV4?${formBody.join('&')}`);
   }
- 
+
   getCoachesById(id) {
     return this.getRequestMethodGet(`api/coaches/${id}`);
   }
@@ -183,13 +182,13 @@ export class HttpRequestService {
   }
 
   getMobileCoachTrack(id) {
-    return this.getRequestMethodPost(`api/mobileCoachTrack`, {coachId: id});
+    return this.getRequestMethodPost(`api/mobileCoachTrack`, { coachId: id });
   }
 
-  requestACallBackOrMessage(params){
+  requestACallBackOrMessage(params) {
     return this.getRequestMethodPost(`api/callBacks/requestACallBackOrMessage`, params);
   }
-  
+
   /****HereMap API */
   getGeocoderPlacesByFreetext(freeText) {
     var params =
