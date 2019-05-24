@@ -11,6 +11,7 @@ import { PumlVideoPlayerModule } from '../../shared/_component/puml-video-player
 import { ControlMessageModule } from '../../shared/_component/control-message/control-message.module';
 import { ValidationFormService } from '../../shared/_services/validation-form/validation-form.service';
 
+import {RatingModule} from "ngx-rating";
 @NgModule({
   imports: [
     CommonModule,
@@ -21,7 +22,8 @@ import { ValidationFormService } from '../../shared/_services/validation-form/va
     MaterialModule, 
     OnePointModule,
     PumlVideoPlayerModule,
-    ControlMessageModule
+    ControlMessageModule,
+    RatingModule
     
   ],
   exports:[

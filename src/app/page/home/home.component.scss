@@ -194,6 +194,18 @@ section {
   background-size: cover;
   background-position: center 100%;
 }
+
+@media screen and (max-width: 768px) {
+  .hero{
+    padding-bottom:60px;
+    &:after{
+      margin-top: 60px;
+    }
+  }
+}
+
+
+
 h5 a,
 h5 a:hover {
   color: inherit;

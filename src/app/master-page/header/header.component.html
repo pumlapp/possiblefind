@@ -1,17 +1,21 @@
 <nav style="border-bottom:1px solid #ccc" class="navbar navbar-expand-md navbar-light bg-faded">
 
-    <a class="navbar-header navbar-brand" href="https://possible.fit"><img src="../../../../assets/image/possible-logo-400.png"></a>
+    <a class="navbar-header navbar-brand" href="https://possible.fit"><img
+            src="../../../../assets/image/possible-logo-400.png"></a>
 
     <ul class="navbar-nav ml-auto">
         <li class="nav-item ">
-            <a routeLink="/" class="nav-link mr-3">
+            <a [routerLink]="['/']" style="cursor:pointer" target="_self" class="nav-link mr-3">
                 <i class="icon-pin"></i> FIND A PERSONAL TRAINER</a></li>
-        <li class="nav-item "><a href="https://possible.fit/register-free/" target="_black" class="nav-link mr-3"> BECOME A TRAINER</a></li>
-        <li class="nav-item mr-3">
-            <button class="nav-link btn btn-menu" (click)="isMobile=true"> <i class="icon-menu"></i> </button>
+        <li class="nav-item "><a href="https://possible.fit/register-free/" target="_black" class="nav-link mr-3">
+                BECOME A TRAINER</a></li>
+
+        <li class="nav-item ">
+            <button class="nav-link btn btn-menu mr-2" (click)="isMobile=true"> <i class="icon-menu"></i> </button>
+            <a href="https://possible.fit/personal-trainer/" target="_blank" class="btn btn-puml float-right"
+                style="">
+                DOWNLOAD NOW </a>
         </li>
-        <li class="nav-item "><button class="btn btn-puml float-right" style="margin-right: 18px;" type="button">
-                DOWNLOAD NOW </button></li>
     </ul>
 </nav>
 
@@ -19,12 +23,12 @@
 <nav class="nav-mobile {{isMobile == true ? 'active' : ''}}">
     <button class="nav-link btn btn-clear" (click)="isMobile=false"><i class="icon-clear"></i></button>
 
-        <div class="menu-inner">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item ">
-                    <a class="nav-link mr-3">
-                        <i class="icon-pin"></i> FIND A PERSONAL TRAINER</a></li>
-                <li class="nav-item "><a class="nav-link mr-5"> BECOME A TRAINER</a></li>
-            </ul>
-        </div>
+    <div class="menu-inner">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item ">
+                <a class="nav-link mr-3">
+                    <i class="icon-pin"></i> FIND A PERSONAL TRAINER</a></li>
+            <li class="nav-item "><a class="nav-link mr-5"> BECOME A TRAINER</a></li>
+        </ul>
+    </div>
 </nav>

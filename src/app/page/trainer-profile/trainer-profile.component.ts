@@ -38,6 +38,7 @@ export class TrainerProfileComponent implements OnInit {
     carouselOne: NgxCarousel;
     requestCallBackForm: any;
     sendMessageForm: any;
+    testimonialForm: any;
     constructor(
         private formBuilder: FormBuilder,
         private activatedRoute: ActivatedRoute,
@@ -72,6 +73,12 @@ export class TrainerProfileComponent implements OnInit {
             'email': ['', [Validators.required, this.validationFormService.emailValidator]],
             'message': ['', [Validators.required]]
         });
+        this.testimonialForm = this.formBuilder.group({
+            'name': ['', [Validators.required]],
+            'location': ['', [Validators.required]],
+            'comment': ['', [Validators.required]],
+            'rating': ['', [Validators.required]]
+        });
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
     }
     ngOnInit() {
@@ -97,6 +104,10 @@ export class TrainerProfileComponent implements OnInit {
             const res = resp.json();
             this.trainer.user.points = res ? res.leads : 0;
         })
+    }
+
+    addATestimonial(){
+this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
     }
 
     sendCallBackOrMessage(isCallback = true) {

@@ -25,7 +25,7 @@
     }
   }
   .navbar-nav {
-    a {
+    a.nav-link {
       line-height: 1.7rem;
       font-weight: 600;
       color: #292828 !important;
@@ -37,24 +37,27 @@
     button.btn-menu {
       display: none;
     }
+    a.btn-puml{
+      margin-right: 18px;
+    }
   }
 }
 
 @media screen and (max-width: 902px) {
   .navbar {
     .nav-item {
-      a {
+      a.nav-link {
         display: none;
       }
       button.btn-menu {
-        display: block;
+        display: inline-block;
         z-index: 111;
       }
     }
   }
 }
 
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 768px) {
   .navbar {
     height: 60px;
     .navbar-brand {
@@ -71,8 +74,8 @@
         padding: 0.375rem 0.75rem;
         font-size: 10px;
       }
-      button.btn-menu {
-        display: none;
+      a.btn-puml{
+        margin-right: 8px;
       }
     }
   }

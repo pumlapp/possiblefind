@@ -499,6 +499,10 @@ h5 {
       position: relative;
     }
 
+    i.icon-location::before{
+      color: #ff8854;
+    }
+
     .form-control {
       width: calc(100% - 70px);
       display: inline-block;

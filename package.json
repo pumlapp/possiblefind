@@ -44,6 +44,7 @@
         "ngx-loading": "^1.0.14",
         "ngx-pagination": "3.1.1",
         "ngx-perfect-scrollbar": "^6.2.1",
+        "ngx-rating": "0.0.9",
         "nouislider": "^11.0.3",
         "popper.js": "^1.14.7",
         "rxjs": "^6.4.0",
