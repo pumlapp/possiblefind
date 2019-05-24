@@ -167,11 +167,6 @@ export class HomeComponent implements OnInit {
             }
             this.isLoadMore = false;
             this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false);
-
-
-            if ($('#searchResultId').length > 0) {
-                $('html, body').animate({ scrollTop: $('#searchResultId').offset().top - 350 }, 1000);
-            }
         })
     }
     getTopFeaturedCoaches() {
@@ -281,6 +276,7 @@ export class HomeComponent implements OnInit {
             this.getMoreTrainer();
         }
         else {
+            console.log(123);
             this.isLoadMore = true;
             this.searchParameter.offset += this.searchParameter.limit;
             this.getCoaches();
@@ -317,8 +313,8 @@ export class HomeComponent implements OnInit {
         this.http.getCoaches(this.searchParameter).subscribe(resp => {
             const res = resp.json();
             if(res == undefined || res == []) return;
+            console.log(res)
             this.lstTrainerFilter = this.lstTrainerFilter.concat(res);
-            this.lstTrainerFilter = res;
             for (let item of this.lstTrainerFilter) {
                 item.user.tags.forEach((tag) => {
                     var tagParent = this.lstTag.filter(o => o.id == tag.id)[0];
@@ -340,11 +336,11 @@ export class HomeComponent implements OnInit {
                 this.noMore = true;
             }
 
-            this.isLoadMore = false;
             this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false);
-            if ($('#searchResultId').length > 0) {
+            if (this.isLoadMore == false && $('#searchResultId').length > 0) {
                 $('html, body').animate({ scrollTop: $('#searchResultId').offset().top - 350 }, 1000);
             }
+            this.isLoadMore = false;
         })
     }
 
@@ -387,6 +383,7 @@ export class HomeComponent implements OnInit {
             this.searchParameter.offset = 0;
             this.searchParameter.limit = 30;
         }
+        console.log(this.searchParameter)
         this.getCoaches();
     }
 
