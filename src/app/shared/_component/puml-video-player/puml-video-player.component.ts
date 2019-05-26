@@ -12,59 +12,57 @@ declare var Hls: any;
 })
 export class PumlVideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
 
-  @ViewChild('videoPlayer') videoPlayer: ElementRef;
-  backgroundUrl:any = '';
+  @ViewChild('video') video: ElementRef;
+  backgroundUrl: any = '';
   @Input() videoUrl: any;
   @Input() trainer: any;
-  urlPrefix:any = environment.apiUrl; 
+  isPlay: any = false;
+  urlPrefix: any = environment.apiUrl;
   imageUrl: any = ''
   constructor(private sanitizer: DomSanitizer) {
   }
   ngOnInit() {
     this.imageUrl = this.trainer.user.imageUrl && this.trainer.user.imageUrl.indexOf('render') > -1 ?
-    `http://api.pummel.fit/${this.trainer.user.imageUrl}?width=768&height=1024` : 
-    this.trainer.user.imageUrl.replace('height=200&width=200','width=768&height=1024')
-    
-    let style = `background: url('${this.imageUrl}')`;
-    this.backgroundUrl = this.sanitizer.bypassSecurityTrustStyle(style); 
+      `http://api.pummel.fit/${this.trainer.user.imageUrl}?width=768&height=1024` :
+      this.trainer.user.imageUrl.replace('height=200&width=200', 'width=768&height=1024')
 
+    let style = `background: url('${this.imageUrl}')`;
+    this.backgroundUrl = this.sanitizer.bypassSecurityTrustStyle(style);
+    // this.video.nativeElement.addEventListener('playing', function () {
+    // })
+    this.video.nativeElement.addEventListener('pause', ()=> {
+      this.isPlay = false;
+    })
   }
-  isPlaying: any = false;
   ngOnChanges() {
-    this.play();
-    
+
   }
   ngOnDestroy() {
     this.close();
-
   }
   play() {
-    var url = this.videoUrl;
-    // if (Hls.isSupported()) {
-    //   var hls = new Hls();
-    //   hls.loadSource(url);
-    //   hls.attachMedia(this.videoPlayer.nativeElement);
-    //   hls.on(Hls.Events.MANIFEST_PARSED, () => {
-    //     this.videoPlayer.nativeElement.play();
-    //   });
-    // }
-    $('#playVideoModel').modal('show');
-   
+    this.isPlay = true;
+    this.video.nativeElement.play();
   }
   close() {
-    //this.videoPlayer.nativeElement.pause();
+    this.isPlay = false;
+    this.video.nativeElement.currentTime = 0;
+    this.videoUrl = undefined;
+    this.video.nativeElement.pause();
     $('#playVideoModel').modal('hide');
   }
 
-  showSendMessageModal(){
+  showSendMessageModal() {
+    this.close();
     $('#sendMessengeModal').modal('show');
     $('#requestCallBackModal').modal('hide');
-    $('#playVideoModel').modal('hide');
+
   }
-  
-  showRequestCallBackModal(){
+
+  showRequestCallBackModal() {
+    this.close();
     $('#requestCallBackModal').modal('show');
     $('#sendMessengeModal').modal('hide');
-    $('#playVideoModel').modal('hide');
+
   }
 }

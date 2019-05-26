@@ -12,7 +12,8 @@ declare var bootbox: any;
 @Component({
     moduleId: module.id,
     templateUrl: 'trainer-profile.component.html',
-    styleUrls: ["./trainer-profile.component.scss"],
+    styleUrls: ["./trainer-profile.component.scss"]
+
 })
 
 export class TrainerProfileComponent implements OnInit {
@@ -28,6 +29,7 @@ export class TrainerProfileComponent implements OnInit {
         { color: 'cl-turquoise', background: 'bg-turquoise' },
         { color: 'cl-radical-red', background: 'bg-radical-red' },
     ]
+    starsCount: number;
     currentVideo: any;
     urlPrefix: any = environment.apiUrl;
     lstOfImages = []
@@ -82,7 +84,19 @@ export class TrainerProfileComponent implements OnInit {
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
     }
     ngOnInit() {
-
+        this.carouselOne = {
+            grid: { xs: 1, sm: 1, md: 1, lg: 1, all: 0 },
+            slide: 1,
+            speed: 600,
+            interval: 3000,
+            point: {
+                visible: false
+            },
+            load: 1,
+            touch: true,
+            custom: 'banner',
+            loop: true
+        };
     }
     getTrainerProfile(id) {
         this.http.getCoachesById(id).subscribe(resp => {
@@ -96,7 +110,7 @@ export class TrainerProfileComponent implements OnInit {
                     })
                 }
                 this.getMobileCoachTrack(id);
-                //this.trainer.user.videoUrl = "https://d22kb9sinmfyk6.cloudfront.net/958a52d4-b9bb-4cea-8df4-60ecf6cc4f4b/172_thegreatest.m3u8";
+                //this.trainer.user.videoUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
             }
             $(document).ready(() => {
                 $('html, body').animate({ scrollTop: $('.trainer-profile').offset().top - 350 }, 200);
@@ -114,12 +128,29 @@ export class TrainerProfileComponent implements OnInit {
 
     addATestimonial() {
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
+        const params = {
+            userId: this.trainer.user.id,
+            userCommentName: this.testimonialForm.get('name').value,
+            userCommentLocation: this.testimonialForm.get('location').value,
+            description: this.testimonialForm.get('comment').value,
+            rating: this.testimonialForm.get('rating').value,
+        };
+        this.http.submitATestimonial(params).subscribe(resp => {
+            const res = resp.json();
+            $('#testimonialModal').modal('hide');
+        },
+            (error) => {
+                console.log(error)
+            },
+            () => {
+                this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false);
+                bootbox.alert(`Thank you for your testimonial`);
+            })
     }
 
     sendCallBackOrMessage(isCallback = true) {
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
         let params = {
-
         }
         if (isCallback == true) {
             params = {
@@ -177,10 +208,7 @@ export class TrainerProfileComponent implements OnInit {
     isPlay: any = false;
     videoUrl: any = "";
     currentTrainer: any;
-    playVideo(trainer) {
-        this.isPlay = true;
-        this.currentTrainer = trainer;
-        this.videoUrl = trainer.user.videoUrl;
+    playVideo() {
         $('#playVideoModel').modal('show');
     }
 }

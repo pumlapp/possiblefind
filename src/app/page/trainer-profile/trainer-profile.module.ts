@@ -10,8 +10,8 @@ import { Ng2CarouselamosModule } from 'ng2-carouselamos';
 import { PumlVideoPlayerModule } from '../../shared/_component/puml-video-player/puml-video-player.module';
 import { ControlMessageModule } from '../../shared/_component/control-message/control-message.module';
 import { ValidationFormService } from '../../shared/_services/validation-form/validation-form.service';
-
 import {RatingModule} from "ngx-rating";
+import { NgxCarouselModule } from 'ngx-carousel';
 @NgModule({
   imports: [
     CommonModule,
@@ -19,6 +19,8 @@ import {RatingModule} from "ngx-rating";
     ReactiveFormsModule,
     TrainerProfileRoutingModule,
     Ng2CarouselamosModule,
+
+    NgxCarouselModule,
     MaterialModule, 
     OnePointModule,
     PumlVideoPlayerModule,
@@ -26,6 +28,7 @@ import {RatingModule} from "ngx-rating";
     RatingModule
     
   ],
+
   exports:[
   ],
   declarations: [

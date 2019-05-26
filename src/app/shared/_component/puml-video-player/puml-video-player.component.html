@@ -2,25 +2,34 @@
     <div class="modal-dialog">
         <div class="form">
             <div class="modal-content">
-                <div class="modal-body">
-                    <div [style]="backgroundUrl"  class="video-bg">
-                        <i class="fa fa-play" ></i>
-                        <i (click)="close()" style="padding:10px;cursor: pointer;" class="icon-clear" ></i>
+                <div  class="modal-body">
+                    <div  [style]="isPlay == false ? backgroundUrl: ''" class="video-bg">
+                        <video [hidden]="!isPlay" #video style="width:100%;height: 100%;outline: 0;" oncontextmenu="return false;"  id="video">
+                                <source src="{{videoUrl}}" />
+                        </video>
+            
+                        <i *ngIf="isPlay != true" class="fa fa-play" (click)="play()"></i>
+                        <i (click)="close()" style="padding:10px;cursor: pointer;" class="icon-clear"></i>
                         <div class="block-avatar">
                             <div class="avatar">
-
-                                    <img 
-                                    src="{{imageUrl}}">
-                             
+                                <img src="{{imageUrl}}">
                             </div>
                             <div class="trainer-name">{{trainer.user.firstname}} {{trainer.user.lastname}} </div>
                         </div>
-                          <p style="padding-left:10px;">
-                                <button (click)="showSendMessageModal()" class="btn  mr-3"><i class="fa fa-inbox"></i></button>
-                                <button (click)="showRequestCallBackModal()" class="btn btn-puml">REQUEST A CALL BACK</button>
-                            </p>
+                        <p style="padding-left:10px;">
+                            <button (click)="showSendMessageModal()" class="btn  mr-3"><i
+                                    class="fa fa-inbox"></i></button>
+                            <button (click)="showRequestCallBackModal()" class="btn btn-puml">REQUEST A CALL
+                                BACK</button>
+                        </p>
                     </div>
+
+                 
+
+
                 </div>
+
+          
             </div>
         </div>
     </div>

@@ -14,8 +14,8 @@ section {
   padding: 1rem 3rem;
   height: 700px;
 }
-@media only screen  and (max-width:414px){
-  .map{
+@media only screen and (max-width: 414px) {
+  .map {
     padding: 1rem 1rem;
   }
 }
@@ -219,15 +219,7 @@ h5 {
         color: #828282;
       }
     }
-    %rating-share{
-      margin: 0 auto;
-      text-align: center;
-      color: #dadada;
-      font-size: 16px;
-      .fa.checked {
-        color: #f9cd43;
-      }
-    }
+
     .trainer-rating {
       padding-left: 10px;
       display: block;
@@ -406,7 +398,7 @@ h5 {
     margin: 2rem auto;
     max-width: 1240px;
     position: relative;
-    &.testimonials {
+    &.testimonials-child {
       margin: 0;
     }
     button {
@@ -442,37 +434,48 @@ h5 {
       height: 180px;
     }
   }
+}
 
-  .testimonials-item {
-    .block-left {
-      margin-right: 28px;
-      padding: 10px;
-      width: 118px;
-      display: inline-block;
-      .avt {
-        width: 80px;
-        height: 80px;
-        margin: 0 auto;
-        img {
-          width: 100%;
-          height: 100%;
-          border-radius: 50%;
-        }
-      }
-      .rating {
-       @extend %rating-share
+.testimonials-item {
+  .block-left {
+    margin-right: 28px;
+    padding: 10px;
+    width: 118px;
+    display: inline-block;
+    .avt {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
       }
     }
-    .block-right {
-      float: right;
-      display: inline-block;
-      width: calc(100% - 146px);
-      p {
-        font-size: 1.1em;
-        color: #777777;
-        margin-bottom: 0;
-        font-family: Comfortaa;
+    .rating {
+      left: 6%;
+      position: relative;
+      text-align: center;
+      color: #dadada;
+      font-size: 16px;
+      .fa.checked {
+        color: #f9cd43;
       }
+
+      /deep/ .star-icon {
+        font-size: 1.2em !important;
+      }
+    }
+  }
+  .block-right {
+    float: right;
+    display: inline-block;
+    width: calc(100% - 146px);
+    p {
+      font-size: 1.1em;
+      color: #777777;
+      margin-bottom: 0;
+      font-family: Comfortaa;
     }
   }
 }
@@ -485,7 +488,6 @@ h5 {
   font-size: 12px;
   font-weight: 600;
 }
-
 
 .modal {
   .modal-body {
@@ -501,7 +503,7 @@ h5 {
       position: relative;
     }
 
-    i.icon-location::before{
+    i.icon-location::before {
       color: #ff8854;
     }
 
@@ -546,10 +548,111 @@ h5 {
   color: #a4a4a4;
 }
 
-
-
-#testimonialModal{
+#testimonialModal {
   .rating {
-    @extend %rating-share
-   }
+    left: 36%;
+
+    position: relative;
+  }
+}
+
+/deep/ .custom-carousel-home-component {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  .item {
+    position: relative;
+    width: 100% !important;
+  }
+  .custom-carousel__title--center {
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    color: $white;
+    font-weight: $font-weight-bold;
+    font-size: 18px;
+    z-index: 2;
+    &.small-title {
+      line-height: 168px;
+    }
+    &.large-title {
+      line-height: 310px;
+    }
+  }
+  .custom-carousel__layer {
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    background-color: black;
+    opacity: 0.5;
+    z-index: 1;
+    &.small-layer {
+      height: 164px;
+    }
+    &.large-layer {
+      height: 310px;
+    }
+  }
+  /deep/ .custom-carousel__image-popula-destination {
+    img,
+    .ngx-lazy-placeholder {
+      height: 164px;
+      width: 100%;
+      filter: none;
+    }
+  }
+  /deep/ .custom-carousel__image-list-near-you {
+    img,
+    .ngx-lazy-placeholder {
+      height: 310px;
+      width: 100%;
+      filter: none;
+    }
+  }
+
+  .carousel.material-icons.right,
+  .carousel.material-icons.left {
+    display: block;
+    width: 50px;
+    height: 50px;
+    color: #000;
+    font-size: 2em;
+    background: #dcdcdc;
+    text-align: center;
+    border-radius: 50%;
+
+    cursor: pointer;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    line-height: 50px;
+    z-index: 3;
+  }
+
+  .carousel.material-icons.left {
+    left: -65px;
+    @media screen and (max-width: $media-xs) {
+      display: none !important;
+    }
+    @media screen and (min-width: $media-lg) {
+     // left: -65px;
+      &:before {
+        color: $black;
+      }
+    }
+  }
+
+  .carousel.material-icons.right {
+    right: -70px;
+    @media screen and (max-width: $media-xs) {
+      display: none !important;
+    }
+    @media screen and (min-width: $media-lg) {
+     // right: -70px;
+      &:before {
+        color: $black;
+      }
+    }
+  }
 }

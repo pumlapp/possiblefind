@@ -126,9 +126,7 @@ export class HomeComponent implements OnInit {
             //             }
 
             //         }, (error) => {
-
             //         });
-
             // });
         }
     }
@@ -276,7 +274,6 @@ export class HomeComponent implements OnInit {
             this.getMoreTrainer();
         }
         else {
-            console.log(123);
             this.isLoadMore = true;
             this.searchParameter.offset += this.searchParameter.limit;
             this.getCoaches();
@@ -313,7 +310,6 @@ export class HomeComponent implements OnInit {
         this.http.getCoaches(this.searchParameter).subscribe(resp => {
             const res = resp.json();
             if(res == undefined || res == []) return;
-            console.log(res)
             this.lstTrainerFilter = this.lstTrainerFilter.concat(res);
             for (let item of this.lstTrainerFilter) {
                 item.user.tags.forEach((tag) => {
@@ -383,7 +379,6 @@ export class HomeComponent implements OnInit {
             this.searchParameter.offset = 0;
             this.searchParameter.limit = 30;
         }
-        console.log(this.searchParameter)
         this.getCoaches();
     }
 
@@ -399,7 +394,6 @@ export class HomeComponent implements OnInit {
         if (this.model.places == "" || this.model.places.trim() == "") return;
         this.http.getGeocoderPlacesByFreetext(this.model.places).subscribe(resp => {
             if (resp && resp.suggestions && resp.suggestions.length > 0) {
-                //console.log(resp)
                 this.lstSuggests = resp.suggestions;
             }
             else {
@@ -425,12 +419,11 @@ export class HomeComponent implements OnInit {
                 this.searchParameter.city1 = suggestion.address.district ? suggestion.address.district.replace('<mark>', '').replace('</mark>', '') : undefined;
                 this.searchParameter.city2 = suggestion.address.city ? suggestion.address.city.replace('<mark>', '').replace('</mark>', '') : undefined;
                 this.searchParameter.state =suggestion.address.state ? suggestion.address.state.replace('<mark>', '').replace('</mark>', '') : undefined;
-
+                this.lstTrainerFilter = [];
                 this.getCoaches();
                 this.isDisabledSearch = false;
             },
             (error) => {
-                //console.log('Ooops!');
             }
         )
     }

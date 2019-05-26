@@ -25,6 +25,12 @@
     top: 50%;
     left: 50%;
     transform: translateY(-50%);
+
+    &:hover{
+      color: #3b3b3b;
+      cursor: pointer;
+      text-shadow: 1px 1px 11px #000000;
+    }
   }
   .icon-clear {
     position: absolute;

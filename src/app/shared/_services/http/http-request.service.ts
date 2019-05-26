@@ -177,6 +177,10 @@ export class HttpRequestService {
     return this.getRequestMethodGet(`api/users/${id}/getAllTestimonial?offset=${offset}&limit=${limit}`);
   }
 
+  submitATestimonial(params){
+    return this.getRequestMethodPost(`api/mobileCoachTrack`, params);
+  }
+
   getBusinessById(id) {
     return this.getRequestMethodGet(`api/businesses/${id}`);
   }

@@ -5,12 +5,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
- exports:[
-  CommonModule,
-  FormsModule,
-  ReactiveFormsModule,
-  PumlVideoPlayerComponent
- ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+  exports: [
+
+    PumlVideoPlayerComponent
+  ],
   declarations: [
     PumlVideoPlayerComponent
   ],
