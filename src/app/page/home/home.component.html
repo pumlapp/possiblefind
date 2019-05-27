@@ -13,7 +13,7 @@
                                     <input [(ngModel)]="model.places" [ngModelOptions]="{standalone: true}"
                                         (ngModelChange)="searchPlacesFreetext()"
                                         placeholder="City, Suburb or Post Code" />
-                                    <div *ngIf="lstSuggests.length > 0 && model.places.length > 0"
+                                    <div *ngIf="lstSuggests && lstSuggests.length > 0 && model.places.length > 0"
                                         class="response-suggestion-places">
                                         <div class="suggestion-item" (click)="searchTrainerByPlaces(place, $event)"
                                             *ngFor="let place of lstSuggests">
@@ -28,6 +28,14 @@
                                             </small>
                                         </div>
                                     </div>
+                                    <div *ngIf="lstSuggests && lstSuggests.length == 0 && model.places.length > 0"
+                                        class="response-suggestion-places">
+                                        <div class="suggestion-item">
+                                            <i class="icon-location mr-1"></i>
+                                            Location not found
+                                        </div>
+                                    </div>
+                                    
                                     <i class="icon-search"></i>
                                 </span>
                             </form>
