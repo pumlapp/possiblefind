@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Subject} from 'rxjs/Subject';
-import {Observable} from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 // import { Logger } from '../logger/loger-service.service';
@@ -34,7 +34,7 @@ export class Broadcaster {
   }
 
   broadcast(key: any, data?: any) {
-    this._eventBus.next({key, data});
+    this._eventBus.next({ key, data });
   }
 
   on<T>(key: any): Observable<T> {
