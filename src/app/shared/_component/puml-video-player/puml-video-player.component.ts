@@ -12,7 +12,7 @@ declare var Hls: any;
 })
 export class PumlVideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
 
-  @ViewChild('video') video: ElementRef;
+  @ViewChild('video', {static:false}) video: ElementRef;
   backgroundUrl: any = '';
   @Input() videoUrl: any;
   @Input() trainer: any;

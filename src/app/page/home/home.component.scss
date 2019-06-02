@@ -415,6 +415,11 @@ h5 a:hover {
     cursor: pointer;
   }
   .trainer-name {
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    width: 70%;
+    text-overflow: ellipsis;
     font-family: "Playfair Display", serif;
     margin-bottom: 0.5rem;
     i {

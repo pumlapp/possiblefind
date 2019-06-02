@@ -37,7 +37,7 @@
                                     <!-- <p>{{+((trainer.user.rating/5)*100)}}%</p> -->
                                     <p>RATING</p>
                                 </div>
-                                <div *ngIf="trainer.user.points" class="col-xl-4 col-lg-4 col-md-4 col-3 block">
+                                <div *ngIf="trainer.user.points >= 0" class="col-xl-4 col-lg-4 col-md-4 col-3 block">
                                     <p>{{trainer.user.points}}</p>
                                     <p>POINTS</p>
                                 </div>
@@ -153,7 +153,10 @@
     </div>
 </section>
 <section
-    *ngIf="trainer != undefined && trainer != null && trainer.user != undefined && (trainer.user.instagramUrl != '' || trainer.user.instagramUrl != null || trainer.user.facebookUrl != ''  || trainer.user.facebookUrl != null || trainer.user.twitterUrl != '' || trainer.user.twitterUrl != null )"
+    *ngIf="trainer != undefined && trainer != null && trainer.user != undefined &&
+     ((trainer.user.instagramUrl != undefined && trainer.user.instagramUrl != null && trainer.user.instagramUrl != '')
+     || (trainer.user.facebookUrl != undefined && trainer.user.facebookUrl != null && trainer.user.facebookUrl != '')
+      ||  (trainer.user.twitterUrl != undefined && trainer.user.twitterUrl != null && trainer.user.twitterUrl != ''))"
     class="mt-5">
     <div class="container mb-5">
         <div class="row justify-content-center">
@@ -161,11 +164,17 @@
                 <h5 style="padding-left: 10px;">SOCIAL
                 </h5>
                 <p style="padding-left:10px">
-                    <a *ngIf="trainer.user.facebookUrl != undefined && trainer.user.facebookUrl != null && trainer.user.facebookUrl != ''"
+                    <a *ngIf="trainer.user.facebookUrl != undefined && 
+                    trainer.user.facebookUrl != null && 
+                    trainer.user.facebookUrl != ''"
                         href="{{trainer.user.facebookUrl}}" target="_blank" class="btn btn-facebook">FACEBOOK</a>
-                    <a *ngIf="trainer.user.instagramUrl != undefined && trainer.user.instagramUrl != null && trainer.user.instagramUrl != ''"
+                    <a *ngIf="trainer.user.instagramUrl != undefined && 
+                    trainer.user.instagramUrl != null && 
+                    trainer.user.instagramUrl != ''"
                         href="{{trainer.user.instagramUrl}}" class="btn btn-instagram" target="_blank">INSTAGRAM</a>
-                    <a *ngIf="trainer.user.twitterUrl != undefined && trainer.user.twitterUrl != null &&  trainer.user.twitterUrl != ''"
+                    <a *ngIf="trainer.user.twitterUrl != undefined && 
+                    trainer.user.twitterUrl != null &&  
+                    trainer.user.twitterUrl != ''"
                         href="{{trainer.user.twitterUrl}}" class="btn btn-twitter" target="_blank">TWITTER</a>
                 </p>
             </div>

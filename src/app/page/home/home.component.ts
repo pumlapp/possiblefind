@@ -340,6 +340,20 @@ export class HomeComponent implements OnInit {
                         tag.color = this.lstColor[Math.floor(Math.random() * this.lstColor.length)]
                     }
                 })
+                if(this.searchParameter.tagIds.length > 0){
+                    var tags = item.user.tags.filter(o=> this.searchParameter.tagIds.some(tag => tag.id == o.id));
+                    let i = 0;
+                    for(let tag of tags){
+                        let a = item.user.tags[i];
+                        let b = item.user.tags[item.user.tags.indexOf(tag)];
+                        b = (a += b -= a) - b; 
+                        i++;
+                        if(i == tags.length)
+                            return false;
+                    } 
+                    console.log(123)
+                }
+
                 if (item.user.businessId > 0) {
                     this.http.getBusinessById(item.user.businessId).subscribe(resp => {
                         const res = resp.json()

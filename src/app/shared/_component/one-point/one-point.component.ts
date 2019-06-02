@@ -10,8 +10,7 @@ declare var mapsjs: any;
 })
 export class OnePointComponent implements OnInit {
 
-    @ViewChild("onepoint")
-    public mapElement: ElementRef;
+    @ViewChild("onepoint", {static:false}) mapElement: ElementRef;
 
     @Input()
     public appId: any;

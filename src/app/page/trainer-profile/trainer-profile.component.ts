@@ -64,6 +64,23 @@ export class TrainerProfileComponent implements OnInit {
                 this.router.navigate(['/'])
             }
         });
+      
+        this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
+    }
+    ngOnInit() {
+        this.carouselOne = {
+            grid: { xs: 1, sm: 1, md: 1, lg: 1, all: 0 },
+            slide: 1,
+            speed: 600,
+            interval: 3000,
+            point: {
+                visible: false
+            },
+            load: 1,
+            touch: true,
+            custom: 'banner',
+            loop: true
+        };
         this.requestCallBackForm = this.formBuilder.group({
             'fullname': ['', [Validators.required]],
             'email': ['', [Validators.required, this.validationFormService.emailValidator]],
@@ -81,22 +98,6 @@ export class TrainerProfileComponent implements OnInit {
             'comment': ['', [Validators.required]],
             'rating': ['', [Validators.required]]
         });
-        this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
-    }
-    ngOnInit() {
-        this.carouselOne = {
-            grid: { xs: 1, sm: 1, md: 1, lg: 1, all: 0 },
-            slide: 1,
-            speed: 600,
-            interval: 3000,
-            point: {
-                visible: false
-            },
-            load: 1,
-            touch: true,
-            custom: 'banner',
-            loop: true
-        };
     }
     getTrainerProfile(id) {
         this.http.getCoachesById(id).subscribe(resp => {
@@ -110,7 +111,6 @@ export class TrainerProfileComponent implements OnInit {
                     })
                 }
                 this.getMobileCoachTrack(id);
-                //this.trainer.user.videoUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
             }
             $(document).ready(() => {
                 $('html, body').animate({ scrollTop: $('.trainer-profile').offset().top - 350 }, 200);
@@ -120,7 +120,7 @@ export class TrainerProfileComponent implements OnInit {
     }
 
     getMobileCoachTrack(id) {
-        this.http.getMobileCoachTrack(this.trainer.user.id).subscribe(resp => {
+        this.http.getMobileCoachTrack(id).subscribe(resp => {
             const res = resp.json();
             this.trainer.user.points = res ? res.leads : 0;
         })

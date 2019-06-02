@@ -11,7 +11,7 @@ declare var mapsjs: any;
 })
 export class HereMapComponent implements OnInit, OnChanges {
 
-    @ViewChild("map")
+    @ViewChild("map", {static:false})
     public mapElement: ElementRef;
 
     @Input()
