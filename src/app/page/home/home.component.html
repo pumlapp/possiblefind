@@ -11,7 +11,7 @@
                                     <a *ngIf="model.places && model.places.length > 0" (click)="removeSearchPlace()"
                                         class="btn btn-remove"><i class="icon-clear"></i></a>
                                     <input [(ngModel)]="model.places" [ngModelOptions]="{standalone: true}"
-                                        (ngModelChange)="searchPlacesFreetext()"
+                                        (ngModelChange)="searchPlacesFreetext(undefined)"
                                         placeholder="City, Suburb or Post Code" />
                                     <div *ngIf="lstSuggests && lstSuggests.length > 0 && model.places.length > 0"
                                         class="response-suggestion-places">

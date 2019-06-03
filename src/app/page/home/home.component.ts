@@ -115,7 +115,7 @@ export class HomeComponent implements OnInit {
         let queryString = this.activatedRoute.snapshot.queryParams["q"]
         if (queryString) {
             this.model.places = queryString;
-            this.searchPlacesFreetext();
+            this.searchPlacesFreetext(queryString);
         }
         // this.activatedRoute.params.subscribe((res) => {
         //     const queryString = res["q"]
@@ -422,16 +422,21 @@ export class HomeComponent implements OnInit {
         this.isViewMap = !this.isViewMap;
     }
 
-    searchPlacesFreetext() {
+    searchPlacesFreetext(queryString) {
         if (this.isDisabledSearch == true) return;
         if (this.model.places == "" || this.model.places.trim() == "") return;
         this.http.getGeocoderPlacesByFreetext(this.model.places).subscribe(resp => {
             if (resp && resp.suggestions && resp.suggestions.length > 0) {
+                if(queryString) {
+                    this.searchTrainerByPlaces(resp.suggestions[0], undefined);
+                    return;
+                }
                 this.lstSuggests = resp.suggestions;
+                return;
             }
-            else {
-                this.lstSuggests = undefined;
-            }
+           
+            this.lstSuggests = undefined;
+           
 
         })
     }
