@@ -387,6 +387,7 @@ export class HomeComponent implements OnInit {
         tag.checked = !tag.checked;
         this.lstTag[this.lstTag.indexOf(tag)] = tag;
         let lst = this.searchParameter.tagIds.filter(o => o == tag.id);
+        this.lstTrainerFilter = [];
         if (lst && lst.length > 0) {
             for (const item of lst) {
                 this.searchParameter.tagIds.splice(this.searchParameter.tagIds.indexOf(item), 1);
@@ -407,7 +408,6 @@ export class HomeComponent implements OnInit {
             this.searchParameter.tagIds.push(tag.id);
         }
         if (this.isSearch != true) {
-            this.lstTrainerFilter = []
             this.isSearch = true;
             this.searchParameter.offset = 0;
             this.searchParameter.limit = 30;
