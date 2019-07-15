@@ -20,8 +20,8 @@ export class AppComponent implements OnInit {
       this.isShowLoading = res;
     });
   }
-  ngOnInit(): void {
-   
+
+  ngOnInit(): void { 
   }
 
   smoothScroll(element) {
@@ -30,7 +30,5 @@ export class AppComponent implements OnInit {
   
   onActivate(e, scrollContainer) {
     scrollContainer.scrollTop = 0;
-    console.log('smooth')
   }
-
 }

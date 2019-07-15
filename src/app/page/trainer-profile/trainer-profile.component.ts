@@ -49,7 +49,6 @@ export class TrainerProfileComponent implements OnInit {
         private validationFormService: ValidationFormService,
         private eventMsg: EventMessage
     ) {
-
         this.activatedRoute.params.subscribe((res) => {
             var id = res["id"];
 
@@ -64,7 +63,7 @@ export class TrainerProfileComponent implements OnInit {
                 this.router.navigate(['/'])
             }
         });
-      
+
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
     }
     ngOnInit() {
@@ -139,13 +138,10 @@ export class TrainerProfileComponent implements OnInit {
             const res = resp.json();
             $('#testimonialModal').modal('hide');
         },
-            (error) => {
-                console.log(error)
-            },
-            () => {
-                this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false);
-                bootbox.alert(`Thank you for your testimonial`);
-            })
+        () => {
+            this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false);
+            bootbox.alert(`Thank you for your testimonial`);
+        })
     }
 
     sendCallBackOrMessage(isCallback = true) {
@@ -171,14 +167,10 @@ export class TrainerProfileComponent implements OnInit {
             $(`#${isCallback == true ? 'requestCallBackModal' : 'sendMessengeModal'}`).modal('hide');
 
         },
-            (error) => {
-                console.log(error)
-            },
             () => {
                 this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false);
                 bootbox.alert(`Your ${isCallback == true ? 'request' : 'message'} has been sent.`)
             })
-
     }
 
     getUserTag() {
@@ -191,6 +183,7 @@ export class TrainerProfileComponent implements OnInit {
             })
         })
     }
+
     getUserPhotos() {
         this.http.getCoachesPhotos(this.trainerId, 0, 10).subscribe(resp => {
             const res = resp.json();
@@ -198,6 +191,7 @@ export class TrainerProfileComponent implements OnInit {
             this.lstOfImages = res;
         })
     }
+
     getAllTestimonial() {
         this.http.getAllTestimonial(this.trainerId, 0, 10).subscribe(resp => {
             const res = resp.json();
@@ -205,6 +199,7 @@ export class TrainerProfileComponent implements OnInit {
             this.lstTestimonial = res.list;
         })
     }
+
     isPlay: any = false;
     videoUrl: any = "";
     currentTrainer: any;

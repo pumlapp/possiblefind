@@ -1,7 +1,4 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, OnChanges, Output, EventEmitter, Renderer2 } from '@angular/core';
-
-import { Observable, Observer, interval, Subscription } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 declare var H: any;
 declare var mapsjs: any;
 
@@ -66,8 +63,6 @@ export class HereMapComponent implements OnInit, OnChanges {
             ppi: pixelRatio === 1 ? undefined : 320
         });
 
-
-        // let defaultLayers = platform.createDefaultLayers();
         if (!navigator.geolocation) {
 
         } else {
@@ -126,17 +121,8 @@ export class HereMapComponent implements OnInit, OnChanges {
                     innerElementBorder2.style.background = "rgba( 241, 220 ,213, 0.7)";
                     innerElementBorder2.style.top = "-20px";
                     innerElementBorder2.style.left = "-20px";
-
-                    //innerElement.style.border = '10px solid rgba(248, 138, 72, 0.7)';
-
                     innerElement.style.borderRadius = '50%';
                     innerElement.style.zIndex = `${zIndex++}`;
-                    // innerElement.style.height = '80px';
-                    // innerElement.style.width = '80px';
-
-                    // add negative margin to inner element
-                    // to move the anchor to center of the div
-                    // if (item.user.imageUrl == null) {
                     innerElement.style.width = '60px'
                     innerElement.style.height = '60px'
                     innerElement.style.lineHeight = "3.9em";
@@ -146,40 +132,19 @@ export class HereMapComponent implements OnInit, OnChanges {
                     innerElement.style.position = 'relative';
                     innerElement.style.textAlign = `center`;
                     innerElement.innerHTML = item.distance;
-                    // }
-                    // else {
-                    //     innerElement.style.background = `url(http://api.pummel.fit/${item.user.imageUrl}?width=80&height=80`;
-                    //     innerElement.style.backgroundRepeat = 'no-repeat';
-                    //     innerElement.style.backgroundSize = 'cover';
-                    //     innerElement.style.backgroundPosition = 'center';
-
-                    // }
                     outerElement.appendChild(innerElement);
                     outerElement.appendChild(innerElementBorder2);
                     outerElement.appendChild(innerElementBorder1);
                     //create dom icon and add/remove opacity listeners
                     var domIcon = new H.map.DomIcon(outerElement);
-
                     // Marker for Chicago Bears home
                     var bearsMarker = new H.map.DomMarker({ lat: item.lat, lng: item.long }, {
                         icon: domIcon
                     });
                     this.map.addObject(bearsMarker);
-
-                    // map.addEventListener('tap', function (evt) {
-                    //     if (evt.target instanceof mapsjs.map.Marker) {
-                    //         // increase z-index of the marker that was tapped
-                    //         evt.target.setZIndex(999999);
-                    //     }
-                    // });
-
                     window.addEventListener('resize', () => {
                         this.map.getViewPort().resize();
                     });
-
-                    // var madridMarker = new H.map.Marker({ lat: item.lat, lng: item.long });
-                    // map.addObject(madridMarker);
-                    // console.log(item.long, item.lat)
                 });
                 this.bindingLocationOnMapEvent(true);
                 this.isBinding = false;
@@ -189,7 +154,5 @@ export class HereMapComponent implements OnInit, OnChanges {
     }
     bindingLocationOnMapEvent(done) {
         this.bindingDone.emit({ done });
-
-        console.log('done')
     }
 }

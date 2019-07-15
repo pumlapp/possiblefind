@@ -5,8 +5,6 @@ import { Router } from '@angular/router';
   templateUrl: './layout-shared.component.html'
 })
 export class LayoutSharedComponent  {
-
   constructor( private router: Router) {
   }
-
 }

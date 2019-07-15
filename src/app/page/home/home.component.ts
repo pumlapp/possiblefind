@@ -38,8 +38,6 @@ export class HomeComponent implements OnInit {
     lstTrainerFilter: any[] = []
     offset: any = 0;
     limit: any = 30;
-    offsetFilter: any = 0;
-    limitFilter: any = 30;
     carouselOne: NgxCarousel;
     carouselTwo: NgxCarousel;
     carouselThree: NgxCarousel;
@@ -110,21 +108,12 @@ export class HomeComponent implements OnInit {
         this.getTopFeaturedCoaches();
         this.getTopCity();
         this.getAllCoaches();
-
-        console.log(this.activatedRoute.snapshot.queryParams["q"]);
         let queryString = this.activatedRoute.snapshot.queryParams["q"]
         if (queryString) {
             this.model.places = queryString;
             this.searchPlacesFreetext(queryString);
         }
-        // this.activatedRoute.params.subscribe((res) => {
-        //     const queryString = res["q"]
-        //     console.log(res)
-        //     if (queryString) {
-        //         this.model.places = queryString;
-        //         this.searchPlacesFreetext();
-        //     }
-        // });
+
         if (!navigator.geolocation) {
 
         } else {
@@ -141,7 +130,6 @@ export class HomeComponent implements OnInit {
             //                      this.searchParameter.city1 = result.response.view[0].result[0].location.address.district;
             //                 this.searchParameter.city2 = result.response.view[0].result[0].location.address.city;
             //                 this.searchParameter.state = result.response.view[0].result[0].location.address.state;
-            //                 //console.log('currentLocation', result.response.view[0].result[0])
             //             }
 
             //         }, (error) => {
@@ -170,13 +158,10 @@ export class HomeComponent implements OnInit {
                     this.http.getBusinessById(item.user.businessId).subscribe(resp => {
                         const res = resp.json()
                         item.user.businessImage = res.imageUrl
-                        //console.log( item.user.businessImage )
                     })
                 }
             }
-
             if (res && res.length < this.limit) {
-
                 this.noMore = true;
             }
             if (this.isViewMap == true) {
@@ -273,7 +258,6 @@ export class HomeComponent implements OnInit {
 
 
     getTrainerByCity(city) {
-        //console.log(city)
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
         this.isDisabledSearch = true;
         this.model.places = city.city;
@@ -318,7 +302,6 @@ export class HomeComponent implements OnInit {
             //                     this.isDisabledSearch = false;
             //                 }
             //             }, (error) => {
-
             //             });
             //     });
             // } else {
@@ -340,19 +323,15 @@ export class HomeComponent implements OnInit {
                         tag.color = this.lstColor[Math.floor(Math.random() * this.lstColor.length)]
                     }
                 })
-                if(this.searchParameter.tagIds.length > 0){
-                    var tags = item.user.tags.filter(o=> this.searchParameter.tagIds.some(tag => tag.id == o.id));
-                    let i = 0;
-                    for(let tag of tags){
-                        let a = item.user.tags[i];
-                        let b = item.user.tags[item.user.tags.indexOf(tag)];
-                        b = (a += b -= a) - b; 
-                        i++;
-                        if(i == tags.length)
-                            return false;
-                    } 
-                    console.log(123)
-                }
+                
+                // if (this.searchParameter.tagIds.length > 0) {
+                //     var tags = item.user.tags.filter(o => this.searchParameter.tagIds.some(id => id == o.id) == true);
+                //     let i = 0;
+                //     for (let tag of tags) {
+                //         [item.user.tags[i], item.user.tags[item.user.tags.indexOf(tag)]] =
+                //             [item.user.tags[item.user.tags.indexOf(tag)], item.user.tags[i]];
+                //     }
+                // }
 
                 if (item.user.businessId > 0) {
                     this.http.getBusinessById(item.user.businessId).subscribe(resp => {
@@ -361,7 +340,7 @@ export class HomeComponent implements OnInit {
                     })
                 }
             }
-            if (res && res.length < this.limitFilter) {
+            if (res && res.length < this.searchParameter.limit) {
                 this.noMore = true;
             }
 
@@ -427,17 +406,14 @@ export class HomeComponent implements OnInit {
         if (this.model.places == "" || this.model.places.trim() == "") return;
         this.http.getGeocoderPlacesByFreetext(this.model.places).subscribe(resp => {
             if (resp && resp.suggestions && resp.suggestions.length > 0) {
-                if(queryString) {
+                if (queryString) {
                     this.searchTrainerByPlaces(resp.suggestions[0], undefined);
                     return;
                 }
                 this.lstSuggests = resp.suggestions;
                 return;
             }
-           
             this.lstSuggests = undefined;
-           
-
         })
     }
     isDisabledSearch = false;

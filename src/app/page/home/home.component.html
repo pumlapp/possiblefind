@@ -266,8 +266,6 @@
                 </div>
             </div>
             <div style="clear: both;"></div>
-
-
         </div>
     </div>
     <div *ngIf="!noMore" class="row border-bottom justify-content-center mt-5 mb-5">
@@ -275,13 +273,11 @@
             <button *ngIf="!isLoadMore" type="button" (click)="getMoreTrainerFilter()" class="btn btn-primary">
                 LOAD MORE
             </button>
-
             <div *ngIf="isLoadMore" class="spinner-three-bounce ">
                 <div class="bounce1" style="background-color: rgb(255, 222, 207);"></div>
                 <div class="bounce2" style="background-color: rgb(255, 172, 134);"></div>
                 <div class="bounce3" style="background-color: rgb(255, 123, 63);"></div>
             </div>
-
             <label class="mt-4 ml-2 isloading" *ngIf="isLoadMore">loading...</label>
         </div>
     </div>
@@ -295,7 +291,6 @@
             style="height:100vh;overflow: auto;box-shadow:inset rgba(162, 162, 162, 0.2) 0px -1px 1px 1px;">
             <div class="row justify-content-center">
                 <div class="col-lg-12 col-12">
-
                     <div class="block-trainer" *ngFor="let item of lstTrainerFilter; index as i">
                         <div class="trainer-info {{item.isFeatured == true ? 'featured' : ''}}">
                             <div routerLink="/trainer-profile/{{(item.user.firstname != undefined && item.user.firstname != null) ? item.user.firstname.toLowerCase().trim() :''}}{{(item.user.lastname != undefined && item.user.lastname != null) ? item.user.lastname.toLowerCase().trim() :''}}/{{item.user.id}}"
@@ -337,9 +332,7 @@
                                     </div>
                                 </div>
                         </div>
-
                         <div style="clear: both;"></div>
-
                     </div>
                 </div>
             </div>
@@ -349,13 +342,11 @@
                     <button *ngIf="!isLoadMore" type="button" (click)="getMoreTrainerFilter()" class="btn btn-primary">
                         LOAD MORE
                     </button>
-
                     <div *ngIf="isLoadMore" class="spinner-three-bounce ">
                         <div class="bounce1" style="background-color: rgb(255, 222, 207);"></div>
                         <div class="bounce2" style="background-color: rgb(255, 172, 134);"></div>
                         <div class="bounce3" style="background-color: rgb(255, 123, 63);"></div>
                     </div>
-
                     <label class="mt-4 ml-2 isloading" *ngIf="isLoadMore">loading...</label>
                 </div>
             </div>
@@ -379,17 +370,6 @@
                 <button (click)="getTrainerByCity(item)" *ngFor="let item of lstTopCity" class="btn-location">
                     <i class="icon-location"></i> {{item.city}} <i class="material-icons">
                         chevron_right</i> </button>
-
-                <!-- <button class="btn-location"><i class="fa fa-map-marker"></i> Gold Coast <i class="material-icons">
-                        chevron_right</i> </button>
-                <button class="btn-location"><i class="fa fa-map-marker"></i> Brisbane <i class="material-icons">
-                        chevron_right</i></button>
-                <button class="btn-location"><i class="fa fa-map-marker"></i> Sydney <i class="material-icons">
-                        chevron_right</i></button>
-                <button class="btn-location"><i class="fa fa-map-marker"></i> Melbourne <i class="material-icons">
-                        chevron_right</i></button>
-                <button class="btn-location"><i class="fa fa-map-marker"></i> Perth <i class="material-icons">
-                        chevron_right</i></button> -->
             </div>
         </div>
     </div>

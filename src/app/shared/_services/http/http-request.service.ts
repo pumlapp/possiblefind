@@ -157,7 +157,6 @@ export class HttpRequestService {
         }
       }
     }
-    console.log(formBody.join('&'))
     return this.getRequestMethodGet(`api/coaches/searchdistanceV4?${formBody.join('&')}`);
   }
 

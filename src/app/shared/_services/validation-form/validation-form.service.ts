@@ -33,16 +33,14 @@ export class ValidationFormService {
   }
 
   async phoneNumberValidator(AC: AbstractControl) {
-  //  console.log(this.http)
-  //   const response = await this.http.phoneNumberValidator(AC.value).toPromise();
-
-  //   if (response && response.valid == true) {
-  //     return null;
-  //   }
-  //   else {
-  //     return { 'invalidPhonenumber': true };
-  //   }
-  return null;
+    //   const response = await this.http.phoneNumberValidator(AC.value).toPromise();
+    //   if (response && response.valid == true) {
+    //     return null;
+    //   }
+    //   else {
+    //     return { 'invalidPhonenumber': true };
+    //   }
+    return null;
   }
 
   passwordAtLeast8CharacterValidator(AC: AbstractControl) {

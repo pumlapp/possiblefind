@@ -59,9 +59,6 @@ private urlPrefix: any = environment.apiUrl;
                 pixelRatio: pixelRatio
             }
         );
-
-        //map.addObject(madridMarker);
-
         // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
         var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
         behavior.disable(H.mapevents.Behavior.WHEELZOOM);
@@ -76,9 +73,6 @@ private urlPrefix: any = environment.apiUrl;
         outerElement.style.webkitUserSelect = 'none';
         outerElement.style.msUserSelect = 'none';
         outerElement.style.cursor = 'default';
-
-
-        //innerElement.style.border = '10px solid rgba(248, 138, 72, 0.7)';
 
         innerOverlayElement.style.borderRadius = "50%";
         innerOverlayElement.style.width = "320px";
@@ -110,6 +104,7 @@ private urlPrefix: any = environment.apiUrl;
         else {
             let imageUrl = this.pointInfo.user.imageUrl && this.pointInfo.user.imageUrl.indexOf('render') > -1 ?
             `${this.urlPrefix}${this.pointInfo.user.imageUrl}?width=80&height=80` : 
+
             this.pointInfo.user.imageUrl.replace('height=200&width=200','width=80&height=80')
       
             innerElement.style.border = '1px solid #ff5a0f'
@@ -117,11 +112,9 @@ private urlPrefix: any = environment.apiUrl;
             innerElement.style.backgroundRepeat = 'no-repeat';
             innerElement.style.backgroundSize = 'cover';
             innerElement.style.backgroundPosition = 'center';
-
         }
         outerElement.appendChild(innerOverlayElement);
         outerElement.appendChild(innerElement);
-
 
         //create dom icon and add/remove opacity listeners
         var domIcon = new H.map.DomIcon(outerElement);
@@ -132,15 +125,9 @@ private urlPrefix: any = environment.apiUrl;
         });
         map.addObject(bearsMarker);
 
-      
         window.addEventListener('resize', function () {
             map.getViewPort().resize(); 
         });
-
-
-        // var madridMarker = new H.map.Marker({ lat: item.lat, lng: item.long });
-        
-        // console.log(item.long, item.lat)
     }
 
 }
