@@ -136,9 +136,12 @@ export class TrainerProfileComponent implements OnInit {
         };
         this.http.submitATestimonial(params).subscribe(resp => {
             const res = resp.json();
+            console.log(res)
             $('#testimonialModal').modal('hide');
+            this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false);
+            bootbox.alert(`Thank you for your testimonial`);
         },
-        () => {
+        (error) => {
             this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false);
             bootbox.alert(`Thank you for your testimonial`);
         })
@@ -165,9 +168,10 @@ export class TrainerProfileComponent implements OnInit {
         this.http.requestACallBackOrMessage(params).subscribe(resp => {
             const res = resp.json()
             $(`#${isCallback == true ? 'requestCallBackModal' : 'sendMessengeModal'}`).modal('hide');
-
+            this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false);
+            bootbox.alert(`Your ${isCallback == true ? 'request' : 'message'} has been sent.`)
         },
-            () => {
+            (error) => {
                 this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false);
                 bootbox.alert(`Your ${isCallback == true ? 'request' : 'message'} has been sent.`)
             })

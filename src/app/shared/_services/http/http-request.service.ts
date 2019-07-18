@@ -132,7 +132,7 @@ export class HttpRequestService {
   getUserIP() {
     const headers = new HttpHeaders();
     headers.append('Access-Control-Allow-Origin', '*');
-    return this.httpClient.get<any>('https://pro.ip-api.com/json?key=51iPzMPnp1eZMmi', { headers: headers });
+    return this.httpClient.get<any>('https://pro.ip-api.com/json?key=NMpjRSmFXE3PFin', { headers: headers });
   }
   getTopCityCountry(country) {
     return this.getRequestMethodGet(`api/topCityCountry/${country}/cities`);
