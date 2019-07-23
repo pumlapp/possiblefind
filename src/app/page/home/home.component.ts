@@ -400,11 +400,19 @@ export class HomeComponent implements OnInit {
         }
         this.isViewMap = !this.isViewMap;
     }
-
+    isSearchLocation:any = false;
+    onKeySearch(event: KeyboardEvent) { // with type info
+        this.isSearchLocation = true;
+        this.model.places = (<HTMLInputElement>event.target).value;
+        this.searchPlacesFreetext(undefined);
+    }
     searchPlacesFreetext(queryString) {
-        if (this.isDisabledSearch == true) return;
-        if (this.model.places == "" || this.model.places.trim() == "") return;
+        if (this.isDisabledSearch == true || this.model.places == "" || this.model.places.trim() == "") {
+            this.isSearchLocation = false;
+            return;
+        }
         this.http.getGeocoderPlacesByFreetext(this.model.places).subscribe(resp => {
+            this.isSearchLocation = false;
             if (resp && resp.suggestions && resp.suggestions.length > 0) {
                 if (queryString) {
                     this.searchTrainerByPlaces(resp.suggestions[0], undefined);
@@ -413,7 +421,7 @@ export class HomeComponent implements OnInit {
                 this.lstSuggests = resp.suggestions;
                 return;
             }
-            this.lstSuggests = undefined;
+            this.lstSuggests = [];
         })
     }
     isDisabledSearch = false;

@@ -129,6 +129,7 @@ export class TrainerProfileComponent implements OnInit {
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
         const params = {
             userId: this.trainer.user.id,
+            userCommentId: 684,
             userCommentName: this.testimonialForm.get('name').value,
             userCommentLocation: this.testimonialForm.get('location').value,
             description: this.testimonialForm.get('comment').value,

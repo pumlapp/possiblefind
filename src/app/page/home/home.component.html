@@ -6,39 +6,45 @@
                     <h4>Find a personal trainer</h4>
                     <div class="hx-search-bar-component">
                         <div class="search-bar-keyword-container">
-                            <form novalidate="">
-                                <span class="search-bar__input-container">
-                                    <a *ngIf="model.places && model.places.length > 0" (click)="removeSearchPlace()"
-                                        class="btn btn-remove"><i class="icon-clear"></i></a>
-                                    <input [(ngModel)]="model.places" [ngModelOptions]="{standalone: true}"
-                                        (ngModelChange)="searchPlacesFreetext(undefined)"
-                                        placeholder="City, Suburb or Post Code" />
-                                    <div *ngIf="lstSuggests && lstSuggests.length > 0 && model.places.length > 0"
-                                        class="response-suggestion-places">
-                                        <div class="suggestion-item" (click)="searchTrainerByPlaces(place, $event)"
-                                            *ngFor="let place of lstSuggests">
-                                            <i class="icon-location mr-1"></i>
-                                            <strong *ngIf="place.address.district" class="mr-1"
-                                                [innerHtml]="place.address.district"></strong>
-                                            <strong class="mr-1" [innerHtml]="place.address.city"></strong> <small>
-                                                <span class="mr-1" [innerHtml]="place.address.state"></span>
-                                                <strong *ngIf="place.address.postalCode" class="mr-1"
-                                                    [innerHtml]="place.address.postalCode"></strong>
-                                                <span class="mr-1" [innerHtml]="place.address.country"></span>
-                                            </small>
-                                        </div>
+                            <!-- <form novalidate=""> -->
+                            <span class="search-bar__input-container">
+                                <div *ngIf="isSearchLocation" class="searching-process">
+                                    <img
+                                        src="https://www.thewatchbox.com/on/demandware.static/Sites-watchbox-us-Site/-/default/dw2929a88b/images/loader.gif">
+                                </div>
+                                <a *ngIf="!isSearchLocation && model.places && model.places.length > 0" (click)="removeSearchPlace()"
+                                    class="btn btn-remove"><i class="icon-clear"></i></a>
+
+
+
+                                <input [(ngModel)]="model.places" (keyup)="onKeySearch($event)"
+                                    placeholder="City, Suburb or Post Code" />
+                                <div *ngIf="lstSuggests && lstSuggests.length > 0 && model.places.length > 0"
+                                    class="response-suggestion-places">
+                                    <div class="suggestion-item" (click)="searchTrainerByPlaces(place, $event)"
+                                        *ngFor="let place of lstSuggests">
+                                        <i class="icon-location mr-1"></i>
+                                        <strong *ngIf="place.address.district" class="mr-1"
+                                            [innerHtml]="place.address.district"></strong>
+                                        <strong class="mr-1" [innerHtml]="place.address.city"></strong> <small>
+                                            <span class="mr-1" [innerHtml]="place.address.state"></span>
+                                            <strong *ngIf="place.address.postalCode" class="mr-1"
+                                                [innerHtml]="place.address.postalCode"></strong>
+                                            <span class="mr-1" [innerHtml]="place.address.country"></span>
+                                        </small>
                                     </div>
-                                    <div *ngIf="lstSuggests && lstSuggests.length == 0 && model.places.length > 0"
-                                        class="response-suggestion-places">
-                                        <div class="suggestion-item">
-                                            <i class="icon-location mr-1"></i>
-                                            Location not found
-                                        </div>
+                                </div>
+                                <div *ngIf="lstSuggests && lstSuggests.length == 0 && model.places.length > 0"
+                                    class="response-suggestion-places">
+                                    <div class="suggestion-item">
+                                        <i class="icon-location mr-1"></i>
+                                        Location not found
                                     </div>
-                                    
-                                    <i class="icon-search"></i>
-                                </span>
-                            </form>
+                                </div>
+
+                                <i class="icon-search"></i>
+                            </span>
+                            <!-- </form> -->
                             <div class="btn-group float-left" style="cursor: pointer;">
                                 <div data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true"
                                     aria-expanded="false" class="search-select-gender">
@@ -105,9 +111,11 @@
                                     class="trainer-name">
                                     {{item.user.firstname}} <i class="icon-right-arrow"></i>
                                 </p>
-                                <p *ngIf="item.serviceArea && item.serviceArea != ''" class="trainer-location"><i class="fa fa-map-marker"></i> {{item.serviceArea}}</p>
+                                <p *ngIf="item.serviceArea && item.serviceArea != ''" class="trainer-location"><i
+                                        class="fa fa-map-marker"></i> {{item.serviceArea}}</p>
                                 <div class="trainer-tag">
-                                    <div *ngIf="item.user.tags.length>0" class="tag-items" [ngClass]="{'location-null': !(item.serviceArea && item.serviceArea != '')}">
+                                    <div *ngIf="item.user.tags.length>0" class="tag-items"
+                                        [ngClass]="{'location-null': !(item.serviceArea && item.serviceArea != '')}">
                                         <div class="item" *ngFor="let tag of item.user.tags">
                                             <button class="btn-tag">
                                                 <i class="fa fa-circle {{tag.color}}"></i> {{tag.title}}
@@ -115,7 +123,8 @@
                                         </div>
                                     </div>
 
-                                    <div *ngIf="item.user.tags.length==0" style="margin-bottom:6px" class="tag-items" [ngClass]="{'location-null': !(item.serviceArea && item.serviceArea != '')}">
+                                    <div *ngIf="item.user.tags.length==0" style="margin-bottom:6px" class="tag-items"
+                                        [ngClass]="{'location-null': !(item.serviceArea && item.serviceArea != '')}">
                                         <div class="item">
                                             <button
                                                 [ngStyle]="{'visibility': item.user.tags.length==0 ? 'hidden' : 'visible'}"
@@ -245,16 +254,19 @@
                     </div>
                     <p routerLink="/trainer-profile/{{(item.user.firstname != undefined && item.user.firstname != null) ? item.user.firstname.toLowerCase().trim() :''}}-{{(item.user.lastname != undefined && item.user.lastname != null) ? item.user.lastname.toLowerCase().trim() :''}}/{{item.user.id}}"
                         class="trainer-name">{{item.user.firstname}} <i class="icon-right-arrow"></i>
-                        <p *ngIf="item.serviceArea && item.serviceArea != ''" class="trainer-location"><i class="fa fa-map-marker"></i> {{item.serviceArea}}</p>
+                        <p *ngIf="item.serviceArea && item.serviceArea != ''" class="trainer-location"><i
+                                class="fa fa-map-marker"></i> {{item.serviceArea}}</p>
                         <div class="trainer-tag">
-                            <div *ngIf="item.user.tags.length>0" class="tag-items" [ngClass]="{'location-null': !(item.serviceArea && item.serviceArea != '')}">
+                            <div *ngIf="item.user.tags.length>0" class="tag-items"
+                                [ngClass]="{'location-null': !(item.serviceArea && item.serviceArea != '')}">
                                 <div class="item" *ngFor="let tag of item.user.tags">
                                     <button class="btn-tag">
                                         <i class="fa fa-circle {{tag.color}}"></i> {{tag.title}}
                                     </button>
                                 </div>
                             </div>
-                            <div *ngIf="item.user.tags.length==0" style="margin-bottom:6px" class="tag-items" [ngClass]="{'location-null': !(item.serviceArea && item.serviceArea != '')}">
+                            <div *ngIf="item.user.tags.length==0" style="margin-bottom:6px" class="tag-items"
+                                [ngClass]="{'location-null': !(item.serviceArea && item.serviceArea != '')}">
                                 <div class="item">
                                     <button [ngStyle]="{'visibility': item.user.tags.length==0 ? 'hidden' : 'visible'}"
                                         class="btn-tag"

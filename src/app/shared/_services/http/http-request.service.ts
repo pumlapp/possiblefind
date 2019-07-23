@@ -73,7 +73,7 @@ export class HttpRequestService {
       }
 
       return resp;
-    });;
+    });
   }
   logout() {
     this.loginInfo.next({ loggedIn: false });
@@ -177,7 +177,7 @@ export class HttpRequestService {
   }
 
   submitATestimonial(params){
-    return this.getRequestMethodPost(`api/mobileCoachTrack`, params);
+    return this.getRequestMethodPost(`api/users/${params.userId}/testimonial`, params);
   }
 
   getBusinessById(id) {
