@@ -401,7 +401,9 @@ export class HomeComponent implements OnInit {
         this.isViewMap = !this.isViewMap;
     }
     isSearchLocation:any = false;
-    onKeySearch(event: KeyboardEvent) { // with type info
+    
+    onKeySearch(event: KeyboardEvent) { 
+        if(event.code.indexOf('Key') == -1) return;
         this.isSearchLocation = true;
         this.model.places = (<HTMLInputElement>event.target).value;
         this.searchPlacesFreetext(undefined);
