@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-    apiUrl: 'https://api.possible.fit'
+    apiUrl: 'https://api.possible.fit/'
 };
   
