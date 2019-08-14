@@ -9,6 +9,7 @@ import { ValidationFormService } from '../../shared/_services/validation-form/va
 import { EventMessage } from '../../shared/_services/event-message/event-message.service';
 import { NgxCarousel } from 'ngx-carousel';
 import { environment } from '../../../environments/environment.prod';
+import { GhostComponentService } from '../../shared/_component/ghost-element/ghost-element.component';
 declare var bootbox: any;
 
 @Component({
@@ -45,14 +46,14 @@ export class HomeComponent implements OnInit {
     isSearch: any = false;
     isViewMap: any = false;
     lstSuggests = undefined;
-
+    ghostItemsCount: [];
     model: any = {
         places: "",
         gender: 'Any Gender',
         cbViewMap: false,
         sort: 'All'
     }
-
+    isGhostHide: boolean = false;
     searchParameter = {
         gender: undefined,
         long: undefined,
@@ -79,9 +80,10 @@ export class HomeComponent implements OnInit {
         private router: Router,
         private http: HttpRequestService,
         private validationFormService: ValidationFormService,
-        private eventMsg: EventMessage
+        private eventMsg: EventMessage,
+        private ghost: GhostComponentService
     ) {
-        this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true)
+        //this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true)
         this.carouselOne = {
             grid: { xs: 2, sm: 3, md: 4, lg: 5, all: 0 },
             slide: 1,
@@ -95,15 +97,11 @@ export class HomeComponent implements OnInit {
             custom: 'banner',
             loop: true
         };
-
-
-
-
     }
 
     async ngOnInit() {
-
-
+        //this.ghost.setLoading(true)
+        //this.ghost.setLoading(false);
         await this.getListTag();
         this.getTopFeaturedCoaches();
         this.getTopCity();
@@ -137,7 +135,6 @@ export class HomeComponent implements OnInit {
             // });
         }
     }
-
     getAllCoaches() {
         this.http.getAllCoaches(this.offset, this.limit).subscribe(resp => {
             const res = resp.json();
@@ -168,6 +165,7 @@ export class HomeComponent implements OnInit {
                 this.lstTrainerFilter = this.lstTrainer;
             }
             this.isLoadMore = false;
+            this.isGhostHide = true;
             this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, false);
         })
     }
@@ -349,6 +347,7 @@ export class HomeComponent implements OnInit {
                 $('html, body').animate({ scrollTop: $('#searchResultId').offset().top - 350 }, 1000);
             }
             this.isLoadMore = false;
+           
         })
     }
 

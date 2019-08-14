@@ -7,6 +7,8 @@ import { NgxCarouselModule } from 'ngx-carousel';
 import { MaterialModule } from '../../shared/material.module';
 import { HereMapModule } from '../../shared/_component/here-map/here-map.module';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { GhostElementModule } from '../../shared/_component/ghost-element/ghost-element.module';
+import { GhostComponentService } from '../../shared/_component/ghost-element/ghost-element.component';
 
 @NgModule({
   imports: [
@@ -17,9 +19,13 @@ import { NgSelectModule } from '@ng-select/ng-select';
     NgxCarouselModule,
     MaterialModule,
     HereMapModule,
-    NgSelectModule
+    NgSelectModule,
+    GhostElementModule
   ],
   exports:[
+  ],
+  providers: [
+    GhostComponentService
   ],
   declarations: [
     HomeComponent

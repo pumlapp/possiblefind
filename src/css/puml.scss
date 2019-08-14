@@ -335,3 +335,76 @@ input:checked + .slider:before {
     border-color:#ffae88;
   }
 }
+
+
+
+
+// Ghost Element
+
+
+
+app-ghost-element.isLoading:after {
+   display:block;
+   content:'\00a0';
+  // background: #e1e1e1;
+   min-width:80px;
+   width:100%;
+  background-image: linear-gradient(90deg, #f9f9f9 0px, #f7f7f7 40px, #f9f9f9 80px);
+  animation: shine-avatar 1.6s infinite linear;
+
+ }
+ @keyframes shine-avatar {
+  0% {
+    background-position: -32px;
+  }
+  40%, 100% {
+    background-position: 208px;
+  }
+}
+
+
+ app-ghost-element.isLoading.lg:after {
+     width:75%;
+   
+ }
+ app-ghost-element.isLoading.tag-item:after {
+  height: 30px;
+}
+
+ app-ghost-element.isLoading.profile-name:after, app-ghost-element.isLoading.location:after, app-ghost-element.isLoading.tag:after {
+    margin-top: 3px;
+    height: 20px;
+    margin-left: 8px;
+}
+app-ghost-element.isLoading.lg:after {
+  width:100%;
+}
+ app-ghost-element.isLoading.md:after {
+     width:50%;
+ }
+
+ app-ghost-element.isLoading.sm:after {
+     width:25%;
+ }
+
+ app-ghost-element.isLoading.xs:after {
+     width:20px;
+     min-width:20px;
+   
+ }
+ 
+ 
+ /* sorta hacky with images..*/
+ app-ghost-element.img.isLoading:after {
+   height: 100%;
+   width: 100%;
+   display: block;
+
+ }
+ 
+.withImage{
+ padding: 0;
+ height: 100px;
+ overflow: hidden;
+}
+
