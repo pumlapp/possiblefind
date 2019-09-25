@@ -213,10 +213,6 @@
                                 class="img-qualifications">
                                 <img src="{{urlPrefix}}{{item.user.businessImage}}?width=100&height=100">
                             </div>
-
-
-
-
                         </div>
                         <p routerLink="/trainer-profile/{{(item.user.firstname != undefined && item.user.firstname != null) ? item.user.firstname.toLowerCase().trim() :''}}-{{(item.user.lastname != undefined && item.user.lastname != null) ? item.user.lastname.toLowerCase().trim() :''}}/{{item.user.id}}"
                             class="trainer-name">{{item.user.firstname}} <i class="icon-right-arrow"></i> </p>
@@ -266,7 +262,6 @@
 
             <label class="mt-4 ml-2 isloading" *ngIf="isLoadMore">loading...</label>
         </div>
-
     </div>
 </section>
 

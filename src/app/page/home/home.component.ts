@@ -168,7 +168,7 @@ export class HomeComponent implements OnInit {
                     })
                 }
             }
-            if (res && res.length < this.limit) {
+            if (res && res.length == 0) {
                 this.noMore = true;
             }
             if (this.isViewMap == true) {
@@ -348,7 +348,7 @@ export class HomeComponent implements OnInit {
                     })
                 }
             }
-            if (res && res.length < this.searchParameter.limit) {
+            if (res && res.length == 0) {
                 this.noMore = true;
             }
 
