@@ -5,7 +5,7 @@ const routes: Routes = [
   {
     path: '', component: LayoutSharedComponent,
     children: [
-      { path: '', loadChildren: () => import('../../page/home/home.module').then(m => m.HomeModule) },
+      { path: '', loadChildren: () => import('../../page/home/home.module').then(m => m.HomeModule)},
       { path: 'trainer-profile/:name/:id', loadChildren: () => import('../../page/trainer-profile/trainer-profile.module').then(m => m.TrainerProfileModule) },
     ]
   }

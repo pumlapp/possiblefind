@@ -1,6 +1,6 @@
 {
   "/api/searchTags": {
-    "target": "http://api.pummel.fit/api/searchTags",
+    "target": "http://api.possible.fit/api/searchTags",
     "secure": false
   }
 }

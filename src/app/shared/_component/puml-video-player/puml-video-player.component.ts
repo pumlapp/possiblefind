@@ -23,7 +23,7 @@ export class PumlVideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   }
   ngOnInit() {
     this.imageUrl = this.trainer.user.imageUrl && this.trainer.user.imageUrl.indexOf('render') > -1 ?
-      `http://api.pummel.fit/${this.trainer.user.imageUrl}?width=768&height=1024` :
+      `${environment.apiUrl}${this.trainer.user.imageUrl}?width=768&height=1024` :
       this.trainer.user.imageUrl.replace('height=200&width=200', 'width=768&height=1024')
 
     let style = `background: url('${this.imageUrl}')`;

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 
 import { MESSAGE_EVENT } from '../../../constants';
@@ -10,6 +10,7 @@ import { EventMessage } from '../../shared/_services/event-message/event-message
 import { NgxCarousel } from 'ngx-carousel';
 import { environment } from '../../../environments/environment.prod';
 import { GhostComponentService } from '../../shared/_component/ghost-element/ghost-element.component';
+import { filter } from 'rxjs/operators';
 declare var bootbox: any;
 
 @Component({
@@ -97,11 +98,19 @@ export class HomeComponent implements OnInit {
             custom: 'banner',
             loop: true
         };
+      
+        // this.router.routeReuseStrategy.shouldReuseRoute = function() {
+        //     return false;
+        // }
+        // this.router.events.subscribe((event) => {
+        //     if(event instanceof NavigationEnd){
+        //         this.router.navigated = false;
+        //         window.scrollTo(0, 0);
+        //     }
+        // })
     }
 
-    async ngOnInit() {
-        //this.ghost.setLoading(true)
-        //this.ghost.setLoading(false);
+    public async ngOnInit() {
         await this.getListTag();
         this.getTopFeaturedCoaches();
         this.getTopCity();
@@ -135,6 +144,7 @@ export class HomeComponent implements OnInit {
             // });
         }
     }
+
     getAllCoaches() {
         this.http.getAllCoaches(this.offset, this.limit).subscribe(resp => {
             const res = resp.json();
@@ -432,7 +442,7 @@ export class HomeComponent implements OnInit {
         this.searchParameter.offset = 0;
         this.isDisabledSearch = true;
         this.lstSuggests = undefined;
-        this.model.places = `${suggestion.address.district ? suggestion.address.district.replace('<mark>', '').replace('</mark>', '') + ',' : ''} ${suggestion.address.city.replace('<mark>', '').replace('</mark>', '')} ${suggestion.address.state ? suggestion.address.state.replace('<mark>', '').replace('</mark>', '') : ''} ${suggestion.address.postalCode ? suggestion.address.postalCode.replace('<mark>', '').replace('</mark>', '') + ',' : ''} ${suggestion.address.country ? suggestion.address.country.replace('<mark>', '').replace('</mark>', '') : ''}`
+        this.model.places = `${suggestion.address.district ? suggestion.address.district.replace('<mark>', '').replace('</mark>', '') + ',' : ''} ${suggestion.address.city ? suggestion.address.city.replace('<mark>', '').replace('</mark>', '') : ''} ${suggestion.address.state ? suggestion.address.state.replace('<mark>', '').replace('</mark>', '') : ''} ${suggestion.address.postalCode ? suggestion.address.postalCode.replace('<mark>', '').replace('</mark>', '') + ',' : ''} ${suggestion.address.country ? suggestion.address.country.replace('<mark>', '').replace('</mark>', '') : ''}`
         this.eventMsg.sendMessage(MESSAGE_EVENT.msg_show_loading, true);
         this.http.getLocationByLocationId(suggestion.locationId,
             (result) => {
@@ -443,6 +453,7 @@ export class HomeComponent implements OnInit {
                 this.searchParameter.city2 = suggestion.address.city ? suggestion.address.city.replace('<mark>', '').replace('</mark>', '') : undefined;
                 this.searchParameter.state = suggestion.address.state ? suggestion.address.state.replace('<mark>', '').replace('</mark>', '') : undefined;
                 this.lstTrainerFilter = [];
+                console.log(this.searchParameter)
                 this.getCoaches();
                 this.isDisabledSearch = false;
             },
