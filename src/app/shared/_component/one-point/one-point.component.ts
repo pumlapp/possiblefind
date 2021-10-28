@@ -79,7 +79,7 @@ private urlPrefix: any = environment.apiUrl;
         innerOverlayElement.style.height = "320px";
         innerOverlayElement.style.position = "absolute";
         innerOverlayElement.style.zIndex = "0";
-        innerOverlayElement.style.background = "rgba(253, 146, 104, 0.6)";
+        innerOverlayElement.style.background = "rgba(189, 232, 218, 0.7)";
         innerOverlayElement.style.top = "-133px";
         innerOverlayElement.style.left = "-133px";
      
@@ -107,7 +107,7 @@ private urlPrefix: any = environment.apiUrl;
 
             this.pointInfo.user.imageUrl.replace('height=200&width=200','width=80&height=80')
       
-            innerElement.style.border = '1px solid #ff5a0f'
+            innerElement.style.border = '1px solid rgb(1, 168, 168)'
             innerElement.style.background = `url(${imageUrl})`;
             innerElement.style.backgroundRepeat = 'no-repeat';
             innerElement.style.backgroundSize = 'cover';

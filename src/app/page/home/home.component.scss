@@ -316,6 +316,7 @@ h5 a:hover {
     @extend %btn-tag-shared;
   }
 }
+
 @media (max-width: 414px) {
   .maps-filter {
     .block-trainer {
@@ -551,7 +552,7 @@ h5 a:hover {
       height: 310px;
     }
   }
-  /deep/ .custom-carousel__image-popula-destination {
+  ::ng-deep .custom-carousel__image-popula-destination {
     img,
     .ngx-lazy-placeholder {
       height: 164px;
@@ -559,7 +560,7 @@ h5 a:hover {
       filter: none;
     }
   }
-  /deep/ .custom-carousel__image-list-near-you {
+  ::ng-deep .custom-carousel__image-list-near-you {
     img,
     .ngx-lazy-placeholder {
       height: 310px;

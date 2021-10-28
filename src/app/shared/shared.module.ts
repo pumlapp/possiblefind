@@ -45,9 +45,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgxCarouselModule,
     LoadingModule.forRoot({
       backdropBackgroundColour: 'rgba(255,255,255,0.5)',
-      primaryColour: '#ffdecf',
-      secondaryColour: '#ffac86',
-      tertiaryColour: '#ff7b3f',
+      primaryColour: 'rgba(218, 242, 234, 0.3)',
+      secondaryColour: 'rgba(189, 232, 218, 0.7)',
+      tertiaryColour: '#1AADAD',
       fullScreenBackdrop: true
     }),
     PerfectScrollbarModule,

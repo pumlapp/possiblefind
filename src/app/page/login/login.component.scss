@@ -211,7 +211,7 @@
     border: 0;
 }
 
-/deep/ .hx-control-message-component{
+::ng-deep .hx-control-message-component{
     top:80px !important;
 }
 

@@ -88,14 +88,14 @@ body {
 }
 
 .featured {
-  border: 1px solid #ff562d !important;
+  border: 1px solid #00A8A8  !important;
 }
 
 .btn-puml {
   background: $white !important;
   background: #ffffff !important;
-  border-color: #f39c13 !important;
-  color: #f39c13 !important;
+  border-color: #00A8A8  !important;
+  color: #00A8A8  !important;
   font-weight: 600 !important;
   border: 2px solid $puml-orange !important;
 }
@@ -229,7 +229,7 @@ i.cl-radical-red {
 }
 
 input:checked + .slider {
-  background-color: $orange;
+  background-color: #1cadae;
 }
 
 input:focus + .slider {

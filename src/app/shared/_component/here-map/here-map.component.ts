@@ -108,7 +108,7 @@ export class HereMapComponent implements OnInit, OnChanges {
                     innerElementBorder1.style.height = "80px";
                     innerElementBorder1.style.position = "absolute";
                     innerElementBorder1.style.zIndex = "3";
-                    innerElementBorder1.style.background = "rgba(253, 146, 104, 0.6)";
+                    innerElementBorder1.style.background = "rgba(189, 232, 218, 0.7)";
                     innerElementBorder1.style.top = "-10px";
                     innerElementBorder1.style.left = "-10px";
 
@@ -118,7 +118,7 @@ export class HereMapComponent implements OnInit, OnChanges {
                     innerElementBorder2.style.height = "100px";
                     innerElementBorder2.style.position = "absolute";
                     innerElementBorder2.style.zIndex = "0";
-                    innerElementBorder2.style.background = "rgba( 241, 220 ,213, 0.7)";
+                    innerElementBorder2.style.background = "rgba(218, 242, 234, 0.3)";
                     innerElementBorder2.style.top = "-20px";
                     innerElementBorder2.style.left = "-20px";
                     innerElement.style.borderRadius = '50%';
@@ -127,7 +127,7 @@ export class HereMapComponent implements OnInit, OnChanges {
                     innerElement.style.height = '60px'
                     innerElement.style.lineHeight = "3.9em";
                     innerElement.style.fontSize = "15px";
-                    innerElement.style.background = `#ff5a0f`;
+                    innerElement.style.background = `#1AADAD`;
                     innerElement.style.color = `#fff`;
                     innerElement.style.position = 'relative';
                     innerElement.style.textAlign = `center`;
