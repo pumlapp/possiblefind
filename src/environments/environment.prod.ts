@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-    apiUrl: 'https://dashboard.lyfe.io'
+    apiUrl: 'https://dashboard.lyfe.io/'
 };
 
  
